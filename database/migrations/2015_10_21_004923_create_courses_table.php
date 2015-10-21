@@ -22,6 +22,10 @@ class CreateCoursesTable extends Migration
             $table->integer('max_age');
             $table->decimal('price', 8, 2);
             $table->timestamps();
+
+            $table->foreign('school_id')
+                ->references('id')
+                ->on('schools');
         });
     }
 
