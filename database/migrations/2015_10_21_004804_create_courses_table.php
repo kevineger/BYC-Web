@@ -14,10 +14,9 @@ class CreateCoursesTable extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('category_id')->unsigned();
+            $table->integer('school_id')->unsigned();
             $table->string('name');
             $table->mediumText('description');
-            $table->string('address');
             $table->boolean('active')->default(false);
             $table->integer('min_age');
             $table->integer('max_age');
