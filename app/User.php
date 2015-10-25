@@ -12,8 +12,8 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 class User extends Model implements AuthenticatableContract,
     AuthorizableContract,
-    CanResetPasswordContract
-{
+    CanResetPasswordContract {
+
     use Authenticatable, Authorizable, CanResetPassword;
 
     /**
@@ -57,5 +57,16 @@ class User extends Model implements AuthenticatableContract,
     public function comments()
     {
         return $this->hasMany('App\Comment');
+    }
+
+    /**
+     * A query scope to retrieve all school users.
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeSchool($query)
+    {
+        return $query->where('school', 1);
     }
 }

@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password', 60);
             // A user by default is a consumer
-            $table->boolean('type')->default(false);
+            $table->boolean('school')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

@@ -1,7 +1,17 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: kevin
- * Date: 20/10/15
- * Time: 7:00 PM
- */
+
+/*
+|--------------------------------------------------------------------------
+| School Factories
+|--------------------------------------------------------------------------
+*/
+
+// Generic User
+$factory->define(App\School::class, function (Faker\Generator $faker)
+{
+    return [
+        'name'        => $faker->company . " School",
+        'description' => $faker->paragraph(8),
+        'address'     => $faker->address,
+    ];
+});
