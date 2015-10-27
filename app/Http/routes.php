@@ -15,4 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('home', 'PagesController@home');
+
 Route::resource('school', 'SchoolController');

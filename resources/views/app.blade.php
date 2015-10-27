@@ -25,6 +25,8 @@
 </head>
 <body>
 
+@include('partials.nav')
+
 <div class="container">
     @yield('content')
 </div>
