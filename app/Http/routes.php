@@ -18,3 +18,5 @@ Route::get('/', function () {
 Route::get('home', 'PagesController@home');
 
 Route::resource('school', 'SchoolController');
+
+Route::resource('course', 'CourseController');
