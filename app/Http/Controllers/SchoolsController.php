@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SchoolRequest;
-use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\School;
 
-class SchoolController extends Controller {
+class SchoolsController extends Controller {
+
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => 'index']);
+    }
 
     /**
      * Display a listing of the resource.
@@ -41,12 +45,9 @@ class SchoolController extends Controller {
      */
     public function store(SchoolRequest $request)
     {
-        // TODO: Assign to Authenticated user
-        $user = User::find(25);
+        $school = auth()->user()->schools()->create($request->all());
 
-        $school = $user->schools()->create($request->all());
-
-        return redirect()->action('SchoolController@show', ['school' => $school]);
+        return redirect()->action('SchoolsController@show', ['school' => $school]);
     }
 
     /**
@@ -68,6 +69,8 @@ class SchoolController extends Controller {
      */
     public function edit(School $school)
     {
+        $this->authorize('update', $school);
+
         return view('school.edit', ['school' => $school]);
     }
 
@@ -80,9 +83,11 @@ class SchoolController extends Controller {
      */
     public function update(SchoolRequest $request, School $school)
     {
+        $this->authorize('update', $school);
+
         $school->update($request->all());
 
-        return redirect()->action('SchoolController@show', ['school' => $school]);
+        return redirect()->action('SchoolsController@show', ['school' => $school]);
     }
 
     /**
@@ -93,8 +98,10 @@ class SchoolController extends Controller {
      */
     public function destroy(School $school)
     {
+        $this->authorize('update', $school);
+
         $school->delete();
 
-        return redirect()->action('SchoolController@index');
+        return redirect()->action('SchoolsController@index');
     }
 }

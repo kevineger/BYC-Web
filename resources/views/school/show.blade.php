@@ -8,7 +8,9 @@
         <li>{{ $school->description }}</li>
         <li>{{ $school->address }}</li>
     </ul>
-    {!! Form::open(['method' => 'DELETE', 'route' => ['school.destroy', $school]]) !!}
+    @can('update', $school)
+    {!! Form::open(['method' => 'DELETE', 'route' => ['schools.destroy', $school]]) !!}
     {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
     {!! Form::close() !!}
+    @endcan
 @endsection

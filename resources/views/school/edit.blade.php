@@ -2,7 +2,7 @@
 
 @section('content')
     <h1>Edit an existing School</h1>
-    {!! Form::model($school, ['method' => 'PATCH', 'action' => ['SchoolController@update', $school]]) !!}
+    {!! Form::model($school, ['method' => 'PATCH', 'action' => ['SchoolsController@update', $school]]) !!}
     @include('school.form', ['submitButtonText' => 'Update School'])
     {!! Form::close() !!}
 

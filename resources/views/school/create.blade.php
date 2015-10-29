@@ -2,7 +2,7 @@
 
 @section('content')
     <h1>Create a new School</h1>
-    {!! Form::model($school = new App\School, ['url' => 'school']) !!}
+    {!! Form::model($school = new App\School, ['action' => ['SchoolsController@show', $school]]) !!}
     @include('school.form', ['submitButtonText' => 'Create School'])
     {!! Form::close() !!}
 

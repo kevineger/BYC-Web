@@ -69,4 +69,9 @@ class User extends Model implements AuthenticatableContract,
     {
         return $query->where('school', 1);
     }
+
+    public function owns($related)
+    {
+        return $this->id == $related->user_id;
+    }
 }

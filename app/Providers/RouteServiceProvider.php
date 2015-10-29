@@ -27,7 +27,7 @@ class RouteServiceProvider extends ServiceProvider
         parent::boot($router);
 
         // School route-model binding
-        $router->bind('school', function($id)
+        $router->bind('schools', function($id)
         {
             return \App\School::findOrFail($id);
         });
