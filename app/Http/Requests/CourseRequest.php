@@ -26,7 +26,7 @@ class CourseRequest extends Request {
         return [
             'name'        => 'required',
             'description' => 'required',
-            'price'     => 'required',
+            'price'       => 'required|numeric',
         ];
     }
 }

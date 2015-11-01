@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CourseRequest;
-use App\School;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use App\School;
 use App\Course;
 
-class CourseController extends Controller
-{
+class CoursesController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
@@ -37,7 +37,7 @@ class CourseController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param CourseRequest|Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(CourseRequest $request)
@@ -47,13 +47,13 @@ class CourseController extends Controller
 
         $course = $school->courses()->create($request->all());
 
-        return redirect()->action('CourseController@show', ['course' => $course]);
+        return redirect()->action('CoursesController@show', ['course' => $course]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Course $course
      * @return \Illuminate\Http\Response
      */
     public function show(Course $course)
@@ -64,7 +64,7 @@ class CourseController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Course $course
      * @return \Illuminate\Http\Response
      */
     public function edit(Course $course)
@@ -75,27 +75,28 @@ class CourseController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param CourseRequest|Request $request
+     * @param Course $course
      * @return \Illuminate\Http\Response
      */
     public function update(CourseRequest $request, Course $course)
     {
         $course->update($request->all());
 
-        return redirect()->action('CourseController@show', ['course' => $course]);
+        return redirect()->action('CoursesController@show', ['course' => $course]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Course $course
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Course $course)
     {
         $course->delete();
 
-        return redirect()->action('CourseController@index');
+        return redirect()->action('CoursesController@index');
     }
 }
