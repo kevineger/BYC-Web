@@ -31,6 +31,12 @@ class RouteServiceProvider extends ServiceProvider
         {
             return \App\School::findOrFail($id);
         });
+
+        // Course route-model binding
+        $router->bind('course', function($id)
+        {
+            return \App\Course::findOrFail($id);
+        });
     }
 
     /**
