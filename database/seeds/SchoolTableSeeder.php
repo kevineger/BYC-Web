@@ -13,7 +13,7 @@ class SchoolTableSeeder extends Seeder
     public function run()
     {
         // Create a school for each user of type 'school' and add courses to that school.
-        foreach (User::school()->get() as $u) {
+        foreach (User::vendor()->get() as $u) {
             $s = $u->schools()->save(factory(App\School::class)->make());
             // Assign 1-5 active courses for each school
             $numCourses = rand(1,5);

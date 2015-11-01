@@ -17,18 +17,18 @@ class UserTableSeeder extends Seeder {
             'email'          => 'consumer@example.com',
             'password'       => bcrypt('password'),
             'remember_token' => str_random(10),
-            'school'         => false,
+            'vendor'         => false,
         ]);
         // A known school user
         App\User::create([
             'name'           => 'Rick Astley',
-            'email'          => 'school@example.com',
+            'email'          => 'vendor@example.com',
             'password'       => bcrypt('password'),
             'remember_token' => str_random(10),
-            'school'         => true,
+            'vendor'         => true,
         ]);
 
         factory(App\User::class, 'consumer', 20)->create();
-        factory(App\User::class, 'school', 5)->create();
+        factory(App\User::class, 'vendor', 5)->create();
     }
 }

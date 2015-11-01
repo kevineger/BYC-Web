@@ -22,13 +22,13 @@ $factory->defineAs(App\User::class, 'consumer', function ($faker) use ($factory)
 {
     $user = $factory->raw(App\User::class);
 
-    return array_merge($user, ['school' => false]);
+    return array_merge($user, ['vendor' => false]);
 });
 
 // A School User
-$factory->defineAs(App\User::class, 'school', function ($faker) use ($factory)
+$factory->defineAs(App\User::class, 'vendor', function ($faker) use ($factory)
 {
     $user = $factory->raw(App\User::class);
 
-    return array_merge($user, ['school' => true]);
+    return array_merge($user, ['vendor' => true]);
 });

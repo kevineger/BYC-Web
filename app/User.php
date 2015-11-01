@@ -44,9 +44,9 @@ class User extends Model implements AuthenticatableContract,
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function schools()
+    public function school()
     {
-        return $this->hasMany('App\School');
+        return $this->hasOne('App\School');
     }
 
     /**
@@ -65,9 +65,9 @@ class User extends Model implements AuthenticatableContract,
      * @param $query
      * @return mixed
      */
-    public function scopeSchool($query)
+    public function scopeVendor($query)
     {
-        return $query->where('school', 1);
+        return $query->where('vendor', 1);
     }
 
     public function owns($related)
