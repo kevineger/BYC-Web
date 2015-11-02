@@ -42,8 +42,7 @@ class CoursesController extends Controller {
      */
     public function store(CourseRequest $request)
     {
-        // TODO: Assign to the School of the Authorized User
-        $school = School::find(5);
+        $school = auth()->user()->school;
 
         $course = $school->courses()->create($request->all());
 

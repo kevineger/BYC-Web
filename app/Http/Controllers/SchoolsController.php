@@ -45,7 +45,7 @@ class SchoolsController extends Controller {
      */
     public function store(SchoolRequest $request)
     {
-        $school = auth()->user()->schools()->create($request->all());
+        $school = auth()->user()->school()->create($request->all());
 
         return redirect()->action('SchoolsController@show', ['school' => $school]);
     }
