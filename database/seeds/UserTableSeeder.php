@@ -19,7 +19,7 @@ class UserTableSeeder extends Seeder {
             'remember_token' => str_random(10),
             'vendor'         => false,
         ]);
-        // A known school user
+        // A known vendor user
         App\User::create([
             'name'           => 'Rick Astley',
             'email'          => 'vendor@example.com',

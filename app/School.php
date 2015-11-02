@@ -38,4 +38,13 @@ class School extends Model
         return $this->belongsTo('App\User');
     }
 
+    /**
+     * @param $related
+     * @return bool
+     */
+    public function owns($related)
+    {
+        return $this->id == $related->school_id;
+    }
+
 }

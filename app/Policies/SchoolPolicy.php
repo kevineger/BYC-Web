@@ -2,9 +2,9 @@
 
 namespace App\Policies;
 
+use Illuminate\Auth\Access\HandlesAuthorization;
 use App\School;
 use App\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
 class SchoolPolicy {
 

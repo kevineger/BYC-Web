@@ -8,7 +8,7 @@
 </div>
 <div class="form-group">
     {!! Form::label('all_ages', 'All Ages') !!}
-    {!! Form::checkbox('all_ages', 'value') !!}
+    {!! Form::checkbox('all_ages', 'true') !!}
 </div>
 <div class="form-group">
     {!! Form::label('min_age', 'Min Age') !!}

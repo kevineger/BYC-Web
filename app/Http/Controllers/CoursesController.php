@@ -46,7 +46,7 @@ class CoursesController extends Controller {
         $school = auth()->user()->school;
 
         $course = $school->courses()->create($request->all());
-        
+
         return redirect()->action('CoursesController@show', ['course' => $course]);
     }
 
@@ -69,6 +69,8 @@ class CoursesController extends Controller {
      */
     public function edit(Course $course)
     {
+        $this->authorize('updateCourse', $course);
+
         return view('course.edit', ['course' => $course]);
     }
 
@@ -81,6 +83,8 @@ class CoursesController extends Controller {
      */
     public function update(CourseRequest $request, Course $course)
     {
+        $this->authorize('updateCourse', $course);
+
         $course->update($request->all());
 
         return redirect()->action('CoursesController@show', ['course' => $course]);
@@ -95,6 +99,8 @@ class CoursesController extends Controller {
      */
     public function destroy(Course $course)
     {
+        $this->authorize('updateCourse', $course);
+
         $course->delete();
 
         return redirect()->action('CoursesController@index');
