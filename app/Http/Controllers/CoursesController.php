@@ -31,6 +31,7 @@ class CoursesController extends Controller {
      */
     public function create()
     {
+
         return view('course.create');
     }
 
@@ -45,7 +46,7 @@ class CoursesController extends Controller {
         $school = auth()->user()->school;
 
         $course = $school->courses()->create($request->all());
-
+        
         return redirect()->action('CoursesController@show', ['course' => $course]);
     }
 

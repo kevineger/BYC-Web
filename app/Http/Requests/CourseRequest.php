@@ -23,10 +23,13 @@ class CourseRequest extends Request {
      */
     public function rules()
     {
+
         return [
             'name'        => 'required',
             'description' => 'required',
             'price'       => 'required|numeric',
+
+
         ];
     }
 }
