@@ -28,8 +28,8 @@ class CourseRequest extends Request {
             'name'        => 'required',
             'description' => 'required',
             'price'       => 'required|numeric',
-//            'min_age'     => 'required_if:all_ages, false',
-//            'max_age'     => 'required_if:all_ages, false',
+//            'min_age'     => 'required_unless:all_ages, true',
+//            'max_age'     => 'required_unless:all_ages, true',
 
         ];
     }

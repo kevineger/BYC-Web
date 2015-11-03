@@ -20,8 +20,9 @@ class CoursesController extends Controller {
     {
 
         $courses = Course::all();
+        $user = auth()->user();
 
-        return view('course.index', ['courses' => $courses]);
+        return view('course.index', ['courses' => $courses, 'user' => $user]);
     }
 
     /**
@@ -46,7 +47,7 @@ class CoursesController extends Controller {
         $school = auth()->user()->school;
 
         $course = $school->courses()->create($request->all());
-
+//        dd($course);
         return redirect()->action('CoursesController@show', ['course' => $course]);
     }
 
@@ -70,7 +71,6 @@ class CoursesController extends Controller {
     public function edit(Course $course)
     {
         $this->authorize('updateCourse', $course);
-
         return view('course.edit', ['course' => $course]);
     }
 
@@ -86,7 +86,7 @@ class CoursesController extends Controller {
         $this->authorize('updateCourse', $course);
 
         $course->update($request->all());
-
+        //dd($course);
         return redirect()->action('CoursesController@show', ['course' => $course]);
     }
 

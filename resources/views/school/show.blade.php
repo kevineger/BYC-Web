@@ -19,5 +19,7 @@
     {!! Form::open(['method' => 'DELETE', 'route' => ['schools.destroy', $school]]) !!}
     {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
     {!! Form::close() !!}
+
+    <a class="btn btn-primary" href="{{ action('SchoolsController@edit', [$school]) }}" role="button">Edit School</a>
     @endcan
 @endsection

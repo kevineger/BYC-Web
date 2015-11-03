@@ -2,9 +2,8 @@
 
 @section('content')
     <h1>School Index</h1>
-    <ul>
-        @foreach( $schools as $school )
-            <div class="col-md-4 col-sm-4">
+    @foreach( $schools as $school )
+        <div class="col-md-4 col-sm-4">
             <a href="{{ action('SchoolsController@show', [$school]) }}">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -20,8 +19,10 @@
                     </div>
                 </div>
             </a>
-            </div>
-            {{--<li><a href="{{ action('SchoolsController@show', [$school]) }}">{{ $school->name }}</a></li>--}}
-        @endforeach
-    </ul>
+        </div>
+    @endforeach
+
+    @if($user->vendor == 1)
+        <a class="btn btn-primary" href="/schools/create" role="button">Create a School</a>
+    @endif
 @endsection

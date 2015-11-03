@@ -23,8 +23,10 @@ class SchoolsController extends Controller {
     public function index()
     {
         $schools = School::all();
+        $user = auth()->user();
 
-        return view('school.index', ['schools' => $schools]);
+
+        return view('school.index', ['schools' => $schools, 'user' => $user]);
     }
 
     /**
