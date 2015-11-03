@@ -4,6 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Comment
+ *
+ * @property-read \App\User $user
+ * @property-read \App\Course $course
+ */
 class Comment extends Model
 {
     /**

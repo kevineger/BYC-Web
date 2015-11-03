@@ -4,6 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Category
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Course[] $courses
+ */
 class Category extends Model
 {
     /**

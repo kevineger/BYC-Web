@@ -10,6 +10,13 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
+/**
+ * App\User
+ *
+ * @property-read \App\School $school
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Comment[] $comments
+ * @method static \Illuminate\Database\Query\Builder|\App\User vendor()
+ */
 class User extends Model implements AuthenticatableContract,
     AuthorizableContract,
     CanResetPasswordContract {

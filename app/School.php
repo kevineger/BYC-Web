@@ -4,6 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\School
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Course[] $courses
+ * @property-read \App\User $user
+ */
 class School extends Model
 {
     /**

@@ -11,7 +11,8 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function ()
+{
     return view('welcome');
 });
 
@@ -28,4 +29,8 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 // Registration routes
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
+
+// Social Authentication routes
+Route::get('auth/facebook', 'Auth\AuthController@redirectToProvider');
+Route::get('auth/facebook/callback', 'Auth\AuthController@handleProviderCallback');
 
