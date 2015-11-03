@@ -4,6 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Course
+ *
+ * @property-read \App\School $school
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Category[] $categories
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Comment[] $comments
+ */
 class Course extends Model
 {
     /**
