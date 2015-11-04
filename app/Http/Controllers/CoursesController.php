@@ -44,10 +44,10 @@ class CoursesController extends Controller {
      */
     public function store(CourseRequest $request)
     {
+        //dd($request);
         $school = auth()->user()->school;
 
         $course = $school->courses()->create($request->all());
-//        dd($course);
         return redirect()->action('CoursesController@show', ['course' => $course]);
     }
 
