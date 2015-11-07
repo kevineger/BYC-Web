@@ -104,4 +104,9 @@ class SchoolsController extends Controller {
 
         return redirect()->action('SchoolsController@index');
     }
+
+    public function apiIndex()
+    {
+        return School::all();
+    }
 }

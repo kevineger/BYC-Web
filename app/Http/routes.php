@@ -34,3 +34,14 @@ Route::post('auth/register', 'Auth\AuthController@postRegister');
 Route::get('auth/facebook', 'Auth\AuthController@redirectToProvider');
 Route::get('auth/facebook/callback', 'Auth\AuthController@handleProviderCallback');
 
+/*
+|--------------------------------------------------------------------------
+| API
+|--------------------------------------------------------------------------
+*/
+Route::group(['prefix' => 'api/v1'], function ()
+{
+    Route::get('schools', [
+        'uses' => 'SchoolsController@apiIndex',
+        'as'   => 'api.v1.schools.index']);
+});
