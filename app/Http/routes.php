@@ -11,8 +11,7 @@
 |
 */
 
-Route::get('/', function ()
-{
+Route::get('/', function () {
     return view('welcome');
 });
 
@@ -39,9 +38,6 @@ Route::get('auth/facebook/callback', 'Auth\AuthController@handleProviderCallback
 | API
 |--------------------------------------------------------------------------
 */
-Route::group(['prefix' => 'api/v1'], function ()
-{
-    Route::get('schools', [
-        'uses' => 'SchoolsController@apiIndex',
-        'as'   => 'api.v1.schools.index']);
+Route::group(['prefix' => 'api/v1', 'middleware' => ['auth.basic', 'cors']], function () {
+    Route::resource('schools', 'API\APISchoolsController');
 });

@@ -140,6 +140,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        'Barryvdh\Cors\ServiceProvider',
 
         /*
          * Application Service Providers...
