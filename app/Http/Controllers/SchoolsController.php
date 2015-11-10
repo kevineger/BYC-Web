@@ -7,8 +7,10 @@ use App\Http\Requests\SchoolRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\School;
+use Response;
 
-class SchoolsController extends Controller {
+class SchoolsController extends Controller
+{
 
     public function __construct()
     {

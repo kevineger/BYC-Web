@@ -11,8 +11,7 @@
 |
 */
 
-Route::get('/', function ()
-{
+Route::get('/', function () {
     return view('welcome');
 });
 
@@ -34,3 +33,11 @@ Route::post('auth/register', 'Auth\AuthController@postRegister');
 Route::get('auth/facebook', 'Auth\AuthController@redirectToProvider');
 Route::get('auth/facebook/callback', 'Auth\AuthController@handleProviderCallback');
 
+/*
+|--------------------------------------------------------------------------
+| API
+|--------------------------------------------------------------------------
+*/
+Route::group(['prefix' => 'api/v1', 'middleware' => ['auth.basic', 'cors']], function () {
+    Route::resource('schools', 'API\ApiSchoolsController');
+});

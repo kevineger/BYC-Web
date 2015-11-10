@@ -14,7 +14,8 @@
     "laravelcollective/html": "5.1.*",
     "barryvdh/laravel-debugbar": "^2.0",
     "laravel/socialite": "^2.0",
-    "doctrine/dbal": "~2.3"
+    "doctrine/dbal": "~2.3",
+    "barryvdh/laravel-cors": "0.7.x"
   },
   "require-dev": {
     "fzaninotto/faker": "~1.4",

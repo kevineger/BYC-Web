@@ -9,6 +9,20 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Course[] $courses
  * @property-read \App\User $user
+ * @property integer $id
+ * @property integer $user_id
+ * @property string $name
+ * @property string $description
+ * @property string $address
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @method static \Illuminate\Database\Query\Builder|\App\School whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\School whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\School whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\School whereDescription($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\School whereAddress($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\School whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\School whereUpdatedAt($value)
  */
 class School extends Model
 {

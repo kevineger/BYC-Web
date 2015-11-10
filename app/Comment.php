@@ -9,6 +9,18 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property-read \App\User $user
  * @property-read \App\Course $course
+ * @property integer $id
+ * @property string $text
+ * @property integer $user_id
+ * @property integer $course_id
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @method static \Illuminate\Database\Query\Builder|\App\Comment whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Comment whereText($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Comment whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Comment whereCourseId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Comment whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Comment whereUpdatedAt($value)
  */
 class Comment extends Model
 {
