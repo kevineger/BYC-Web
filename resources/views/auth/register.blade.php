@@ -24,6 +24,9 @@
             <input type="password" name="password_confirmation">
         </div>
 
+        {!! Form::label('type', 'User Type') !!}
+        {!! Form::select('type', ['1' => 'Vendor', '0' => 'Consumer']) !!}
+
         <div>
             <button type="submit">Register</button>
         </div>
