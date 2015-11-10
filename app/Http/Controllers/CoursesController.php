@@ -20,9 +20,8 @@ class CoursesController extends Controller {
     {
 
         $courses = Course::all();
-        $user = auth()->user();
 
-        return view('course.index', ['courses' => $courses, 'user' => $user]);
+        return view('course.index', ['courses' => $courses]);
     }
 
     /**

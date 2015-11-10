@@ -21,8 +21,4 @@
             </a>
         </div>
     @endforeach
-
-    @if($user->vendor == 1)
-        <a class="btn btn-primary" href="/schools/create" role="button">Create a School</a>
-    @endif
 @endsection
