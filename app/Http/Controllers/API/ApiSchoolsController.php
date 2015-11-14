@@ -4,10 +4,10 @@ namespace App\Http\Controllers\API;
 
 use App\Transformers\SchoolTransformer;
 use App\Http\Controllers\Controller;
+use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Requests;
 use App\School;
 use Response;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class ApiSchoolsController extends ApiController
 {
