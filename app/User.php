@@ -31,6 +31,8 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @method static \Illuminate\Database\Query\Builder|\App\User whereRememberToken($value)
  * @method static \Illuminate\Database\Query\Builder|\App\User whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\User whereUpdatedAt($value)
+ * @property boolean $vendor
+ * @method static \Illuminate\Database\Query\Builder|\App\User whereVendor($value)
  */
 class User extends Model implements AuthenticatableContract,
     AuthorizableContract,
