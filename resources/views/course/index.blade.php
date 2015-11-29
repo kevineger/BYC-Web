@@ -2,6 +2,12 @@
 
 @section('content')
     <h1>Course Index</h1>
+    {!! Form::open(['method' => 'GET']) !!}
+    <div class="form-group">
+        {!! Form::label('search', 'Search') !!}
+        {!! Form::input('search', 'q', null, ['class' => 'form-control', 'placeholder' => 'Search...']) !!}
+    </div>
+    {!! Form::close() !!}
     @foreach( $courses as $course )
         <div class="col-md-4 col-sm-4">
             <a href="{{ action('CoursesController@show', [$course]) }}">

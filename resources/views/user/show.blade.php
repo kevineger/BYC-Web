@@ -14,7 +14,6 @@
         {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
         {!! Form::close() !!}
 
-
         <a class="btn btn-primary" href="{{ action('UsersController@edit', [$user]) }}" role="button">Edit Profile</a>
     @endcan
 

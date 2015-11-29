@@ -16,10 +16,12 @@ class CoursesController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
 
-        $courses = Course::all();
+        $query = $request->get('q');
+
+        $courses = $query ? Course::search($query)->get(): Course::all();
 
         return view('course.index', ['courses' => $courses]);
     }
@@ -43,7 +45,6 @@ class CoursesController extends Controller {
      */
     public function store(CourseRequest $request)
     {
-        //dd($request);
         $school = auth()->user()->school;
 
         $course = $school->courses()->create($request->all());
