@@ -15,7 +15,6 @@ class CreateTimesTable extends Migration
     {
         Schema::create('times', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('course_id')->unsigned();
             $table->dateTime('time_of_day')->default(Carbon::now()->month(0)->second(0));
             $table->boolean('mon');
             $table->boolean('tues');
@@ -28,6 +27,8 @@ class CreateTimesTable extends Migration
             $table->dateTime('end_date')->default(Carbon::now()->addMonth());
             $table->char('repeats')->default(null);
             $table->timestamps();
+
+
         });
     }
 

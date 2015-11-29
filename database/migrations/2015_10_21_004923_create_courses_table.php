@@ -3,8 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCoursesTable extends Migration
-{
+class CreateCoursesTable extends Migration {
     /**
      * Run the migrations.
      *
@@ -36,13 +35,16 @@ class CreateCoursesTable extends Migration
             $table->integer('num_avail')->unsigned();
             $table->integer('num_reg')->unsigned();
 
-
             $table->foreign('course_id')
                 ->references('id')
-                ->on('courses');
-             $table->foreign('time_id')
+                ->on('courses')
+                ->onDelete('cascade');
+            $table->foreign('time_id')
                 ->references('id')
-                ->on('times');
+                ->on('times')
+                ->onDelete('cascade');
+
+            $table->timestamps();
         });
     }
 

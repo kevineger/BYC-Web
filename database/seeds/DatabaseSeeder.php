@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call(UserTableSeeder::class);
         // Create Schools with Courses for Users who are of type 'school'
         $this->call(SchoolTableSeeder::class);
+        // Create times for the courses
+        $this->call(TimeTableSeeder::class);
 
         Model::reguard();
     }
