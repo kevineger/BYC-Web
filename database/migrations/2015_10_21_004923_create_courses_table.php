@@ -28,6 +28,22 @@ class CreateCoursesTable extends Migration
                 ->on('schools')
                 ->onDelete('cascade');
         });
+
+        Schema::create('course_time', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('course_id')->unsigned();
+            $table->integer('time_id')->unsigned();
+            $table->integer('num_avail')->unsigned();
+            $table->integer('num_reg')->unsigned();
+
+
+            $table->foreign('course_id')
+                ->references('id')
+                ->on('courses');
+             $table->foreign('time_id')
+                ->references('id')
+                ->on('times');
+        });
     }
 
     /**
@@ -37,6 +53,7 @@ class CreateCoursesTable extends Migration
      */
     public function down()
     {
+        Schema::drop('course_time');
         Schema::drop('courses');
     }
 }

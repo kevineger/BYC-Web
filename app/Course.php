@@ -77,4 +77,9 @@ class Course extends Model
     {
         return $this->hasMany('App\Comment');
     }
+
+    public function times()
+    {
+        return $this->belongsToMany('App\Time');
+    }
 }
