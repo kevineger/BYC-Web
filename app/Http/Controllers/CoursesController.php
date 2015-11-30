@@ -71,6 +71,7 @@ class CoursesController extends Controller {
     public function edit(Course $course)
     {
         $this->authorize('updateCourse', $course);
+
         return view('course.edit', ['course' => $course]);
     }
 
@@ -86,7 +87,10 @@ class CoursesController extends Controller {
         $this->authorize('updateCourse', $course);
 
         $course->update($request->all());
-        //dd($course);
+        if ( $request->get('active') ) $course->active = true;
+        else $course->active = false;
+        $course->save();
+
         return redirect()->action('CoursesController@show', ['course' => $course]);
     }
 
