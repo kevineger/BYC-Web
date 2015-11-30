@@ -18,7 +18,8 @@ class ApiSchoolsController extends ApiController
 
     function __construct(SchoolTransformer $schoolTransformer)
     {
-        $this->middleware('jwt.auth');
+        $this->middleware('jwt.auth', ['except' => ['index']]);
+        $this->middleware('jwt.refresh', ['except' => 'index']);
         $this->schoolTransformer = $schoolTransformer;
     }
 

@@ -18,7 +18,8 @@ class ApiCoursesController extends ApiController
 
     function __construct(CourseTransformer $courseTransformer)
     {
-        $this->middleware('jwt.auth');
+        $this->middleware('jwt.auth', ['except' => ['index']]);
+        $this->middleware('jwt.refresh', ['except' => 'index']);
         $this->courseTransformer = $courseTransformer;
     }
 
