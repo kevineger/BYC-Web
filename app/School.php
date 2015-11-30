@@ -24,8 +24,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\School whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\School whereUpdatedAt($value)
  */
-class School extends Model
-{
+class School extends Model {
+
     /**
      * The attributes that are mass assignable.
      *
@@ -67,4 +67,13 @@ class School extends Model
         return $this->id == $related->school_id;
     }
 
+    /** Query Scope.
+     * @param $query
+     * @param $search
+     * @return mixed
+     */
+    public function scopeSearch($query, $search)
+    {
+        return $query->where('name', 'LIKE', "%$search%");
+    }
 }

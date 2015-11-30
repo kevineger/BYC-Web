@@ -16,10 +16,12 @@ class CoursesController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
 
-        $courses = Course::all();
+        $query = $request->get('q');
+
+        $courses = $query ? Course::search($query)->get(): Course::all();
 
         return view('course.index', ['courses' => $courses]);
     }
@@ -43,7 +45,6 @@ class CoursesController extends Controller {
      */
     public function store(CourseRequest $request)
     {
-        //dd($request);
         $school = auth()->user()->school;
 
         $course = $school->courses()->create($request->all());
@@ -70,6 +71,7 @@ class CoursesController extends Controller {
     public function edit(Course $course)
     {
         $this->authorize('updateCourse', $course);
+
         return view('course.edit', ['course' => $course]);
     }
 
@@ -85,7 +87,10 @@ class CoursesController extends Controller {
         $this->authorize('updateCourse', $course);
 
         $course->update($request->all());
-        //dd($course);
+        if ( $request->get('active') ) $course->active = true;
+        else $course->active = false;
+        $course->save();
+
         return redirect()->action('CoursesController@show', ['course' => $course]);
     }
 

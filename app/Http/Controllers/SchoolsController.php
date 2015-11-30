@@ -9,6 +9,7 @@ use App\Http\Requests;
 use App\School;
 use Response;
 
+
 class SchoolsController extends Controller
 {
 
@@ -20,11 +21,14 @@ class SchoolsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $schools = School::all();
+        $query = $request->get('q');
+
+        $schools = $query ? School::search($query)->get(): School::all();
 
         return view('school.index', ['schools' => $schools]);
     }

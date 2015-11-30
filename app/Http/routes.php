@@ -19,6 +19,13 @@ Route::get('home', 'PagesController@home');
 
 Route::resource('schools', 'SchoolsController');
 Route::resource('courses', 'CoursesController');
+Route::resource('users', 'UsersController', [
+    'except' => [
+        'index',
+        'create',
+        'store'
+    ]
+]);
 
 // Authentication routes
 Route::get('auth/login', 'Auth\AuthController@getLogin');

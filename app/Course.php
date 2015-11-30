@@ -78,8 +78,19 @@ class Course extends Model
         return $this->hasMany('App\Comment');
     }
 
+    /** Query Scope.
+     * @param $query
+     * @param $search
+     * @return mixed
+     */
+    public function scopeSearch($query, $search)
+    {
+        return $query->where('name', 'LIKE', "%$search%");
+    }
+    
     public function times()
     {
         return $this->belongsToMany('App\Time');
+
     }
 }

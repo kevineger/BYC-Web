@@ -27,9 +27,7 @@ class CourseRequest extends Request {
             'name'        => 'required',
             'description' => 'required',
             'price'       => 'required|numeric',
-            'min_age'     => 'required_unless:all_ages, 1|numeric|max:max_age',
-            'max_age'     => 'required_unless:all_ages, 1|numeric|min:min_age',
-
+            'max_age'     => 'required_unless:all_ages, 1|numeric|min:' . Request::get('min_age'),
         ];
     }
 
@@ -37,8 +35,7 @@ class CourseRequest extends Request {
         $messages = [
             'min_age.required_unless' => 'Minimum Age Required',
             'max_age.required_unless' => 'Maximum Age Required',
-            'min_age.max' => 'Minimum age must be at less than or equal to the maximum age',
-            'max_age.min' => 'Maximum age must be greater than or equal to the minimum age'
+            'max_age.min' => 'Maximum age must be greater than or equal to the minimum age',
 
         ];
         return $messages;
