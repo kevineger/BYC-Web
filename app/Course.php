@@ -87,4 +87,10 @@ class Course extends Model
     {
         return $query->where('name', 'LIKE', "%$search%");
     }
+    
+    public function times()
+    {
+        return $this->belongsToMany('App\Time');
+
+    }
 }

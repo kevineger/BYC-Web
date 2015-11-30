@@ -45,6 +45,10 @@ Route::get('auth/facebook/callback', 'Auth\AuthController@handleProviderCallback
 | API
 |--------------------------------------------------------------------------
 */
-Route::group(['prefix' => 'api/v1', 'middleware' => ['auth.basic', 'cors']], function () {
+Route::group(['prefix' => 'api/v1', 'middleware' => ['cors']], function () {
     Route::resource('schools', 'API\ApiSchoolsController');
+    Route::resource('courses', 'API\ApiCoursesController');
+    Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
+    Route::post('authenticate', 'AuthenticateController@authenticate');
+//    Route::get('authenticate/user', 'AuthenticateController@getAuthenticatedUser');
 });

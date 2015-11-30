@@ -1,0 +1,28 @@
+<?php namespace App\Transformers;
+
+class CourseTransformer extends Transformer
+{
+    private $schoolTransformer;
+    private $timeTransformer;
+
+    public function __construct(SchoolTransformer $schoolTransformer, TimeTransformer $timeTransformer)
+    {
+        $this->schoolTransformer = $schoolTransformer;
+        $this->timeTransformer = $timeTransformer;
+    }
+
+    public function transform($course)
+    {
+        return [
+            'id'          => (int)$course['id'],
+            'name'        => $course['name'],
+            'school'      => $this->schoolTransformer->transform($course->school),
+            'description' => $course->description,
+            'active'      => (boolean)$course->active,
+            'min_age'     => (int)$course->min_age,
+            'max_age'     => (int)$course->max_age,
+            'price'       => (double)$course->price,
+            'times'       => $this->timeTransformer->transform($course->times),
+        ];
+    }
+}

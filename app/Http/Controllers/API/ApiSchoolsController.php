@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Transformers\SchoolTransformer;
 use App\Http\Controllers\Controller;
+use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Requests;
 use App\School;
 use Response;
@@ -17,6 +18,7 @@ class ApiSchoolsController extends ApiController
 
     function __construct(SchoolTransformer $schoolTransformer)
     {
+        $this->middleware('jwt.auth');
         $this->schoolTransformer = $schoolTransformer;
     }
 
