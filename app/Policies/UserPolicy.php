@@ -12,10 +12,11 @@ class UserPolicy
 
     /**
      * @param User $user
+     * @param $profile_user
      * @return bool
      */
-    public function update(User $user)
+    public function updateUser(User $user, $profile_user)
     {
-        return Auth::id() == $user->id;
+        return $user == $profile_user;
     }
 }

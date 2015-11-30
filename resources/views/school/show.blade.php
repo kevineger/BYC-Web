@@ -12,7 +12,7 @@
     <h3>Courses</h3>
     <ul>
         @foreach( $school->courses as $course )
-               <li><a href="{{ action('CoursesController@show', [$course]) }}">{{ $course->name }}</a></li>
+            <li><a href="{{ action('CoursesController@show', [$course]) }}">{{ $course->name }}</a></li>
         @endforeach
     </ul>
     @can('update', $school)

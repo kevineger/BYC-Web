@@ -8,8 +8,9 @@
            Email: {{$user->email}}
         </div>
     </div>
+    <h1>{{$user->id}}</h1>
 
-    @can('update', $user)
+    @can('updateUser', $user)
         {!! Form::open(['method' => 'DELETE', 'route' => ['users.destroy', $user]]) !!}
         {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
         {!! Form::close() !!}
