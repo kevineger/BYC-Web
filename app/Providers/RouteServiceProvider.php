@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Cart;
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 

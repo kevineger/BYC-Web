@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\School;
 use App\Course;
+use Cart;
 
 class CoursesController extends Controller {
 
@@ -21,7 +22,7 @@ class CoursesController extends Controller {
 
         $query = $request->get('q');
 
-        $courses = $query ? Course::search($query)->get(): Course::all();
+        $courses = $query ? Course::search($query)->get() : Course::all();
 
         return view('course.index', ['courses' => $courses]);
     }
@@ -48,6 +49,7 @@ class CoursesController extends Controller {
         $school = auth()->user()->school;
 
         $course = $school->courses()->create($request->all());
+
         return redirect()->action('CoursesController@show', ['course' => $course]);
     }
 
@@ -87,7 +89,7 @@ class CoursesController extends Controller {
         $this->authorize('updateCourse', $course);
 
         $course->update($request->all());
-        if ( $request->get('active') ) $course->active = true;
+        if ($request->get('active')) $course->active = true;
         else $course->active = false;
         $course->save();
 
@@ -109,4 +111,5 @@ class CoursesController extends Controller {
 
         return redirect()->action('CoursesController@index');
     }
+
 }

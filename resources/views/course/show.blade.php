@@ -12,14 +12,19 @@
         @endif
         <li>Price: {{ $course->price }}</li>
     </ul>
+
+    {!! Form::open(['route' => ['cart.add', $course]]) !!}
+    {!! Form::submit("Add to Cart", ['class' => 'btn btn-info']) !!}
+    {!! Form::close() !!}
+
     @can('updateCourse', $course)
     {!! Form::open(['method' => 'DELETE', 'route' => ['courses.destroy', $course]]) !!}
     {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
     {!! Form::close() !!}
 
-
     <a class="btn btn-primary" href="{{ action('CoursesController@edit', [$course]) }}" role="button">Edit Course</a>
     @endcan
+
 
 
 @endsection

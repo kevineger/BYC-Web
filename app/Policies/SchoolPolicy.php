@@ -12,6 +12,6 @@ class SchoolPolicy {
 
     public function update(User $user, School $school)
     {
-        return $user->owns($school);
+        return $user->vendor && $user->owns($school);
     }
 }

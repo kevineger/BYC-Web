@@ -11,14 +11,35 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', 'PagesController@home');
 Route::get('home', 'PagesController@home');
 
 Route::resource('schools', 'SchoolsController');
 Route::resource('courses', 'CoursesController');
+
+
+Route::group(['prefix' => 'cart'], function ()
+{
+    Route::get('/', 'CartController@index');
+    Route::post('{courses}/add', [
+        'uses' => 'CartController@add',
+        'as'   => 'cart.add'
+    ]);
+    Route::delete('/', [
+        'uses' => 'CartController@destroyCart',
+        'as'   => 'cart.destroyCart'
+    ]);
+    Route::delete('{cart}', [
+        'uses' => 'CartController@destroy',
+        'as'   => 'cart.destroy'
+    ]);
+    Route::put('update', [
+        'uses' => 'CartController@update',
+        'as'   => 'cart.update'
+    ]);
+});
+
+
 Route::resource('users', 'UsersController', [
     'except' => [
         'index',
@@ -45,7 +66,8 @@ Route::get('auth/facebook/callback', 'Auth\AuthController@handleProviderCallback
 | API
 |--------------------------------------------------------------------------
 */
-Route::group(['prefix' => 'api/v1', 'middleware' => ['cors']], function () {
+Route::group(['prefix' => 'api/v1', 'middleware' => ['cors']], function ()
+{
     Route::resource('schools', 'API\ApiSchoolsController');
     Route::resource('courses', 'API\ApiCoursesController');
     Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);

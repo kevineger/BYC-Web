@@ -94,6 +94,12 @@ class User extends Model implements AuthenticatableContract,
         return $query->where('vendor', 1);
     }
 
+    /**
+     * A helper function for determining if a user owns the related model.
+     *
+     * @param $related
+     * @return bool
+     */
     public function owns($related)
     {
         return $this->id == $related->user_id;
