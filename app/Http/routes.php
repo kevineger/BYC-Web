@@ -50,5 +50,6 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['cors']], function () {
     Route::resource('courses', 'API\ApiCoursesController');
     Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
     Route::post('authenticate', 'AuthenticateController@authenticate');
+    Route::post('register', 'API\ApiUsersController@register');
 //    Route::get('authenticate/user', 'AuthenticateController@getAuthenticatedUser');
 });

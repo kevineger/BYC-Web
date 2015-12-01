@@ -6,7 +6,6 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\User;
 use JWTAuth;
 
 class AuthenticateController extends Controller
@@ -14,7 +13,7 @@ class AuthenticateController extends Controller
 
     public function __construct()
     {
-        $this->middleware('jwt.auth', ['except' => ['authenticate']]);
+        $this->middleware('jwt.auth', ['except' => ['authenticate', 'register']]);
     }
 
     /**
