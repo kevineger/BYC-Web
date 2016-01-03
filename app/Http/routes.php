@@ -15,6 +15,7 @@ Route::get('/', 'PagesController@home');
 //Route::get('home', 'PagesController@home');
 
 Route::resource('schools', 'SchoolsController');
+Route::post('schools/{schools}/addPhoto', ['as' => 'addPhotoToSchool', 'uses' => 'SchoolsController@addPhoto']);
 Route::resource('courses', 'CoursesController');
 
 

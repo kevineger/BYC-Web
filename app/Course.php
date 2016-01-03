@@ -30,6 +30,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Course wherePrice($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Course whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Course whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Time[] $times
+ * @method static \Illuminate\Database\Query\Builder|\App\Course search($search)
  */
 class Course extends Model
 {

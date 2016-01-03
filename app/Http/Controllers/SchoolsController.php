@@ -6,12 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SchoolRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use App\SchoolPhoto;
 use App\School;
 use Response;
 
 
-class SchoolsController extends Controller
-{
+class SchoolsController extends Controller {
 
     public function __construct()
     {
@@ -28,7 +28,7 @@ class SchoolsController extends Controller
     {
         $query = $request->get('q');
 
-        $schools = $query ? School::search($query)->get(): School::all();
+        $schools = $query ? School::search($query)->get() : School::all();
 
         return view('school.index', ['schools' => $schools]);
     }
@@ -78,6 +78,17 @@ class SchoolsController extends Controller
         $this->authorize('update', $school);
 
         return view('school.edit', ['school' => $school]);
+    }
+
+    public function addPhoto($school, Request $request)
+    {
+        $this->validate($request, [
+            'photo' => 'required|mimes:jpeg,jpg,tiff,gif,bmp,png'
+        ]);
+
+        $photo = SchoolPhoto::fromForm($request->file('photo'));
+
+        $school->addPhoto($photo);
     }
 
     /**

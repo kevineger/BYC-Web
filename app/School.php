@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\School
  *
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Course[] $courses
- * @property-read \App\User $user
  * @property integer $id
  * @property integer $user_id
  * @property string $name
@@ -16,13 +14,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $address
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @method static \Illuminate\Database\Query\Builder|\App\School whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\School whereUserId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\School whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\School whereDescription($value)
- * @method static \Illuminate\Database\Query\Builder|\App\School whereAddress($value)
- * @method static \Illuminate\Database\Query\Builder|\App\School whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\School whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Course[] $courses
+ * @property-read \App\User $user
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\SchoolPhoto[] $photos
+ * @method static \Illuminate\Database\Query\Builder|\App\School search($search)
  */
 class School extends Model {
 
@@ -59,6 +54,8 @@ class School extends Model {
     }
 
     /**
+     * A school is owned by a user.
+     *
      * @param $related
      * @return bool
      */
@@ -67,7 +64,30 @@ class School extends Model {
         return $this->id == $related->school_id;
     }
 
-    /** Query Scope.
+    /**
+     * A school has many photos.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function photos()
+    {
+        return $this->hasMany('App\SchoolPhoto');
+    }
+
+    /**
+     * Add a photo to the School model.
+     *
+     * @param SchoolPhoto $photo
+     * @return Model
+     */
+    public function addPhoto(SchoolPhoto $photo)
+    {
+        return $this->photos()->save($photo);
+    }
+
+    /**
+     * Query scope for searching a school by title.
+     *
      * @param $query
      * @param $search
      * @return mixed
