@@ -71,13 +71,13 @@ class Course extends Model
     }
 
     /**
-     * A Course has many comments.
+     * A Course has many comments through a polymorphic relation.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function comments()
     {
-        return $this->hasMany('App\Comment');
+        return $this->morphMany('App\Comment', 'commentable');
     }
 
     /** Query Scope.
@@ -89,10 +89,14 @@ class Course extends Model
     {
         return $query->where('name', 'LIKE', "%$search%");
     }
-    
+
+    /**
+     * Get all times for a course.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function times()
     {
         return $this->belongsToMany('App\Time');
-
     }
 }

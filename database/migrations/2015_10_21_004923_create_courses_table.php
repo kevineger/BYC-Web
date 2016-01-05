@@ -4,6 +4,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateCoursesTable extends Migration {
+
     /**
      * Run the migrations.
      *
@@ -11,7 +12,8 @@ class CreateCoursesTable extends Migration {
      */
     public function up()
     {
-        Schema::create('courses', function (Blueprint $table) {
+        Schema::create('courses', function (Blueprint $table)
+        {
             $table->increments('id');
             $table->integer('school_id')->unsigned();
             $table->string('name');
@@ -28,7 +30,8 @@ class CreateCoursesTable extends Migration {
                 ->onDelete('cascade');
         });
 
-        Schema::create('course_time', function (Blueprint $table) {
+        Schema::create('course_time', function (Blueprint $table)
+        {
             $table->increments('id');
             $table->integer('course_id')->unsigned();
             $table->integer('time_id')->unsigned();

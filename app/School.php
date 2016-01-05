@@ -65,6 +65,16 @@ class School extends Model {
     }
 
     /**
+     * A School has many comments through a polymorphic relation.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
+        return $this->morphMany('App\Comment', 'commentable');
+    }
+
+    /**
      * A school has many photos.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
