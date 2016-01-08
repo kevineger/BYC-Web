@@ -36,3 +36,4 @@ php artisan migrate:refresh --seed
 ```
 php artisan serve
 ```
+To learn more about Laravel, visit [laracasts.com](http://laracasts.com). The intro series is really good for learning the main features of laravel, it can be found [here](https://laracasts.com/series/laravel-5-fundamentals).
