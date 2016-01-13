@@ -12,10 +12,10 @@
 */
 
 Route::get('/', 'PagesController@home');
-//Route::get('home', 'PagesController@home');
 
 Route::resource('schools', 'SchoolsController');
 Route::post('schools/{schools}/addPhoto', ['as' => 'addPhotoToSchool', 'uses' => 'SchoolsController@addPhoto']);
+Route::post('schools/{schools}/removePhoto', ['as' => 'removePhotoFromSchool', 'uses' => 'SchoolsController@removePhoto']);
 Route::resource('courses', 'CoursesController');
 
 
