@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SchoolRequest;
+use Exception;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\SchoolPhoto;
@@ -80,6 +81,13 @@ class SchoolsController extends Controller {
         return view('school.edit', ['school' => $school]);
     }
 
+    /**
+     * Respond to AJAX calls for adding a photo to a school.
+     *
+     * @param $school
+     * @param Request $request
+     * @return int
+     */
     public function addPhoto($school, Request $request)
     {
         $this->validate($request, [
@@ -89,6 +97,26 @@ class SchoolsController extends Controller {
         $photo = SchoolPhoto::fromForm($request->file('photo'));
 
         $school->addPhoto($photo);
+
+        return $photo->id;
+    }
+
+    /**
+     * Respond to AJAX calls for removing a photo of a school.
+     *
+     * @param Request $request
+     * @return string
+     */
+    public function removePhoto(Request $request)
+    {
+        try
+        {
+            SchoolPhoto::destroy($request->input('id'));
+        } catch (Exception $e)
+        {
+            return "Unable to remove photo: " . $request->input('id');
+        }
+        return "Photo " . $request->input('id') . " successfully removed.";
     }
 
     /**
