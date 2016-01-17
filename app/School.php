@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\User $user
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\SchoolPhoto[] $photos
  * @method static \Illuminate\Database\Query\Builder|\App\School search($search)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Comment[] $comments
  */
 class School extends Model {
 

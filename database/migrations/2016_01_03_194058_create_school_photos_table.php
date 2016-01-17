@@ -17,6 +17,7 @@ class CreateSchoolPhotosTable extends Migration {
             $table->increments('id');
             $table->integer('school_id')->unsigned();
             $table->string('path');
+            $table->integer('size');
             $table->timestamps();
 
             $table->foreign('school_id')

@@ -52,27 +52,29 @@
                     file.id = response;
                 });
                 // Add pre-existing images to Dropzone
-                // Create the mock file:
-                var mockFile = {
-                    id: 1,
-                    name: "1452965443school.png",
-                    size: 178156
-                };
+                @foreach($school->photos as $photo)
+                    // Create the mock file:
+                    var mockFile = {
+                        id: '{!! $photo->id !!}',
+                        name: '{!! $photo->path !!}',
+                        size: '{!! $photo->size !!}'
+                    };
 
-                // Call the default addedfile event handler
-                this.emit("addedfile", mockFile);
+                    // Call the default addedfile event handler
+                    this.emit("addedfile", mockFile);
 
-                // And optionally show the thumbnail of the file:
-                this.emit("thumbnail", mockFile, "/photos/schools/1452965443school.png");
-                // Or if the file on your server is not yet in the right
-                // size, you can let Dropzone download and resize it
-                // callback and crossOrigin are optional.
-                //                var imageUrl = "/photos/schools/1452965443school.png";
-                //                myDropzone.createThumbnailFromUrl(file, imageUrl, callback, crossOrigin);
-                //                myDropzone.createThumbnailFromUrl(file, imageUrl);
+                    // And optionally show the thumbnail of the file:
+                    this.emit("thumbnail", mockFile, "/{!! $photo->path !!}");
+                    // Or if the file on your server is not yet in the right
+                    // size, you can let Dropzone download and resize it
+                    // callback and crossOrigin are optional.
+                    //                var imageUrl = "/photos/schools/1452965443school.png";
+                    //                myDropzone.createThumbnailFromUrl(file, imageUrl, callback, crossOrigin);
+                    //                myDropzone.createThumbnailFromUrl(file, imageUrl);
 
-                // Make sure that there is no progress bar, etc...
-                this.emit("complete", mockFile);
+                    // Make sure that there is no progress bar, etc...
+                    this.emit("complete", mockFile);
+                @endforeach
             }
         };
     </script>

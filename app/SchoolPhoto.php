@@ -14,10 +14,14 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \App\School $school
+ * @property integer $size
  */
 class SchoolPhoto extends Model {
 
-    protected $fillable = ['path'];
+    protected $fillable = [
+        'path',
+        'size'
+    ];
 
     protected $baseDir = 'photos/schools';
 
@@ -38,6 +42,7 @@ class SchoolPhoto extends Model {
         $name = time() . $file->getClientOriginalName();
 
         $photo->path = $photo->baseDir . '/' . $name;
+        $photo->size = $file->getSize();
 
         $file->move($photo->baseDir, $name);
 
