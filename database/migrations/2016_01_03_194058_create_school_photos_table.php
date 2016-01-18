@@ -1,5 +1,6 @@
 <?php
 
+use App\SchoolPhoto;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -34,6 +35,11 @@ class CreateSchoolPhotosTable extends Migration {
      */
     public function down()
     {
+        // Remove any images.
+        foreach (SchoolPhoto::all() as $photo)
+        {
+            File::delete(public_path() . '/' . $photo->path);
+        }
         Schema::drop('school_photos');
     }
 }
