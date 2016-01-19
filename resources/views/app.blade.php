@@ -25,6 +25,11 @@
     <link href='http://fonts.googleapis.com/css?family=Raleway:500' rel='stylesheet' type='text/css'>
     {{-------------------------------------------------------------------------}}
 
+    {{---Compiled CSS----------------------------------------------------------}}
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}" type='text/css'>
+    <link rel="stylesheet" href="{{ asset('css/libs.css') }}" type='text/css'>
+    {{-------------------------------------------------------------------------}}
+
     @yield('head')
 
 </head>
@@ -36,6 +41,9 @@
     @yield('content')
 </div>
 
+{{---Compiled JS----------------------------------------------------------}}
+<script src="{{ asset('js/libs.js') }}"></script>
+{{-------------------------------------------------------------------------}}
 @yield('footer')
 
 </body>
