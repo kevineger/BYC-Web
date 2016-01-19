@@ -64,7 +64,7 @@
                     this.emit("addedfile", mockFile);
 
                     // And optionally show the thumbnail of the file:
-                    this.emit("thumbnail", mockFile, "/{!! $photo->path !!}");
+                    this.emit("thumbnail", mockFile, "/{!! $photo->thumbnail_path !!}");
                     // Or if the file on your server is not yet in the right
                     // size, you can let Dropzone download and resize it
                     // callback and crossOrigin are optional.

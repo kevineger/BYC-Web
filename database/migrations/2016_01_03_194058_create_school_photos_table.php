@@ -17,7 +17,9 @@ class CreateSchoolPhotosTable extends Migration {
         {
             $table->increments('id');
             $table->integer('school_id')->unsigned();
+            $table->string('name');
             $table->string('path');
+            $table->string('thumbnail_path');
             $table->integer('size');
             $table->timestamps();
 
@@ -39,6 +41,7 @@ class CreateSchoolPhotosTable extends Migration {
         foreach (SchoolPhoto::all() as $photo)
         {
             File::delete(public_path() . '/' . $photo->path);
+            File::delete(public_path() . '/' . $photo->thumbnail_path);
         }
         Schema::drop('school_photos');
     }

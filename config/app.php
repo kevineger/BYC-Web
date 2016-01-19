@@ -140,9 +140,10 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
-        'Barryvdh\Cors\ServiceProvider',
+        Barryvdh\Cors\ServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
-        'Gloudemans\Shoppingcart\ShoppingcartServiceProvider',
+        Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -206,7 +207,8 @@ return [
         'Socialite'  => Laravel\Socialite\Facades\Socialite::class,
         'JWTAuth'    => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
-        'Cart'       => 'Gloudemans\Shoppingcart\Facades\Cart',
+        'Cart'       => Gloudemans\Shoppingcart\Facades\Cart::class,
+        'Image'      => Intervention\Image\Facades\Image::class
 
     ],
 

@@ -55,6 +55,17 @@ class School extends Model {
     }
 
     /**
+     * Determine if the given user created the flyer.
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function ownedBy(User $user)
+    {
+        return $this->user_id == $user->id;
+    }
+
+    /**
      * A school is owned by a user.
      *
      * @param $related

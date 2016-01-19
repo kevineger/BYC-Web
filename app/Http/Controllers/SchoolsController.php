@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ChangeSchoolRequest;
 use App\Http\Requests\SchoolRequest;
+use Auth;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\SchoolPhoto;
 use App\School;
 use Response;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
 class SchoolsController extends Controller {
@@ -85,20 +88,21 @@ class SchoolsController extends Controller {
      * Respond to AJAX calls for adding a photo to a school.
      *
      * @param $school
-     * @param Request $request
+     * @param ChangeSchoolRequest $request
      * @return int
      */
-    public function addPhoto($school, Request $request)
+    public function addPhoto($school, ChangeSchoolRequest $request)
     {
-        $this->validate($request, [
-            'photo' => 'required|mimes:jpeg,jpg,tiff,gif,bmp,png'
-        ]);
-
-        $photo = SchoolPhoto::fromForm($request->file('photo'));
+        $photo = $this->makePhoto($request->file('photo'));
 
         $school->addPhoto($photo);
 
         return $photo->id;
+    }
+
+    protected function makePhoto(UploadedFile $file)
+    {
+        return SchoolPhoto::named($file->getClientOriginalName())->move($file);
     }
 
     /**
@@ -116,6 +120,7 @@ class SchoolsController extends Controller {
         {
             return "Unable to remove photo: " . $request->input('id');
         }
+
         return "Photo " . $request->input('id') . " successfully removed.";
     }
 

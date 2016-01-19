@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Image;
 use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -15,11 +16,15 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @property \Carbon\Carbon $updated_at
  * @property-read \App\School $school
  * @property integer $size
+ * @property string $name
+ * @property string $thumbnail_path
  */
 class SchoolPhoto extends Model {
 
     protected $fillable = [
+        'name',
         'path',
+        'thumbnail_path',
         'size'
     ];
 
@@ -35,17 +40,39 @@ class SchoolPhoto extends Model {
         return $this->belongsTo('App\School');
     }
 
-    public static function fromForm(UploadedFile $file)
+    /**
+     * Build a new photo instance from a file upload.
+     *
+     * @param $name
+     * @return mixed
+     */
+    public static function named($name)
     {
-        $photo = new static;
+        return (new static)->saveAs($name);
+    }
 
-        $name = time() . $file->getClientOriginalName();
+    protected function saveAs($name)
+    {
+        $this->name = sprintf("%s-%s", time(), $name);
+        $this->path = sprintf("%s/%s", $this->baseDir, $this->name);
+        $this->thumbnail_path = sprintf("%s/tn-%s", $this->baseDir, $this->name);
 
-        $photo->path = $photo->baseDir . '/' . $name;
-        $photo->size = $file->getSize();
+        return $this;
+    }
 
-        $file->move($photo->baseDir, $name);
+    public function move(UploadedFile $file)
+    {
+        $file->move($this->baseDir, $this->name);
 
-        return $photo;
+        $this->makeThumbnail();
+
+        return $this;
+    }
+
+    protected function makeThumbnail()
+    {
+        Image::make($this->path)
+            ->fit(200)
+            ->save($this->thumbnail_path);
     }
 }
