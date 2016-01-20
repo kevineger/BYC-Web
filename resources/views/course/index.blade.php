@@ -2,7 +2,7 @@
 
 @section('content')
     <h1>Course Index</h1>
-    {!! Form::open(['method' => 'GET']) !!}
+    {!! Form::open(['method' => 'GET', 'action' => 'SearchController@index']) !!}
     <div class="form-group">
         {!! Form::label('search', 'Search') !!}
         {!! Form::input('search', 'q', null, ['class' => 'form-control', 'placeholder' => 'Search...']) !!}
