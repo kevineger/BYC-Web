@@ -11,6 +11,19 @@
             <li>Ages: {{ $course->min_age }} - {{ $course->max_age }}</li>
         @endif
         <li>Price: {{ $course->price }}</li>
+        @foreach( $course->times as $time)
+            <li>{{ $time->time_of_day }}
+                <ul>
+                    @if( $time->mon )<li>Monday</li>@endif
+                    @if( $time->tues )<li>Tuesday</li>@endif
+                    @if( $time->wed )<li>Wednesday</li>@endif
+                    @if( $time->thurs )<li>Thursday</li>@endif
+                    @if( $time->fri )<li>Friday</li>@endif
+                    @if( $time->sat )<li>Saturday</li>@endif
+                    @if( $time->sun )<li>Sunday</li>@endif
+                </ul>
+            </li>
+        @endforeach
     </ul>
 
     {!! Form::open(['route' => ['cart.add', $course]]) !!}

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-4">
             <h1>{{ $school->name }}</h1>
             <h3>{{ $school->user->name }}</h3>
             <ul>
@@ -18,10 +18,19 @@
                 @endforeach
             </ul>
         </div>
-        <div class="col-lg-4">
-            @foreach( $school->photos as $photo )
-                <img style="width:100%;" src="/{{ $photo->path }}" alt="Photo">
+        <div class="col-lg-8">
+            @foreach ($school->photos->chunk(4) as $set)
+                <div class="row">
+                    @foreach($set as $photo)
+                        <div class="col-md-3">
+                            <a href="/{{ $photo->path }}" data-lity>
+                                <img style="width:100%" src="/{{ $photo->thumbnail_path }}" alt="Photo">
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
             @endforeach
+
         </div>
     </div>
     @can('update', $school)

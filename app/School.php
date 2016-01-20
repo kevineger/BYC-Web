@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\User $user
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\SchoolPhoto[] $photos
  * @method static \Illuminate\Database\Query\Builder|\App\School search($search)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Comment[] $comments
  */
 class School extends Model {
 
@@ -51,6 +52,17 @@ class School extends Model {
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    /**
+     * Determine if the given user created the flyer.
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function ownedBy(User $user)
+    {
+        return $this->user_id == $user->id;
     }
 
     /**
