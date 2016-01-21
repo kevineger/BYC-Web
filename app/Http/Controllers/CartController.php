@@ -47,4 +47,9 @@ class CartController extends Controller {
 
         return redirect()->action('CartController@index');
     }
+
+    public function buy()
+    {
+        return view('cart.buy');
+    }
 }

@@ -38,6 +38,10 @@ Route::group(['prefix' => 'cart'], function ()
         'uses' => 'CartController@update',
         'as'   => 'cart.update'
     ]);
+    Route::get('buy', [
+        'uses' => 'CartController@buy',
+        'as'   => 'cart.buy'
+    ]);
 });
 
 

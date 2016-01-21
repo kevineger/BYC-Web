@@ -26,6 +26,9 @@
         @endforeach
         </tbody>
     </table>
+    {!! Form::open(['method' => 'POST', 'route' => 'cart.buy']) !!}
+    {!! Form::submit('Buy', ['class' => 'btn btn-success']) !!}
+    {!! Form::close() !!}
     {!! Form::open(['method' => 'DELETE', 'route' => 'cart.destroyCart']) !!}
     {!! Form::submit('Delete Cart', ['class' => 'btn btn-danger']) !!}
     {!! Form::close() !!}
