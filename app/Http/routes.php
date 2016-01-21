@@ -49,6 +49,8 @@ Route::resource('users', 'UsersController', [
     ]
 ]);
 
+Route::get('search', 'SearchController@index');
+
 // Authentication routes
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
@@ -61,6 +63,7 @@ Route::post('auth/register', 'Auth\AuthController@postRegister');
 // Social Authentication routes
 Route::get('auth/facebook', 'Auth\AuthController@redirectToProvider');
 Route::get('auth/facebook/callback', 'Auth\AuthController@handleProviderCallback');
+
 
 /*
 |--------------------------------------------------------------------------

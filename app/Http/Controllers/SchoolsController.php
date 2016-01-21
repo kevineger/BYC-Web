@@ -10,6 +10,7 @@ use Exception;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\SchoolPhoto;
+use App\Course;
 use App\School;
 use Response;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -25,16 +26,14 @@ class SchoolsController extends Controller {
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $query = $request->get('q');
+            $schools = School::all();
 
-        $schools = $query ? School::search($query)->get() : School::all();
+            return view('school.index', ['schools' => $schools]);
 
-        return view('school.index', ['schools' => $schools]);
     }
 
     /**

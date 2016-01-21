@@ -17,12 +17,9 @@ class CoursesController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-
-        $query = $request->get('q');
-
-        $courses = $query ? Course::search($query)->get() : Course::all();
+        $courses = Course::all();
 
         return view('course.index', ['courses' => $courses]);
     }

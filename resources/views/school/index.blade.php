@@ -3,13 +3,12 @@
 @section('content')
     <h1>School Index</h1>
 
-    {!! Form::open(['method' => 'GET']) !!}
+    {!! Form::open(['method' => 'GET', 'action' => 'SearchController@index']) !!}
     <div class="form-group">
         {!! Form::label('search', 'Search') !!}
         {!! Form::input('search', 'q', null, ['class' => 'form-control', 'placeholder' => 'Search...']) !!}
     </div>
     {!! Form::close() !!}
-    @if($schools->count())
         @foreach( $schools as $school )
             <div class="col-md-4 col-sm-4">
                 <a href="{{ action('SchoolsController@show', [$school]) }}">
@@ -29,7 +28,5 @@
                 </a>
             </div>
         @endforeach
-    @else
-        <p>No schools returned.</p>
-    @endif
+
 @endsection
