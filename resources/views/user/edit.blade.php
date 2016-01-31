@@ -1,7 +1,10 @@
 @extends('app')
 
 @section('content')
-    <h1>Edit Your Profile</h1>
+    <div class="page-header">
+        <h1>Edit Your Profile</h1>
+    </div>
+
     <div class="panel panel-default">
         <div class="panel-body">
             {!! Form::model($user, ['method' => 'PATCH', 'action' => ['UsersController@update', $user]]) !!}
