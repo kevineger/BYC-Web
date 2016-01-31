@@ -13,6 +13,14 @@ use Cart;
 class CoursesController extends Controller {
 
     /**
+     * Create a new courses controller instance.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware('vendor', ['except' => ['index', 'show']]);
+    }
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
