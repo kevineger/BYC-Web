@@ -71,6 +71,16 @@ class Course extends Model
     }
 
     /**
+     * Get all of a course's photos.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function photos()
+    {
+        return $this->morphMany('App\Photo', 'photoable');
+    }
+
+    /**
      * A Course has many comments through a polymorphic relation.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

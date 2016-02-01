@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Carbon\Carbon $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Course[] $courses
  * @property-read \App\User $user
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\SchoolPhoto[] $photos
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Photo[] $photos
  * @method static \Illuminate\Database\Query\Builder|\App\School search($search)
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Comment[] $comments
  */
@@ -87,22 +87,22 @@ class School extends Model {
     }
 
     /**
-     * A school has many photos.
+     * Get all of a school's photos.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function photos()
     {
-        return $this->hasMany('App\SchoolPhoto');
+        return $this->morphMany('App\Photo', 'photoable');
     }
 
     /**
      * Add a photo to the School model.
      *
-     * @param SchoolPhoto $photo
+     * @param Photo $photo
      * @return Model
      */
-    public function addPhoto(SchoolPhoto $photo)
+    public function addPhoto(Photo $photo)
     {
         return $this->photos()->save($photo);
     }

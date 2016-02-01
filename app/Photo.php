@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @property string $name
  * @property string $thumbnail_path
  */
-class SchoolPhoto extends Model {
+class Photo extends Model {
 
     protected $fillable = [
         'name',
@@ -29,6 +29,16 @@ class SchoolPhoto extends Model {
     ];
 
     protected $baseDir = 'photos/schools';
+
+    /**
+     * Get all of the owning photoable models.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
+    public function photoable()
+    {
+        return $this->morphTo();
+    }
 
     /**
      * A photo belongs to a school.

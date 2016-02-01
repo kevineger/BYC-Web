@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeSchoolRequest;
 use App\Http\Requests\SchoolRequest;
+use App\Photo;
 use Auth;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\SchoolPhoto;
 use App\Course;
 use App\School;
 use Response;
@@ -102,7 +102,7 @@ class SchoolsController extends Controller {
 
     protected function makePhoto(UploadedFile $file)
     {
-        return SchoolPhoto::named($file->getClientOriginalName())->move($file);
+        return Photo::named($file->getClientOriginalName())->move($file);
     }
 
     /**
@@ -115,7 +115,7 @@ class SchoolsController extends Controller {
     {
         try
         {
-            SchoolPhoto::destroy($request->input('id'));
+            Photo::destroy($request->input('id'));
         } catch (Exception $e)
         {
             return "Unable to remove photo: " . $request->input('id');
