@@ -16,9 +16,6 @@
     {{--JQuery--}}
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 
-    {{--Bootstrap--}}
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
     {{---Fonts-----------------------------------------------------------------}}
     <link href='http://fonts.googleapis.com/css?family=Crimson+Text:600,400' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Raleway:500' rel='stylesheet' type='text/css'>
@@ -29,6 +26,7 @@
     <link rel="stylesheet" href="{{ asset('css/libs.css') }}" type='text/css'>
     {{-------------------------------------------------------------------------}}
 
+
     @yield('head')
 
 </head>
@@ -36,7 +34,7 @@
 
 @include('partials.nav')
 
-<div class="container">
+<div class="ui container">
     @yield('content')
 </div>
 

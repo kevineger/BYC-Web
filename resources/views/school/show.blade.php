@@ -1,8 +1,8 @@
 @extends('app')
 
 @section('content')
-    <div class="row">
-        <div class="col-lg-4">
+    <div class="ui grid">
+        <div class="eight wide column">
             <h1>{{ $school->name }}</h1>
             <h3>{{ $school->user->name }}</h3>
             <ul>
@@ -18,11 +18,11 @@
                 @endforeach
             </ul>
         </div>
-        <div class="col-lg-8">
-            @foreach ($school->photos->chunk(4) as $set)
-                <div class="row">
+        <div class="eight wide column">
+            @foreach ($school->photos->chunk(2) as $set)
+                <div class="ui grid">
                     @foreach($set as $photo)
-                        <div class="col-md-3">
+                        <div class="eight wide column">
                             <a href="/{{ $photo->path }}" data-lity>
                                 <img style="width:100%" src="/{{ $photo->thumbnail_path }}" alt="Photo">
                             </a>
@@ -32,11 +32,12 @@
             @endforeach
         </div>
     </div>
+
     @can('update', $school)
-    {!! Form::open(['method' => 'DELETE', 'route' => ['schools.destroy', $school]]) !!}
-    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+    {!! Form::open(['method' => 'DELETE', 'route' => ['schools.destroy', $school], 'style' => 'display:inline;']) !!}
+    {!! Form::submit('Delete', ['class' => 'ui red button']) !!}
     {!! Form::close() !!}
 
-    <a class="btn btn-primary" href="{{ action('SchoolsController@edit', [$school]) }}" role="button">Edit School</a>
+    <a class="ui blue button" href="{{ action('SchoolsController@edit', [$school]) }}" role="button">Edit School</a>
     @endcan
 @endsection
