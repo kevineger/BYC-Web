@@ -17,7 +17,7 @@ class CreatePhotosTable extends Migration {
         {
             $table->increments('id');
             $table->integer('photoable_id')->unsigned();
-            $table->integer('photoable_type')->unsigned();
+            $table->string('photoable_type');
             $table->string('name');
             $table->string('path');
             $table->string('thumbnail_path');

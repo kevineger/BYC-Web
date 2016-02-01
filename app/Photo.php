@@ -28,7 +28,7 @@ class Photo extends Model {
         'size'
     ];
 
-    protected $baseDir = 'photos/schools';
+    protected $baseDir = 'photos';
 
     /**
      * Get all of the owning photoable models.

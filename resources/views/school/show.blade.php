@@ -30,7 +30,6 @@
                     @endforeach
                 </div>
             @endforeach
-
         </div>
     </div>
     @can('update', $school)

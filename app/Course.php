@@ -81,6 +81,17 @@ class Course extends Model
     }
 
     /**
+     * Add a photo to the Course model.
+     *
+     * @param Photo $photo
+     * @return Model
+     */
+    public function addPhoto(Photo $photo)
+    {
+        return $this->photos()->save($photo);
+    }
+
+    /**
      * A Course has many comments through a polymorphic relation.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
