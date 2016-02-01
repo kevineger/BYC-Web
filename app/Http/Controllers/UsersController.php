@@ -31,7 +31,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        $this->authorize('update', $user);
+        $this->authorize('updateUser', $user);
 
         return view('user.edit', ['user' => $user]);
     }
@@ -45,7 +45,7 @@ class UsersController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
-        $this->authorize('update', $user);
+        $this->authorize('updateUser', $user);
 
         $user->update($request->all());
 
@@ -68,4 +68,5 @@ class UsersController extends Controller
 
         return redirect()->action('SchoolsController@index');
     }
+
 }

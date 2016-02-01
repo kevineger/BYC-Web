@@ -8,14 +8,22 @@
            Email: {{$user->email}}
         </div>
     </div>
-    <h1>{{$user->id}}</h1>
 
     @can('updateUser', $user)
+    <div class="btn-group btn-group-justified" role="group" >
+        <div class="btn-group" role="group">
+            <a class="btn btn-default" href="{{ action('UsersController@edit', [$user]) }}" role="button">Edit Profile</a>
+        </div>
+        @if(Auth::user()->vendor)
+            <div class="btn-group" role="group">
+                <a class="btn btn-default" href="{{ action('DashboardController@show') }}" role="button">Manage Schools/Courses</a>
+            </div>
+        @endif
+    </div>
+    <br>
         {!! Form::open(['method' => 'DELETE', 'route' => ['users.destroy', $user]]) !!}
         {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
         {!! Form::close() !!}
-
-        <a class="btn btn-primary" href="{{ action('UsersController@edit', [$user]) }}" role="button">Edit Profile</a>
     @endcan
 
 @endsection

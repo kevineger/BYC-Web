@@ -48,6 +48,7 @@ Route::resource('users', 'UsersController', [
         'store'
     ]
 ]);
+Route::get('dashboard', 'DashboardController@show');
 
 Route::get('search', 'SearchController@index');
 
