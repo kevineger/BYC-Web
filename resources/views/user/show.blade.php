@@ -20,6 +20,19 @@
             </div>
         @endif
     </div>
+    <div class="col-lg-8">
+        @foreach ($user->photos->chunk(4) as $set)
+            <div class="row">
+                @foreach($set as $photo)
+                    <div class="col-md-3">
+                        <a href="/{{ $photo->path }}" data-lity>
+                            <img style="width:100%" src="/{{ $photo->thumbnail_path }}" alt="Photo">
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+        @endforeach
+    </div>
     <br>
         {!! Form::open(['method' => 'DELETE', 'route' => ['users.destroy', $user]]) !!}
         {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}

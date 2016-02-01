@@ -17,6 +17,8 @@ Route::resource('schools', 'SchoolsController');
 Route::post('schools/{schools}/addPhoto', ['as' => 'addPhotoToSchool', 'uses' => 'SchoolsController@addPhoto']);
 Route::post('schools/{schools}/removePhoto', ['as' => 'removePhotoFromSchool', 'uses' => 'SchoolsController@removePhoto']);
 Route::resource('courses', 'CoursesController');
+Route::post('courses/{courses}/addPhoto', ['as' => 'addPhotoToCourse', 'uses' => 'CoursesController@addPhoto']);
+Route::post('courses/{courses}/removePhoto', ['as' => 'removePhotoFromCourse', 'uses' => 'CoursesController@removePhoto']);
 
 
 Route::group(['prefix' => 'cart'], function ()
@@ -38,6 +40,10 @@ Route::group(['prefix' => 'cart'], function ()
         'uses' => 'CartController@update',
         'as'   => 'cart.update'
     ]);
+    Route::get('buy', [
+        'uses' => 'CartController@buy',
+        'as'   => 'cart.buy'
+    ]);
 });
 
 
@@ -48,6 +54,9 @@ Route::resource('users', 'UsersController', [
         'store'
     ]
 ]);
+Route::post('users/{users}/addPhoto', ['as' => 'addPhotoToUser', 'uses' => 'UsersController@addPhoto']);
+Route::post('users/{users}/removePhoto', ['as' => 'removePhotoFromUser', 'uses' => 'UsersController@removePhoto']);
+
 Route::get('dashboard', 'DashboardController@show');
 
 Route::get('search', 'SearchController@index');

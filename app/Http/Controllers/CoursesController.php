@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ChangeCourseRequest;
 use App\Http\Requests\CourseRequest;
+use App\Photo;
+use Exception;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\School;
 use App\Course;
 use Cart;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class CoursesController extends Controller {
 
@@ -20,6 +24,7 @@ class CoursesController extends Controller {
         $this->middleware('auth', ['except' => ['index', 'show']]);
         $this->middleware('vendor', ['except' => ['index', 'show']]);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -80,6 +85,46 @@ class CoursesController extends Controller {
         $this->authorize('updateCourse', $course);
 
         return view('course.edit', ['course' => $course]);
+    }
+
+    /**
+     * Respond to AJAX calls for adding a photo to a school.
+     *
+     * @param $course
+     * @param ChangeCourseRequest $request
+     * @return int
+     */
+    public function addPhoto($course, ChangeCourseRequest $request)
+    {
+        $photo = $this->makePhoto($request->file('photo'));
+
+        $course->addPhoto($photo);
+
+        return $photo->id;
+    }
+
+    protected function makePhoto(UploadedFile $file)
+    {
+        return Photo::named($file->getClientOriginalName())->move($file);
+    }
+
+    /**
+     * Respond to AJAX calls for removing a photo of a school.
+     *
+     * @param Request $request
+     * @return string
+     */
+    public function removePhoto(Request $request)
+    {
+        try
+        {
+            Photo::destroy($request->input('id'));
+        } catch (Exception $e)
+        {
+            return "Unable to remove photo: " . $request->input('id');
+        }
+
+        return "Photo " . $request->input('id') . " successfully removed.";
     }
 
     /**

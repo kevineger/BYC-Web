@@ -74,6 +74,27 @@ class User extends Model implements AuthenticatableContract,
     }
 
     /**
+     * Get all of a course's photos.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function photos()
+    {
+        return $this->morphMany('App\Photo', 'photoable');
+    }
+
+    /**
+     * Add a photo to the Course model.
+     *
+     * @param Photo $photo
+     * @return Model
+     */
+    public function addPhoto(Photo $photo)
+    {
+        return $this->photos()->save($photo);
+    }
+
+    /**
      * A User has many Comments.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

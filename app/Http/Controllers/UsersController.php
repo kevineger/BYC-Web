@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ChangeUserRequest;
 use App\Http\Requests\UserRequest;
+use App\Photo;
+use Exception;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\User;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class UsersController extends Controller
-{
+class UsersController extends Controller {
 
     /**
      * Display the specified resource.
@@ -34,6 +37,46 @@ class UsersController extends Controller
         $this->authorize('updateUser', $user);
 
         return view('user.edit', ['user' => $user]);
+    }
+
+    /**
+     * Respond to AJAX calls for adding a photo to a school.
+     *
+     * @param $user
+     * @param ChangeUserRequest $request
+     * @return int
+     */
+    public function addPhoto($user, ChangeUserRequest $request)
+    {
+        $photo = $this->makePhoto($request->file('photo'));
+
+        $user->addPhoto($photo);
+
+        return $photo->id;
+    }
+
+    protected function makePhoto(UploadedFile $file)
+    {
+        return Photo::named($file->getClientOriginalName())->move($file);
+    }
+
+    /**
+     * Respond to AJAX calls for removing a photo of a school.
+     *
+     * @param Request $request
+     * @return string
+     */
+    public function removePhoto(Request $request)
+    {
+        try
+        {
+            Photo::destroy($request->input('id'));
+        } catch (Exception $e)
+        {
+            return "Unable to remove photo: " . $request->input('id');
+        }
+
+        return "Photo " . $request->input('id') . " successfully removed.";
     }
 
     /**
