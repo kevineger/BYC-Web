@@ -18,13 +18,13 @@ class CreateCategoriesTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('categories_courses', function (Blueprint $table) {
+        Schema::create('category_course', function (Blueprint $table) {
             // Categories relation
-            $table->integer('categories_id')
+            $table->integer('category_id')
                 ->references('id')
                 ->on('categories');
             // Courses relation
-            $table->integer('courses_id')
+            $table->integer('course_id')
                 ->references('id')
                 ->on('courses');
         });
@@ -37,7 +37,7 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('categories_courses');
+        Schema::drop('category_course');
         Schema::drop('categories');
     }
 }

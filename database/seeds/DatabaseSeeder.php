@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
         $this->call(SchoolTableSeeder::class);
         // Create times for the courses
         $this->call(TimeTableSeeder::class);
+        // Create categories for courses
+        $this->call(CategoryTableSeeder::class);
 
         Model::reguard();
     }

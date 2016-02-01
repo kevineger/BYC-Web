@@ -1,7 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: kevin
- * Date: 20/10/15
- * Time: 6:59 PM
- */
+/*
+|--------------------------------------------------------------------------
+| Course Factories
+|--------------------------------------------------------------------------
+*/
+// Generic Course
+$factory->define(App\Category::class, function (Faker\Generator $faker)
+{
+    return [
+        'text' => $faker->randomElement(['Sports','Art','Education', 'Dance', 'Music']),
+    ];
+});

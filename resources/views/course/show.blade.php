@@ -25,7 +25,13 @@
             </li>
         @endforeach
     </ul>
-
+    <hr>
+    <h3>Categories</h3>
+    <ul>
+    @foreach( $course->categories as $category)
+        <li>{{$category->text}}</li>
+    @endforeach
+    </ul>
     {!! Form::open(['route' => ['cart.add', $course]]) !!}
     {!! Form::submit("Add to Cart", ['class' => 'btn btn-info']) !!}
     {!! Form::close() !!}
