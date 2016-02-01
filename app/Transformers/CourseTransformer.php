@@ -1,7 +1,7 @@
 <?php namespace App\Transformers;
 
-class CourseTransformer extends Transformer
-{
+class CourseTransformer extends Transformer {
+
     private $schoolTransformer;
     private $timeTransformer;
 
@@ -13,6 +13,12 @@ class CourseTransformer extends Transformer
 
     public function transform($course)
     {
+        $images = [];
+        foreach ($course->photos as $photo)
+        {
+            $images[] = $photo->path;
+        }
+
         return [
             'id'          => (int)$course['id'],
             'name'        => $course['name'],
@@ -23,6 +29,7 @@ class CourseTransformer extends Transformer
             'max_age'     => (int)$course->max_age,
             'price'       => (double)$course->price,
             'times'       => $this->timeTransformer->transform($course->times),
+            'images'      => $images
         ];
     }
 }
