@@ -22,8 +22,8 @@
     {{-------------------------------------------------------------------------}}
 
     {{---Compiled CSS----------------------------------------------------------}}
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}" type='text/css'>
     <link rel="stylesheet" href="{{ asset('css/libs.css') }}" type='text/css'>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}" type='text/css'>
     {{-------------------------------------------------------------------------}}
 
 
