@@ -8299,3 +8299,7 @@ button.close {
     display: none !important;
   }
 }
+
+a.thumbnail-link {
+  text-decoration: none;
+}
