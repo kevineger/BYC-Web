@@ -5,7 +5,7 @@
         <div class="row">
             <div class="column">
                 <h2 class="ui teal image header ">
-                    <div class="content header-margin">
+                    <div class="content">
                         Log-in to your account
                     </div>
                 </h2>

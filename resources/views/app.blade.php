@@ -26,6 +26,9 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" type='text/css'>
     {{-------------------------------------------------------------------------}}
 
+    {{---Semantic Icons--------------------------------------------------------}}
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/components/icon.min.css'>
+    {{-------------------------------------------------------------------------}}
 
     @yield('head')
 

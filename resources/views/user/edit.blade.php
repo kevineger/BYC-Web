@@ -6,41 +6,45 @@
 @endsection
 
 @section('content')
-    <div class="page-header">
-        <h1>Edit Your Profile</h1>
-    </div>
 
-    <div class="row">
-        <div class="col-lg-12">
-            {!! Form::model($user, ['method' => 'PATCH', 'action' => ['UsersController@update', $user]]) !!}
-            <div class="form-group">
-                {!! Form::label('name', 'User Name') !!}
-                {!! Form::text('name', null, ['class' => 'form-control']) !!}
-            </div>
-            <div class="form-group">
-                {!! Form::label('email', 'Email') !!}
-                {!! Form::text('email', null, ['class' => 'form-control']) !!}
-            </div>
-            <div class="form-group">
-                {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-            </div>
-            {!! Form::close() !!}
-        </div>
-        <div class="col-lg-12">
-            <form id="addPhotosForm" action="{{ route('addPhotoToUser', [$user]) }}" method="POST" class="dropzone">
-                {{ csrf_field() }}
-            </form>
-        </div>
-    </div>
 
+<div class="ui segment">
+    <h1 class="ui teal header ">Edit Your Profile</h1>
+
+        {!! Form::model($user, ['method' => 'PATCH', 'action' => ['UsersController@update', $user], 'class'=>"ui form"]) !!}
+        <div class="field">
+            {!! Form::label('name', 'User Name') !!}
+            {!! Form::text('name', null) !!}
+        </div>
+        <div class="field">
+            {!! Form::label('email', 'Email') !!}
+            {!! Form::text('email', null, ['class' => 'form-control']) !!}
+        </div>
+        <div class="form-group">
+            {!! Form::submit('Save', ['class' => 'ui teal button']) !!}
+        </div>
+        {!! Form::close() !!}
+</div>
+<div class="ui section divider"></div>
+<h1 class="ui teal header ">Add Photos to Profile</h1>
+    <div class="col-lg-12">
+        <form id="addPhotosForm" action="{{ route('addPhotoToUser', [$user]) }}" method="POST" class="dropzone">
+            {{ csrf_field() }}
+        </form>
+    </div>
 
     @if ($errors->any())
-        <ul class="alert alert-danger">
+        <ul class="ui error message">
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
             @endforeach
         </ul>
     @endif
+<br>
+<a href="{{ action('UsersController@show', [Auth::user()]) }}" class="ui labeled icon button">
+    <i class="left chevron icon"></i>
+    Back To Profile
+</a>
 @endsection
 
 @section('footer')
@@ -94,6 +98,7 @@
                 // Make sure that there is no progress bar, etc...
                 this.emit("complete", mockFile);
                 @endforeach
+
             }
         };
     </script>
