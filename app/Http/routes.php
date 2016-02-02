@@ -83,6 +83,7 @@ Route::get('auth/facebook/callback', 'Auth\AuthController@handleProviderCallback
 Route::group(['prefix' => 'api/v1', 'middleware' => ['cors']], function ()
 {
     Route::resource('schools', 'API\ApiSchoolsController');
+    Route::get('schools/{schools}/courses', 'API\ApiSchoolsController@getCourses');
     Route::resource('courses', 'API\ApiCoursesController');
     Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
     Route::post('authenticate', 'AuthenticateController@authenticate');
