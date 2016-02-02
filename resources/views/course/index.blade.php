@@ -3,28 +3,30 @@
 @section('content')
     <h1>Course Index</h1>
     {!! Form::open(['method' => 'GET', 'action' => 'SearchController@index']) !!}
-    <div class="form-group">
-        {!! Form::label('search', 'Search') !!}
-        {!! Form::input('search', 'q', null, ['class' => 'form-control', 'placeholder' => 'Search...']) !!}
+    <div class="ui search">
+        <div class="ui icon input">
+            <input name="q" class="prompt" type="search" placeholder="Search Schools">
+            <i class="search icon"></i>
+        </div>
     </div>
     {!! Form::close() !!}
-    <div class="row">
-    @foreach( $courses as $course )
-        @if($course->active)
-            <div class="col-sm-6 col-md-4">
-                <a href="{{ action('CoursesController@show', [$course]) }}" class="thumbnail-link">
-                    <div class="thumbnail">
-                        <img src="/photos/courses/1453338241-2013-12-19 15.59.28.png">
-                        <div class="caption">
-                            <h3>{{$course->name}}</h3>
-                            <p>School: {{$course->school->name}}<span class="label label-primary pull-right">${{$course->price}}</span></p>
 
-                        </div>
-                    </div>
-                </a>
+    <br>
+
+    <div class="ui grid">
+        @foreach( $courses as $course )
+            <div class="four wide column">
+                <div class="ui segment">
+                    <a href="{{ action('CoursesController@show', [$course]) }}" class="thumbnail-link">
+                        <h2>{{$course->name}}</h2>
+                        @if(!$course->photos)
+                            <img src="{{ $course->photos[0]->path }}" style="width:100%" alt="photo">
+                        @endif
+                        <p>School: {{$course->school->name}}</p>
+                    </a>
+                </div>
             </div>
-        @endif
-    @endforeach
+        @endforeach
     </div>
 
 @endsection

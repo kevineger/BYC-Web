@@ -4,29 +4,29 @@
     <h1>School Index</h1>
 
     {!! Form::open(['method' => 'GET', 'action' => 'SearchController@index']) !!}
-    <div class="form-group">
-        {!! Form::label('search', 'Search') !!}
-        {!! Form::input('search', 'q', null, ['class' => 'form-control', 'placeholder' => 'Search...']) !!}
+    <div class="ui search">
+        <div class="ui icon input">
+            <input name="q" class="prompt" type="search" placeholder="Search Schools">
+            <i class="search icon"></i>
+        </div>
     </div>
     {!! Form::close() !!}
+
+    <br>
+
+    <div class="ui grid">
         @foreach( $schools as $school )
-            <div class="col-md-4 col-sm-4">
-                <a href="{{ action('SchoolsController@show', [$school]) }}">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">{{$school->name}}</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div>
-                                <h7>Vendor: {{$school->user->name}}</h7>
-                            </div>
-                            <div>
-                                <h9>Address: {{$school->address}}</h9>
-                            </div>
-                        </div>
-                    </div>
-                </a>
+            <div class="four wide column">
+                <div class="ui segment">
+                    <a href="{{ action('SchoolsController@show', [$school]) }}">
+                        <h2>{{$school->name}}</h2>
+                        <img src="{{ $school->photos[0]->path }}" style="width:100%" alt="photo">
+                        <p>Vendor: {{$school->user->name}}</p>
+                        <p>Address: {{$school->address}}</p>
+                    </a>
+                </div>
             </div>
         @endforeach
+    </div>
 
 @endsection
