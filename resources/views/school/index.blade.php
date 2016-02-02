@@ -20,7 +20,9 @@
                 <div class="ui segment">
                     <a href="{{ action('SchoolsController@show', [$school]) }}">
                         <h2>{{$school->name}}</h2>
-                        <img src="{{ $school->photos[0]->path }}" style="width:100%" alt="photo">
+                        @if(!$school->photos)
+                            <img src="{{ $school->photos[0]->path }}" style="width:100%" alt="photo">
+                        @endif
                         <p>Vendor: {{$school->user->name}}</p>
                         <p>Address: {{$school->address}}</p>
                     </a>
