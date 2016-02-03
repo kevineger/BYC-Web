@@ -1,8 +1,12 @@
 @extends('app')
 
 @section('content')
-    <h1>Create a new School</h1>
-    {!! Form::model($school = new App\School, ['action' => ['SchoolsController@show', $school]]) !!}
+    <h2 class="ui teal image header">
+        <div class="content">
+            Create a new School
+        </div>
+    </h2>
+    {!! Form::model($school = new App\School, ['action' => ['SchoolsController@show', $school], 'class' => 'ui large form']) !!}
     @include('school.form', ['submitButtonText' => 'Create School'])
     {!! Form::close() !!}
 
