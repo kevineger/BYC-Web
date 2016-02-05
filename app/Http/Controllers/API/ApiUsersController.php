@@ -34,6 +34,7 @@ class ApiUsersController extends ApiController {
         // Check if User credentials are already in use
         try
         {
+            $credentials['password'] = bcrypt($credentials['password']);
             $user = User::create($credentials);
         } catch (Exception $e)
         {
