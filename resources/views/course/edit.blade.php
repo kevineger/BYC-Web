@@ -6,8 +6,12 @@
 @endsection
 
 @section('content')
-    <h1>Edit an existing Course</h1>
-    {!! Form::model($course, ['method' => 'PATCH', 'action' => ['CoursesController@update', $course]]) !!}
+    <h2 class="ui teal image header">
+        <div class="content">
+            Edit an Existing Course
+        </div>
+    </h2>
+    {!! Form::model($course, ['method' => 'PATCH', 'action' => ['CoursesController@update', $course], 'class' => 'ui large form']) !!}
     @include('course.form', ['submitButtonText' => 'Update Course'])
     {!! Form::close() !!}
 

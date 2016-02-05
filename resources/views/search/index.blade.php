@@ -1,64 +1,59 @@
 @extends('app')
 
 @section('content')
+
     {!! Form::open(['method' => 'GET', 'action' => 'SearchController@index']) !!}
-    <div class="form-group">
-        {!! Form::label('search', 'Search') !!}
-        {!! Form::input('search', 'q', null, ['class' => 'form-control', 'placeholder' => 'Search...']) !!}
+    <div class="ui search">
+        <div class="ui icon input">
+            <input name="q" class="prompt" type="search" placeholder="Search">
+            <i class="search icon"></i>
+        </div>
     </div>
+    {!! Form::close() !!}
+    <br>
+
     @if($schools->count()||$courses->count()>0)
         @if($schools->count())
-            <div class="page-header">
-                <h1>Schools</h1>
-            </div>
-            @foreach( $schools as $school )
+            <h1>Schools</h1>
+            <div class="ui grid">
+                @foreach( $schools as $school )
+                    <div class="four wide column">
+                        <div class="ui segment">
+                            <a href="{{ action('SchoolsController@show', [$school]) }}">
+                                <h2>{{$school->name}}</h2>
+                                @if(!$school->photos)
+                                    <img src="{{ $school->photos[0]->path }}" style="width:100%" alt="photo">
+                                @endif
+                                <p>Vendor: {{$school->user->name}}</p>
 
-                    <a href="{{ action('SchoolsController@show', [$school]) }}">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">{{$school->name}}</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div>
-                                    <h7>Vendor: {{$school->user->name}}</h7>
-                                </div>
-                                <div>
-                                    <h9>Address: {{$school->address}}</h9>
-                                </div>
-                            </div>
+                                <p>Address: {{$school->address}}</p>
+                            </a>
                         </div>
-                    </a>
-
-            @endforeach
+                    </div>
+                @endforeach
+            </div>
         @endif
         @if($courses->count())
             <div class="row">
-            <div class="page-header">
                 <h1>Courses</h1>
             </div>
-                </div>
-            @foreach( $courses as $course )
-                @if($course->active)
-
-                        <a href="{{ action('CoursesController@show', [$course]) }}">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">{{$course->name}}</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <div>
-                                        <h7>{{$course->school->name}}</h7>
-                                    </div>
-                                    <div>
-                                        <h9>Price: ${{$course->price}}</h9>
-                                    </div>
-                                </div>
+            <div class="ui grid">
+                @foreach( $courses as $course )
+                    @if($course->active)
+                        <div class="four wide column">
+                            <div class="ui segment">
+                                <a href="{{ action('CoursesController@show', [$course]) }}" class="thumbnail-link">
+                                    <h2>{{$course->name}}</h2>
+                                    @if(!$course->photos)
+                                        <img src="{{ $course->photos[0]->path }}" style="width:100%" alt="photo">
+                                    @endif
+                                    <p>School: {{$course->school->name}}</p>
+                                </a>
                             </div>
-                        </a>
-
-                @endif
-            @endforeach
-
+                        </div>
+                    @endif
+                @endforeach
+            </div>
         @endif
 
     @else

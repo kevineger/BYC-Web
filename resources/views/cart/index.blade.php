@@ -2,7 +2,7 @@
 
 @section('content')
     <h1>Cart Index</h1>
-    <table class="table">
+    <table class="ui celled table">
         <thead>
         <tr>
             <th>Product</th>
@@ -19,17 +19,17 @@
                 <td>{{ $row->price }}</td>
                 <td>
                     {!! Form::open(['method' => 'DELETE', 'route' => ['cart.destroy', $row->rowid]]) !!}
-                    {!! Form::submit('Remove', ['class' => 'btn btn-danger']) !!}
+                    {!! Form::submit('Remove', ['class' => 'ui red button']) !!}
                     {!! Form::close() !!}
                 </td>
             </tr>
         @endforeach
         </tbody>
     </table>
-    {!! Form::open(['method' => 'POST', 'route' => 'cart.buy']) !!}
-    {!! Form::submit('Buy', ['class' => 'btn btn-success']) !!}
+    {!! Form::open(['method' => 'POST', 'route' => 'cart.buy', 'style' => 'display:inline']) !!}
+    {!! Form::submit('Checkout', ['class' => 'ui teal button']) !!}
     {!! Form::close() !!}
-    {!! Form::open(['method' => 'DELETE', 'route' => 'cart.destroyCart']) !!}
-    {!! Form::submit('Delete Cart', ['class' => 'btn btn-danger']) !!}
+    {!! Form::open(['method' => 'DELETE', 'route' => 'cart.destroyCart', 'style' => 'display:inline']) !!}
+    {!! Form::submit('Delete Cart', ['class' => 'ui red button']) !!}
     {!! Form::close() !!}
 @endsection

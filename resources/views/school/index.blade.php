@@ -1,19 +1,19 @@
 @extends('app')
 
 @section('content')
-    <h1>School Index</h1>
+
 
     {!! Form::open(['method' => 'GET', 'action' => 'SearchController@index']) !!}
     <div class="ui search">
         <div class="ui icon input">
-            <input name="q" class="prompt" type="search" placeholder="Search Schools">
+            <input name="q" class="prompt" type="search" placeholder="Search">
             <i class="search icon"></i>
         </div>
     </div>
     {!! Form::close() !!}
 
     <br>
-
+    <h1>School Index</h1>
     <div class="ui grid">
         @foreach( $schools as $school )
             <div class="four wide column">
