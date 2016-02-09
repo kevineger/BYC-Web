@@ -9,8 +9,8 @@
                 </h2>
             </div>
         </div>
-        <div class=" centered row">
-                <div class="ui column segment ">
+        <div class="centered row">
+                <div class="ui login-column column segment ">
                     <form method="POST" action="/auth/register" class="ui large form">
                         {!! csrf_field() !!}
 
