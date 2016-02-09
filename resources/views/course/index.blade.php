@@ -1,5 +1,11 @@
 @extends('app')
 
+@section('page-header')
+    <div class="page-header">
+        <h2>Courses</h2>
+    </div>
+@endsection
+
 @section('content')
 
     {!! Form::open(['method' => 'GET', 'action' => 'SearchController@index']) !!}

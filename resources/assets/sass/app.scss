@@ -1,7 +1,16 @@
-.nav-margin{
-  margin-bottom: 75px;
+@import "partials/headings";
+
+.container-margin{
+  margin-top: 75px;
 }
 
 .login-column {
   max-width: 450px;
 }
+
+.ui.container.secondary.pointing {
+  .dropdown > .menu {
+    margin-top: 0;
+  }
+}
+
