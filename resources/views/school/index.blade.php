@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    
+
     {!! Form::open(['method' => 'GET', 'action' => 'SearchController@index']) !!}
     <div class="ui search">
         <div class="ui icon input">
