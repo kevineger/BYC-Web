@@ -26,22 +26,6 @@
                     View Style <i class="list layout icon" href="#"></i> <i class="active grid layout icon"
                                                                             href="#"></i>
                 </a>
-                <a class="item">
-                    <div class="ui slider range">
-                        <label class="ui" for="min-range-selector">Min Price</label>
-                        <output class="ui label" for="min-range-selector" id="min-price">50</output>
-                        <input type="range" min="0" max="300" value="50" id="min-range-selector"
-                               oninput="minPriceUpdate(value)">
-                    </div>
-                </a>
-                <a class="item">
-                    <div class="ui slider range">
-                        <label class="ui" for="min-range-selector">Max Price</label>
-                        <output class="ui label" for="max-range-selector" id="max-price">200</output>
-                        <input type="range" min="0" max="300" value="200" id="max-range-selector"
-                               oninput="maxPriceUpdate(value)">
-                    </div>
-                </a>
                 <div class="ui dropdown item">
                     More
                     <i class="dropdown icon"></i>
@@ -92,19 +76,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            {{--<div class="four wide column">
-                                <div class="ui segment">
-                                    <a href="{{ action('SchoolsController@show', [$school]) }}">
-                                        <h2>{{$school->name}}</h2>
-                                        @if(!$school->photos)
-                                            <img src="{{ $school->photos[0]->path }}" style="width:100%" alt="photo">
-                                        @endif
-                                        <p>Vendor: {{$school->user->name}}</p>
-                                        <p>Address: {{$school->address}}</p>
-                                    </a>
-                                </div>
-                            </div>--}}
                         @endforeach
                     </div>
                 @endforeach
@@ -112,17 +83,4 @@
         </div>
     </div>
 
-@endsection
-
-@section('footer')
-    <script>
-        function minPriceUpdate(vol) {
-            $('#max-range-selector').attr('min', vol);
-            document.querySelector('#min-price').value = vol;
-        }
-        function maxPriceUpdate(vol) {
-            $('#min-range-selector').attr('max', vol);
-            document.querySelector('#max-price').value = vol;
-        }
-    </script>
 @endsection

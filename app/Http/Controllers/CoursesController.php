@@ -32,6 +32,7 @@ class CoursesController extends Controller {
      */
     public function index()
     {
+        // TODO: Only serve 'active' courses
         $courses = Course::all();
 
         return view('course.index', ['courses' => $courses]);
