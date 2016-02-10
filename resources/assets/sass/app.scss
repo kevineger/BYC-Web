@@ -1,7 +1,38 @@
-.nav-margin{
+.nav-margin {
   margin-bottom: 75px;
 }
 
 .login-column {
   max-width: 450px;
+}
+
+.slider input[type="range"] {
+  -webkit-appearance: none;
+  border-radius: 50rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 5px 10px;
+  outline: none;
+  margin: 5px 0;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background: #89B84C;
+  border-radius: 50rem;
+  height: 0.7em;
+  width: 0.7em;
+}
+
+/*View Style Icons for School and Course Index*/
+.menu {
+  a.item > i {
+    color: black;
+    text-decoration: none;
+  }
+  a.item > i:hover {
+    color: grey;
+  }
+  a.item > i.active {
+    color: #89B84C;
+  }
 }

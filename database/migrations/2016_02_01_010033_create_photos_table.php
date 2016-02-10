@@ -36,8 +36,11 @@ class CreatePhotosTable extends Migration {
         // Remove any images.
         foreach (Photo::all() as $photo)
         {
-            File::delete(public_path() . '/' . $photo->path);
-            File::delete(public_path() . '/' . $photo->thumbnail_path);
+            // Don't delete the default school photo for testing.
+            if($photo->path != 'photos/school.jpg') {
+                File::delete(public_path() . '/' . $photo->path);
+                File::delete(public_path() . '/' . $photo->thumbnail_path);
+            }
         }
         Schema::drop('photos');
     }

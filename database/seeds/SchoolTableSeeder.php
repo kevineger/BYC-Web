@@ -15,7 +15,7 @@ class SchoolTableSeeder extends Seeder {
         // Create a school for each user of type 'vendor' and add courses to that school.
         foreach ( User::vendor()->get() as $u ) {
             $s = $u->school()->save(factory(App\School::class)->make());
-            $s->photos()->save(Photo::create(['name' => 'image name', 'path' => 'photos/school.jpeg', 'thumbnail_path' => 'photos/school.jpeg']));
+            $s->photos()->save(Photo::create(['name' => 'image name', 'path' => 'photos/school.jpg', 'thumbnail_path' => 'photos/tn-school.jpg']));
             // Assign 1-5 active courses for each school
             $numCourses = rand(1, 5);
             for ( $i = 1; $i <= $numCourses; $i++ ) {

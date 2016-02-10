@@ -1,55 +1,82 @@
 @extends('app')
 
 @section('content')
-    <div class="ui grid">
-        <div class="eight wide column">
-            <h1>{{ $course->name }}</h1>
-            <h3>{{ $course->school->name }}</h3>
-            <h3>Categories</h3>
-            <ul>
+    <h1 class="ui block header">
+        <div class="content">
+            {{ $course->name }}
+            <div class="sub header">{{ $course->school->name }}</div>
+            <div class="ui tag labels">
                 @foreach( $course->categories as $category)
-                    <li>{{$category->text}}</li>
+                    <a class="ui label">{{ $category->text }}</a>
                 @endforeach
-            </ul>
-            <ul>
-                <li>Description: {{ $course->description }}</li>
-                @if( $course->min_age == 0 && $course->max_age == 0)
-                    <li>All Ages</li>
-                @else
-                    <li>Ages: {{ $course->min_age }} - {{ $course->max_age }}</li>
-                @endif
-                <li>Price: {{ $course->price }}</li>
-                <div class="ui accordion">
-                    <div class="title">
-                        <i class="dropdown icon"></i>
-                        Times
-                    </div>
-                    <div class="content">
-                        @foreach( $course->times as $time)
-                            <li>{{ $time->time_of_day }}
-                                <ul>
-                                    @if( $time->mon )
-                                        <li>Monday</li>@endif
-                                    @if( $time->tues )
-                                        <li>Tuesday</li>@endif
-                                    @if( $time->wed )
-                                        <li>Wednesday</li>@endif
-                                    @if( $time->thurs )
-                                        <li>Thursday</li>@endif
-                                    @if( $time->fri )
-                                        <li>Friday</li>@endif
-                                    @if( $time->sat )
-                                        <li>Saturday</li>@endif
-                                    @if( $time->sun )
-                                        <li>Sunday</li>@endif
-                                </ul>
-                            </li>
-                        @endforeach
-                    </div>
-                </div>
-            </ul>
+            </div>
         </div>
-        <div class="eight wide column">
+    </h1>
+    <div class="ui two column middle aligned relaxed fitted stackable grid" style="position: relative">
+        <div class="column">
+            <div class="ui segment">
+                <p>{{ $course->description }}</p>
+            </div>
+            @if( $course->min_age == 0 && $course->max_age == 0)
+                <div class="ui green label">
+                    All Ages
+                </div>
+            @else
+                <div class="ui yellow label">
+                    Min Age
+                    <div class="detail">{{ $course->min_age }}</div>
+                </div>
+                <div class="ui orange label">
+                    Max Age
+                    <div class="detail">{{ $course->max_age }}</div>
+                </div>
+            @endif
+
+            <h2 class="ui sub header">
+                Price
+            </h2>
+            <span>${{ $course->price }}</span>
+
+            <div class="ui accordion">
+                <div class="title active">
+                    <h2 class="ui sub header">
+                        Times
+                        <i class="dropdown icon"></i>
+                    </h2>
+                </div>
+                <div class="content active">
+                    @foreach( $course->times as $time)
+                        <li>{{ $time->time_of_day }}
+                            <ul>
+                                @if( $time->mon )
+                                    <li>Monday</li>@endif
+                                @if( $time->tues )
+                                    <li>Tuesday</li>@endif
+                                @if( $time->wed )
+                                    <li>Wednesday</li>@endif
+                                @if( $time->thurs )
+                                    <li>Thursday</li>@endif
+                                @if( $time->fri )
+                                    <li>Friday</li>@endif
+                                @if( $time->sat )
+                                    <li>Saturday</li>@endif
+                                @if( $time->sun )
+                                    <li>Sunday</li>@endif
+                            </ul>
+                        </li>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+        <div class="ui vertical divider">
+            <i class="circle thin icon light grey"></i>
+        </div>
+        <div class="column">
+            @if( $course->photos->isEmpty())
+                <div class="ui disabled center aligned header">
+                    No photos available
+                </div>
+            @endif
             @foreach ($course->photos->chunk(4) as $set)
                 <div class="ui grid">
                     @foreach($set as $photo)
@@ -81,8 +108,6 @@
 
 @section('footer')
     <script>
-        $('.ui.accordion')
-                .accordion()
-        ;
+        $('.ui.accordion').accordion();
     </script>
 @endsection

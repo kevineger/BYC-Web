@@ -82,7 +82,7 @@ class Photo extends Model {
     protected function makeThumbnail()
     {
         Image::make($this->path)
-            ->fit(200)
+            ->fit(300)
             ->save($this->thumbnail_path);
     }
 }
