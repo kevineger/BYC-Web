@@ -7,7 +7,6 @@
 @endsection
 
 @section('content')
-    <h1>Course Index</h1>
     <div class="ui grid">
         <div class="four wide column">
             {!! Form::open(['method' => 'GET', 'action' => 'SearchController@index']) !!}
