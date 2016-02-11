@@ -1,5 +1,11 @@
 @extends('app')
 
+@section('page-header')
+    <div class="page-header">
+        <h2>Courses</h2>
+    </div>
+@endsection
+
 @section('content')
     <h1>Course Index</h1>
     <div class="ui grid">

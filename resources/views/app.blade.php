@@ -37,7 +37,7 @@
 
 @include('partials.nav')
 
-<div class="ui container">
+<div class="ui container container-margin">
     @yield('content')
 </div>
 

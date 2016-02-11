@@ -1,7 +1,12 @@
 @extends('app')
 
+@section('page-header')
+    <div class="page-header">
+        <h2>Schools</h2>
+    </div>
+@endsection
+
 @section('content')
-    <h1>School Index</h1>
     <div class="ui grid">
         <div class="four wide column">
             {!! Form::open(['method' => 'GET', 'action' => 'SearchController@index']) !!}
