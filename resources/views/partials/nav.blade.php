@@ -15,7 +15,7 @@
                 {{ Auth::user()->name }} <i class="dropdown icon"></i>
 
                 <div class="menu">
-                    <a href="{{ action('UsersController@show', [Auth::user()]) }}" class="item">Profile</a>
+                    <a href="{{ action('UsersController@show', [Auth::user()]) }}" class="item">Your Account</a>
                     <a href="{{ url('/auth/logout') }}" class="item">Logout</a>
                 </div>
             </div>

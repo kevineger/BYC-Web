@@ -1,3 +1,15 @@
+.home-header {
+  height: 350px;
+  font-weight: bold;
+  text-align: center;
+  background: #515a63;
+}
+.home-header h2 {
+  color: white;
+  font-weight: normal;
+  padding-top: 120px;
+  font-size: 70px;
+}
 .page-header {
   height: 250px;
   font-weight: bold;
@@ -9,4 +21,17 @@
   font-weight: normal;
   padding-top: 80px;
   font-size: 50px;
+}
+
+.account-header {
+  height: 100px;
+  font-weight: bold;
+  text-align: center;
+  background: #515a63;
+}
+.account-header h2 {
+  color: white;
+  font-weight: normal;
+  padding-top: 30px;
+  font-size: 30px;
 }
