@@ -1,7 +1,7 @@
 <?php
 return array(
-    'client_id' => 'AVhpQKX6Oi1dbBpTLhCUupiT2Zej0bzM3i54mIPdWwXfisy5vW9HrbTomTbgugkDcM4aVKTl3G0U1nD1',
-    'secret'    => 'EJ7ueU5EuFy8Qhg5NjrodqyjEN2Yti0B5_ECK9iBmziwBLSYAHHrdZA0iByqrOyWCcA12N4oaxP1wYg8',
+    'client_id' => env('PAYPAL_CLIENT_ID', ''),
+    'secret'    => env('PAYPAL_SECRET', ''),
 
     /*
      * SDK Config
