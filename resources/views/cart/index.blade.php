@@ -26,7 +26,7 @@
         @endforeach
         </tbody>
     </table>
-    {!! Form::open(['method' => 'POST', 'route' => 'cart.buy', 'style' => 'display:inline']) !!}
+    {!! Form::open(['method' => 'POST', 'route' => 'payment', 'style' => 'display:inline']) !!}
     {!! Form::submit('Checkout', ['class' => 'ui teal button']) !!}
     {!! Form::close() !!}
     {!! Form::open(['method' => 'DELETE', 'route' => 'cart.destroyCart', 'style' => 'display:inline']) !!}
