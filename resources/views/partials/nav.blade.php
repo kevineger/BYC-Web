@@ -6,6 +6,7 @@
     <div class="right menu">
         <a href="{{ action('CartController@index') }}"
            class="{{ Request::is( 'cart') ? 'active' : '' }} item">Cart</a>
+        <a href="{{ url('/contact') }}" class="{{ Request::is( '/contact') ? 'active' : '' }} item">Contact Us</a>
         @if (Auth::guest())
             <a href="{{ url('/auth/login') }}"
                class="{{ Request::is( 'auth/login') ? 'active' : '' }} item">Login</a>

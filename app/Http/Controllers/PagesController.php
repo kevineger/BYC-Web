@@ -12,4 +12,14 @@ class PagesController extends Controller
     {
         return view('pages.home');
     }
+
+    /**
+     * Displays contact us page.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function contact()
+    {
+        return view('pages.contact');
+    }
 }
