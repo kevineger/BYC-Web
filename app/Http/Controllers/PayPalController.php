@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Course;
+use App\Time;
+use Auth;
 use Carbon\Carbon;
+use Cart;
 use Config;
 use Illuminate\Http\Request;
 
@@ -39,19 +43,27 @@ class PayPalController extends Controller {
 
     public function postPayment()
     {
+        // Get the cart content
+        $content = Cart::content();
+
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');
 
-        // Set currency, quantity and price (per unit) of each item
-        $item_1 = new Item();
-        $item_1->setName('Item 1')// item name
-        ->setCurrency('USD')
-            ->setQuantity(2)
-            ->setPrice('15'); // unit price
-
-        // Build array of items
+        // Build array of items from the cart content
         $items = [];
-        $items[] = $item_1;
+        $total = 0;
+        foreach ( $content as $row ) {
+            // Set currency, quantity and price (per unit) of each item
+            // Note: Using Sku for course id
+            $item = new Item();
+            $item->setSku($row->id . '-' . $row->options->time_id)// Use compound course_id/time_id as sku
+            ->setName($row->name)
+                ->setCurrency('HKD')
+                ->setQuantity($row->qty)
+                ->setPrice($row->price); // unit price
+            $total += $row->price * $row->qty;
+            $items[] = $item;
+        }
 
         // Add items to list
         $item_list = new ItemList();
@@ -59,8 +71,8 @@ class PayPalController extends Controller {
 
         // Set total
         $amount = new Amount();
-        $amount->setCurrency('USD')
-            ->setTotal(30);
+        $amount->setCurrency('HKD')
+            ->setTotal($total);
 
         // Create the transaction (amount, items and description)
         $transaction = new Transaction();
@@ -80,26 +92,21 @@ class PayPalController extends Controller {
             ->setRedirectUrls($redirect_urls)
             ->setTransactions(array($transaction));
 
-        try
-        {
+        try {
             $payment->create($this->api_context);
-        } catch (PayPalConnectionException $ex)
-        {
-            if (Config::get('app.debug'))
-            {
+        } catch ( PayPalConnectionException $ex ) {
+            dd($ex); // Debugging purposes
+            if ( Config::get('app.debug') ) {
                 echo "Exception: " . $ex->getMessage() . PHP_EOL;
                 $err_data = json_decode($ex->getData(), true);
                 exit;
-            } else
-            {
+            } else {
                 die('There has been an error processing your payment on PayPal.');
             }
         }
 
-        foreach ($payment->getLinks() as $link)
-        {
-            if ($link->getRel() == 'approval_url')
-            {
+        foreach ( $payment->getLinks() as $link ) {
+            if ( $link->getRel() == 'approval_url' ) {
                 $redirect_url = $link->getHref();
                 break;
             }
@@ -108,8 +115,7 @@ class PayPalController extends Controller {
         // add payment ID to session
         Session::put('paypal_payment_id', $payment->getId());
 
-        if (isset($redirect_url))
-        {
+        if ( isset($redirect_url) ) {
             // redirect to paypal
             return Redirect::away($redirect_url);
         }
@@ -128,8 +134,7 @@ class PayPalController extends Controller {
         // Clear the session payment ID
         Session::forget('paypal_payment_id');
 
-        if (!$request->has('PayerID') || !$request->has('token'))
-        {
+        if ( !$request->has('PayerID') || !$request->has('token') ) {
             // TODO: Set up UI friendly route
             return Redirect::route('original.route')
                 ->with('error', 'Payment failed');
@@ -147,8 +152,10 @@ class PayPalController extends Controller {
         // Execute the payment
         $result = $payment->execute($execution, $this->api_context);
 
-        if ($result->getState() == 'approved')
-        {
+        if ( $result->getState() == 'approved' ) {
+            // Store payment result/record in DB
+            $this->storeRecord($result);
+
             error_log("Payment has been made");
 
             // Payment made
@@ -160,5 +167,37 @@ class PayPalController extends Controller {
 
         return Redirect::route('original.route')
             ->with('error', 'Payment failed');
+    }
+
+    /**
+     * Persist a payment record in the database.
+     *
+     * @param Payment $result
+     */
+    private function storeRecord(Payment $result)
+    {
+        $paypal_id = $result->id;
+        $total = $result->transactions[0]->amount->total;
+
+        // Create and assign a payment to the user
+        $payment = Auth::user()->payments()->create(['paypal_id' => $paypal_id, 'total' => $total]);
+
+        // Add each of the purchases for the payment (items)
+        foreach ( $result->transactions[0]->item_list->items as $item ) {
+            // The SKU sent to paypal is compounded with course_id/time_id
+            // TODO: Is there a better way to do this?
+            $course = Course::findOrFail(explode('-', $item->sku)[0]);
+            $time = Time::findOrFail(explode('-', $item->sku)[1]);
+            $quantity = $item->quantity;
+            $subtotal = $quantity * $item->price;
+
+            $payment->purchases()->create([
+                'course_id' => $course->id,
+                'time_id'   => $time->id,
+                'quantity'  => $quantity,
+                'subtotal'  => $subtotal
+            ]);
+        }
+
     }
 }

@@ -30,16 +30,21 @@ class Time extends Model {
         return $this->belongsTo('App\Course')->withPivot('course_id', 'time_id', 'num_avail', 'num_reg');
     }
 
+    /**
+     * Get a user interpretable array of the days.
+     *
+     * @return array
+     */
     public function days()
     {
         $active_days = [];
-        if ( $this['mon'] ) array_push($active_days, 'mon');
-        if ( $this['tues'] ) array_push($active_days, 'tues');
-        if ( $this['wed'] ) array_push($active_days, 'wed');
-        if ( $this['thur'] ) array_push($active_days, 'thur');
-        if ( $this['fri'] ) array_push($active_days, 'fri');
-        if ( $this['sat'] ) array_push($active_days, 'sat');
-        if ( $this['sun'] ) array_push($active_days, 'sun');
+        if ( $this['mon'] ) array_push($active_days, 'Monday');
+        if ( $this['tues'] ) array_push($active_days, 'Tuesday');
+        if ( $this['wed'] ) array_push($active_days, 'Wednesday');
+        if ( $this['thur'] ) array_push($active_days, 'Thursday');
+        if ( $this['fri'] ) array_push($active_days, 'Friday');
+        if ( $this['sat'] ) array_push($active_days, 'Saturday');
+        if ( $this['sun'] ) array_push($active_days, 'Sunday');
 
         return $active_days;
     }

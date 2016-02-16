@@ -44,6 +44,12 @@ class RouteServiceProvider extends ServiceProvider {
         {
             return \App\User::findOrFail($id);
         });
+
+        // Time route-model binding
+        $router->bind('times', function ($id)
+        {
+            return \App\Time::findOrFail($id);
+        });
     }
 
     /**

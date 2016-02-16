@@ -105,6 +105,16 @@ class User extends Model implements AuthenticatableContract,
     }
 
     /**
+     * A User has many Payments.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payments()
+    {
+        return $this->hasMany('App\Payment');
+    }
+
+    /**
      * A query scope to retrieve all school users.
      *
      * @param $query

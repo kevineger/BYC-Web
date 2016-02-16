@@ -14,9 +14,13 @@ class CourseTransformer extends Transformer {
     public function transform($course)
     {
         $images = [];
-        foreach ($course->photos as $photo)
-        {
+        foreach ( $course->photos as $photo ) {
             $images[] = $photo->path;
+        }
+
+        $categories = [];
+        foreach ( $course->categories as $category ) {
+            $categories[] = $category->text;
         }
 
         return [
@@ -29,7 +33,8 @@ class CourseTransformer extends Transformer {
             'max_age'     => (int)$course->max_age,
             'price'       => (double)$course->price,
             'times'       => $this->timeTransformer->transform($course->times),
-            'images'      => $images
+            'images'      => $images,
+            'categories'  => $categories
         ];
     }
 }

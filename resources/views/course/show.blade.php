@@ -48,21 +48,13 @@
                     @foreach( $course->times as $time)
                         <li>{{ $time->time_of_day }}
                             <ul>
-                                @if( $time->mon )
-                                    <li>Monday</li>@endif
-                                @if( $time->tues )
-                                    <li>Tuesday</li>@endif
-                                @if( $time->wed )
-                                    <li>Wednesday</li>@endif
-                                @if( $time->thurs )
-                                    <li>Thursday</li>@endif
-                                @if( $time->fri )
-                                    <li>Friday</li>@endif
-                                @if( $time->sat )
-                                    <li>Saturday</li>@endif
-                                @if( $time->sun )
-                                    <li>Sunday</li>@endif
+                                @foreach( $time->days() as $day )
+                                    <li>{{ $day }}</li>
+                                @endforeach
                             </ul>
+                            {!! Form::open(['route' => ['cart.add', $course, $time]]) !!}
+                            {!! Form::submit("Add to Cart", ['class' => 'ui green button']) !!}
+                            {!! Form::close() !!}
                         </li>
                     @endforeach
                 </div>
@@ -90,10 +82,6 @@
             @endforeach
         </div>
     </div>
-
-    {!! Form::open(['route' => ['cart.add', $course]]) !!}
-    {!! Form::submit("Add to Cart", ['class' => 'ui green button']) !!}
-    {!! Form::close() !!}
 
     <br>
 

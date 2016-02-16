@@ -20,33 +20,6 @@ Route::resource('courses', 'CoursesController');
 Route::post('courses/{courses}/addPhoto', ['as' => 'addPhotoToCourse', 'uses' => 'CoursesController@addPhoto']);
 Route::post('courses/{courses}/removePhoto', ['as' => 'removePhotoFromCourse', 'uses' => 'CoursesController@removePhoto']);
 
-
-Route::group(['prefix' => 'cart'], function ()
-{
-    Route::get('/', 'CartController@index');
-    Route::post('{courses}/add', [
-        'uses' => 'CartController@add',
-        'as'   => 'cart.add'
-    ]);
-    Route::delete('/', [
-        'uses' => 'CartController@destroyCart',
-        'as'   => 'cart.destroyCart'
-    ]);
-    Route::delete('{cart}', [
-        'uses' => 'CartController@destroy',
-        'as'   => 'cart.destroy'
-    ]);
-    Route::put('update', [
-        'uses' => 'CartController@update',
-        'as'   => 'cart.update'
-    ]);
-    Route::get('buy', [
-        'uses' => 'CartController@buy',
-        'as'   => 'cart.buy'
-    ]);
-});
-
-
 Route::resource('users', 'UsersController', [
     'except' => [
         'index',
@@ -87,6 +60,32 @@ Route::get('payment/status', array(
     'as'   => 'payment.status',
     'uses' => 'PayPalController@getPaymentStatus',
 ));
+
+/*
+|--------------------------------------------------------------------------
+| Cart
+|--------------------------------------------------------------------------
+*/
+Route::group(['prefix' => 'cart'], function ()
+{
+    Route::get('/', 'CartController@index');
+    Route::post('{courses}/{times}/add', [
+        'uses' => 'CartController@add',
+        'as'   => 'cart.add'
+    ]);
+    Route::delete('/', [
+        'uses' => 'CartController@destroyCart',
+        'as'   => 'cart.destroyCart'
+    ]);
+    Route::delete('{cart}', [
+        'uses' => 'CartController@destroy',
+        'as'   => 'cart.destroy'
+    ]);
+    Route::put('update', [
+        'uses' => 'CartController@update',
+        'as'   => 'cart.update'
+    ]);
+});
 
 /*
 |--------------------------------------------------------------------------
