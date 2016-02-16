@@ -116,6 +116,17 @@ class User extends Model implements AuthenticatableContract,
     }
 
     /**
+     * A query scope to retrieve all consumer users.
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeConsumer($query)
+    {
+        return $query->where('vendor', 0);
+    }
+
+    /**
      * A helper function for determining if a user owns the related model.
      *
      * @param $related
