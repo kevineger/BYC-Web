@@ -99,15 +99,27 @@
         <div class="ui disabled center aligned header">
             No comments available
         </div>
-        @else
+        <br>
+    @else
+        <div class="ui comments">
             @foreach($course->comments as $comment)
-                <div class="ui segment">
-                    <img class="ui avatar image" src="http://semantic-ui.com/images/avatar2/small/molly.png">
-                    <span>{{$comment->user->name}}</span>
-                    <p>{{$comment->text}}</p>
+                <div class="comment">
+                    <a class="avatar">
+                        <img src="http://semantic-ui.com/images/avatar2/small/molly.png">
+                    </a>
+                    <div class="content">
+                        <a class="author">{{$comment->user->name}}</a>
+                        <div class="metadata">
+                            <span class="date">{{ $comment->created_at->diffForHumans() }}</span>
+                        </div>
+                        <div class="text">
+                            {{$comment->text}}
+                        </div>
+                    </div>
                 </div>
             @endforeach
-        @endif
+        </div>
+    @endif
 @endsection
 
 @section('footer')
