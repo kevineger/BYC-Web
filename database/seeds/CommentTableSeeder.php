@@ -1,6 +1,7 @@
 <?php
 
 use App\Course;
+use App\User;
 use Illuminate\Database\Seeder;
 
 class CommentTableSeeder extends Seeder
@@ -12,10 +13,13 @@ class CommentTableSeeder extends Seeder
      */
     public function run()
     {
+        // for each course assign a comment that belongs to a random consumer
         foreach ( Course::all() as $course ) {
-            $numComments = rand(0, 30);
+            $numComments = rand(0, 10);
             for ($i = 1; $i <= $numComments; $i++ ) {
-                $course->comments()->save(factory(App\Comment::class)->make());
+                $user = User::consumer()->get();
+                $comment = $user->shuffle()->first()->comments()->save(factory(App\Comment::class)->make());
+                $course->comments()->save($comment);
             }
         }
     }

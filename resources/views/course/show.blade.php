@@ -92,6 +92,22 @@
 
     <a class="ui blue button" href="{{ action('CoursesController@edit', [$course]) }}" role="button">Edit Course</a>
     @endcan
+    <h3 class="ui dividing header">
+        Comments
+    </h3>
+    @if($course->comments->isEmpty())
+        <div class="ui disabled center aligned header">
+            No comments available
+        </div>
+        @else
+            @foreach($course->comments as $comment)
+                <div class="ui segment">
+                    <img class="ui avatar image" src="http://semantic-ui.com/images/avatar2/small/molly.png">
+                    <span>{{$comment->user->name}}</span>
+                    <p>{{$comment->text}}</p>
+                </div>
+            @endforeach
+        @endif
 @endsection
 
 @section('footer')
