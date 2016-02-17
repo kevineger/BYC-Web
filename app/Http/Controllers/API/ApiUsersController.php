@@ -9,6 +9,9 @@ use Exception;
 use App\User;
 use Response;
 use JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class ApiUsersController extends ApiController {
 
@@ -26,18 +29,15 @@ class ApiUsersController extends ApiController {
         $credentials = $request->only(['name', 'email', 'password', 'password_confirmation']);
 
         // If password doesn't match password_confirmation
-        if ($credentials['password'] != $credentials['password_confirmation'])
-        {
+        if ( $credentials['password'] != $credentials['password_confirmation'] ) {
             return $this->setStatusCode(400)->respondWithError('Passwords do not match.');
         }
 
         // Check if User credentials are already in use
-        try
-        {
+        try {
             $credentials['password'] = bcrypt($credentials['password']);
             $user = User::create($credentials);
-        } catch (Exception $e)
-        {
+        } catch ( Exception $e ) {
             return $this->setStatusCode(409)->respondWithError('User Already Exists.');
         }
 
@@ -47,5 +47,28 @@ class ApiUsersController extends ApiController {
         return $this->setStatusCode(200)->respond([
             'token' => $token
         ]);
+    }
+
+    /**
+     * Retrieve the authenticated user from the specified token.
+     *
+     * @return \Illuminate\Http\JsonResponse|mixed
+     */
+    public function getAuthenticatedUser()
+    {
+        try {
+            if ( !$user = JWTAuth::parseToken()->authenticate() ) {
+                return response()->json(['user_not_found'], 404);
+            }
+        } catch ( TokenExpiredException $e ) {
+            return response()->json(['token_expired'], $e->getStatusCode());
+        } catch ( TokenInvalidException $e ) {
+            return response()->json(['token_invalid'], $e->getStatusCode());
+        } catch ( JWTException $e ) {
+            return response()->json(['token_absent'], $e->getStatusCode());
+        }
+
+        // The token is valid and we have found the user via the sub claim
+        return $user;
     }
 }
