@@ -4,10 +4,34 @@
 | Course Factories
 |--------------------------------------------------------------------------
 */
-// Generic Course
-$factory->define(App\Category::class, function (Faker\Generator $faker)
+
+$factory->defineAs(App\Category::class, 'Sports', function ()
 {
     return [
-        'text' => $faker->randomElement(['Sports','Art','Education', 'Dance', 'Music']),
+        'text' => 'Sports',
+    ];
+});
+$factory->defineAs(App\Category::class, 'Music', function ()
+{
+    return [
+        'text' => 'Music',
+    ];
+});
+$factory->defineAs(App\Category::class, 'Art', function ()
+{
+    return [
+        'text' => 'Art',
+    ];
+});
+$factory->defineAs(App\Category::class, 'Education', function ()
+{
+    return [
+        'text' => 'Education',
+    ];
+});
+$factory->defineAs(App\Category::class, 'Cooking', function ()
+{
+    return [
+        'text' => 'Cooking',
     ];
 });

@@ -101,7 +101,9 @@ class Course extends Model
         return $this->morphMany('App\Comment', 'commentable');
     }
 
-    /** Query Scope.
+    /**
+     * Query scope for searching a course.
+     *
      * @param $query
      * @param $search
      * @return mixed
@@ -109,6 +111,16 @@ class Course extends Model
     public function scopeSearch($query, $search)
     {
         return $query->where('name', 'LIKE', "%$search%")->orWhere('description', 'LIKE', "%$search%");
+    }
+
+    /**
+     * Query scope for active courses.
+     *
+     * @return mixed
+     */
+    public function scopeActive()
+    {
+        return $this->where('active', true);
     }
 
     /**

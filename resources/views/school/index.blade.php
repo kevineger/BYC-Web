@@ -21,10 +21,9 @@
                     Categories
                     <div class="menu">
                         <a class="active item">All</a>
-                        <a class="item">Education</a>
-                        <a class="item">Athletics</a>
-                        <a class="item">Support Groups</a>
-                        <a class="item">Languages</a>
+                        @foreach($categories as $category)
+                            <a class="item">{{ $category->text }}</a>
+                        @endforeach
                     </div>
                 </div>
                 <a class="item">

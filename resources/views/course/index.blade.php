@@ -9,22 +9,37 @@
 @section('content')
     <div class="ui grid">
         <div class="four wide column">
-            {!! Form::open(['method' => 'GET', 'action' => 'SearchController@index']) !!}
+            {!! Form::open(['method' => 'GET', 'action' => 'CoursesController@index']) !!}
             <div class="ui vertical menu">
                 <div class="item">
                     <div class="ui icon input">
-                        <input name="q" type="text" placeholder="Search">
+                        <input name="query_string" type="text" placeholder="Search">
                         <i class="search icon"></i>
                     </div>
                 </div>
                 <div class="item">
                     Categories
                     <div class="menu">
-                        <a class="active item">All</a>
-                        <a class="item">Education</a>
-                        <a class="item">Athletics</a>
-                        <a class="item">Support Groups</a>
-                        <a class="item">Languages</a>
+                        <div class="ui form">
+                            <div class="grouped fields">
+                                <a class="item">
+                                    <div class="ui checkbox">
+                                        <input onclick="allCategories()" type="checkbox" id="all_cat" checked="checked">
+                                        <label>All</label>
+                                    </div>
+                                </a>
+                                @foreach($categories as $category)
+                                    <a class="item">
+                                        <div class="ui checkbox">
+                                            <input onclick="specificCategories()" type="checkbox" name="categories[]"
+                                                   value="{{ $category->text }}" class="category">
+                                            <label>{{ $category->text }}</label>
+                                        </div>
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <a class="item">
@@ -55,8 +70,15 @@
                         <a class="item"><i class="globe icon"></i> Choose Language</a>
                         <a class="item"><i class="settings icon"></i> Account Settings</a>
                     </div>
-                    {!! Form::close() !!}
                 </div>
+                <div class="ui item">
+                    <div class="ui large buttons">
+                        <button type="submit" class="ui button teal">Filter</button>
+                        <div class="or"></div>
+                        <button onclick="" class="ui button">Clear</button>
+                    </div>
+                </div>
+                {!! Form::close() !!}
             </div>
         </div>
         <div class="twelve wide column">
@@ -68,11 +90,8 @@
 
                                 <a class="ui card" href="{{ action('CoursesController@show', [$course]) }}">
                                     <div class="content">
-                                        @if( !$course->school->photos->isEmpty())
-                                            <div class="ui bottom right attached label">4 Times</div>
-                                        @else
-                                            <div class="ui bottom right attached label">2 Times</div>
-                                        @endif
+                                        <div class="ui bottom right attached label">{{ sizeof($course->times) }} times
+                                        </div>
                                         <div class="header">{{$course->name}}</div>
                                         <div class="meta">
                                             <span class="category">{{$course->school->name}}</span>
@@ -101,5 +120,18 @@
             $('#min-range-selector').attr('max', vol);
             document.querySelector('#max-price').value = vol;
         }
+        // Uncheck all specific categories
+        function allCategories() {
+            $('#all_cat').change(function () {
+                if (this.checked) {
+                    $('input:checkbox.category').prop('checked', false);
+                }
+            });
+        }
+        // Untoggle the "All" category
+        function specificCategories() {
+            $('#all_cat').prop('checked', false);
+        }
+
     </script>
 @endsection
