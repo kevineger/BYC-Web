@@ -37,7 +37,39 @@
             </h2>
             <span>${{ $course->price }}</span>
 
-            <div class="ui accordion">
+            {{--<div class="ui relaxed divided list">
+                <div class="item">
+                    <i class="large github middle aligned icon"></i>
+                    <div class="content">
+                        <a class="header">Semantic-Org/Semantic-UI</a>
+                        <div class="description">Updated 10 mins ago</div>
+                    </div>
+                </div>
+            </div>--}}
+
+            <div class="ui relaxed list">
+                @foreach( $course->times as $time)
+
+                    <div class="item">
+                        <div class="image">
+                            {!! Form::open(['route' => ['cart.add', $course, $time], 'style' => 'display: inline']) !!}
+                            <button type="submit" class="ui icon button teal">
+                                <i class="large add to cart icon"></i>
+                            </button>
+                            {!! Form::close() !!}
+                        </div>
+                        <div class="middle aligned content">
+                            <div class="header">{{ $time->time_of_day }}</div>
+                            <p>
+                                @foreach( $time->days() as $key => $day )
+                                    {{ $day }}
+                                @endforeach
+                            </p>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            {{--<div class="ui accordion">
                 <div class="title active">
                     <h2 class="ui sub header">
                         Times
@@ -58,7 +90,7 @@
                         </li>
                     @endforeach
                 </div>
-            </div>
+            </div>--}}
         </div>
         <div class="ui vertical divider">
             <i class="circle thin icon light grey"></i>

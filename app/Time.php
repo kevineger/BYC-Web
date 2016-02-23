@@ -41,7 +41,7 @@ class Time extends Model {
         if ( $this['mon'] ) array_push($active_days, 'Monday');
         if ( $this['tues'] ) array_push($active_days, 'Tuesday');
         if ( $this['wed'] ) array_push($active_days, 'Wednesday');
-        if ( $this['thur'] ) array_push($active_days, 'Thursday');
+        if ( $this['thurs'] ) array_push($active_days, 'Thursday');
         if ( $this['fri'] ) array_push($active_days, 'Friday');
         if ( $this['sat'] ) array_push($active_days, 'Saturday');
         if ( $this['sun'] ) array_push($active_days, 'Sunday');

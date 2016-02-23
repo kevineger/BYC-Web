@@ -35,7 +35,7 @@ class CreateCoursesTable extends Migration {
             $table->increments('id');
             $table->integer('course_id')->unsigned();
             $table->integer('time_id')->unsigned();
-            $table->integer('num_avail')->unsigned();
+            $table->integer('num_seats')->unsigned();
             $table->integer('num_reg')->unsigned();
 
             $table->foreign('course_id')

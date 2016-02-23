@@ -118,6 +118,6 @@ class Course extends Model
      */
     public function times()
     {
-        return $this->belongsToMany('App\Time');
+        return $this->belongsToMany('App\Time')->withPivot(['num_seats', 'num_reg']);
     }
 }
