@@ -159,12 +159,15 @@ class PayPalController extends Controller {
             error_log("Payment has been made");
 
             // Payment made
-            return Redirect::route('original.route')
-                ->with('success', 'Payment success');
+            // TODO: Set up payment successful view
+            return "Payment successful";
+            /*return Redirect::route('original.route')
+                ->with('success', 'Payment success');*/
         }
 
         error_log("Payment could not be made");
 
+        // TODO: Handle failed payments (view)
         return Redirect::route('original.route')
             ->with('error', 'Payment failed');
     }
@@ -173,6 +176,7 @@ class PayPalController extends Controller {
      * Persist a payment record in the database.
      *
      * @param Payment $result
+     * @return string
      */
     private function storeRecord(Payment $result)
     {
@@ -199,7 +203,8 @@ class PayPalController extends Controller {
             ]);
 
             // Increase the number of registered seats
-            $time->pivot->num_reg++;
+            $num_registered = (int)$time->pivot->num_reg + 1;
+            $course->times()->updateExistingPivot($time->id, ['num_reg' => $num_registered]);
 
             return "Payment successful.";
         }
