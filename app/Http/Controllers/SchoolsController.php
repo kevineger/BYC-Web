@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeSchoolRequest;
 use App\Http\Requests\SchoolRequest;
 use App\Photo;
+use App\Comment;
 use Auth;
 use Exception;
 use Illuminate\Http\Request;
@@ -150,5 +151,23 @@ class SchoolsController extends Controller {
         $school->delete();
 
         return redirect()->action('SchoolsController@index');
+    }
+
+    /**
+     * Add a comment to a school.
+     *
+     * @param School $school
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function addComment(School $school, Request $request)
+    {
+        $this->validate($request, ['text'=>'required']);
+        $comment = new Comment($request->all());
+        Auth::user()->comments()->save($comment);
+        $school->comments()->save($comment);
+
+        return redirect()->action('SchoolsController@show', ['school' => $school]);
+
     }
 }

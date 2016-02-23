@@ -10,6 +10,7 @@ use Exception;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\School;
+use App\Comment;
 use App\Course;
 use Cart;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -87,7 +88,7 @@ class CoursesController extends Controller {
     }
 
     /**
-     * Respond to AJAX calls for adding a photo to a school.
+     * Respond to AJAX calls for adding a photo to a course.
      *
      * @param $course
      * @param ChangeCourseRequest $request
@@ -108,7 +109,7 @@ class CoursesController extends Controller {
     }
 
     /**
-     * Respond to AJAX calls for removing a photo of a school.
+     * Respond to AJAX calls for removing a photo of a course.
      *
      * @param Request $request
      * @return string
@@ -155,6 +156,24 @@ class CoursesController extends Controller {
         $course->delete();
 
         return redirect()->action('CoursesController@index');
+    }
+
+    /**
+     * Add a comment to a course.
+     *
+     * @param Course $course
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function addComment(Course $course, Request $request)
+    {
+        $this->validate($request, ['text'=>'required']);
+        $comment = new Comment($request->all());
+        auth()->user()->comments()->save($comment);
+        $course->comments()->save($comment);
+
+        return redirect()->action('CoursesController@show', ['course' => $course]);
+
     }
 
 }

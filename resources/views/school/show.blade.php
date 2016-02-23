@@ -98,5 +98,30 @@
             </div>
         </div>
     </div>
+    <br>
     @endcan
+    <h3 class="ui dividing header">
+        Comments
+    </h3>
+
+    {!! Form::open([ 'action' => ['SchoolsController@addComment', $school], 'class'=>'ui reply form']) !!}
+    <div class="field">
+        {!! Form::textarea('text', null, ['class'=>'form-control', 'rows' => 3]) !!}
+    </div>
+    {!! Form::submit('Comment', ['class' => 'ui blue submit icon button']) !!}
+    {!! Form::close() !!}
+
+    @if($school->comments->isEmpty())
+        <div class="ui disabled center aligned header">
+            No comments available
+        </div>
+        <br>
+    @else
+        <div class="ui comments">
+            @foreach($school->comments->sortByDesc('created_at') as $comment)
+                @include('partials.comment')
+            @endforeach
+        </div>
+    @endif
+
 @endsection
