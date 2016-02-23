@@ -187,7 +187,7 @@ class PayPalController extends Controller {
             // The SKU sent to paypal is compounded with course_id/time_id
             // TODO: Is there a better way to do this?
             $course = Course::findOrFail(explode('-', $item->sku)[0]);
-            $time = Time::findOrFail(explode('-', $item->sku)[1]);
+            $time = $course->times()->where('time_id', explode('-', $item->sku)[1])->first();
             $quantity = $item->quantity;
             $subtotal = $quantity * $item->price;
 
@@ -197,6 +197,11 @@ class PayPalController extends Controller {
                 'quantity'  => $quantity,
                 'subtotal'  => $subtotal
             ]);
+
+            // Increase the number of registered seats
+            $time->pivot->num_reg++;
+
+            return "Payment successful.";
         }
 
     }
