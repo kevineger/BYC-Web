@@ -18,6 +18,9 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class SchoolsController extends Controller {
 
+    /**
+     * Create a new Schools Controller instance
+     */
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['index', 'show']]);
@@ -79,8 +82,6 @@ class SchoolsController extends Controller {
      */
     public function edit(School $school)
     {
-        $this->authorize('update', $school);
-
         return view('school.edit', ['school' => $school]);
     }
 
@@ -133,8 +134,6 @@ class SchoolsController extends Controller {
      */
     public function update(SchoolRequest $request, School $school)
     {
-        $this->authorize('update', $school);
-
         $school->update($request->all());
 
         return redirect()->action('SchoolsController@show', ['school' => $school]);
@@ -148,8 +147,6 @@ class SchoolsController extends Controller {
      */
     public function destroy(School $school)
     {
-        $this->authorize('update', $school);
-
         $school->delete();
 
         return redirect()->action('SchoolsController@index');

@@ -12,6 +12,6 @@ class CoursePolicy {
 
     public function updateCourse(User $user, Course $course)
     {
-        return $user->vendor && $user->school->owns($course);
+        return ($user->vendor && $user->school->owns($course)) || $user->admin;
     }
 }

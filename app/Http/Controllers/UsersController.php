@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeUserRequest;
 use App\Http\Requests\UserRequest;
 use App\Photo;
+use App\Purchase;
+use App\School;
+use App\Course;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -14,6 +17,13 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UsersController extends Controller {
 
+    /**
+     *Create a Users Controller instance
+     */
+    public function __construct()
+    {
+        $this->middleware('admin', ['only'=>'admin']);
+    }
     /**
      * Display the specified resource.
      *
@@ -110,6 +120,19 @@ class UsersController extends Controller {
         $user->delete();
 
         return redirect()->action('SchoolsController@index');
+    }
+
+    /**
+     * Displays admin page.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function admin()
+    {
+        $schools = School::all();
+        $courses = Course::all();
+        $purchases = Purchase::all();
+        return view('user.admin', ['schools'=>$schools, 'courses'=>$courses, 'purchases'=>$purchases]);
     }
 
 }

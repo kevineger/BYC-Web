@@ -28,6 +28,8 @@ Route::resource('users', 'UsersController', [
         'store'
     ]
 ]);
+Route:get('admin', 'UsersController@admin');
+
 Route::post('users/{users}/addPhoto', ['as' => 'addPhotoToUser', 'uses' => 'UsersController@addPhoto']);
 Route::post('users/{users}/removePhoto', ['as' => 'removePhotoFromUser', 'uses' => 'UsersController@removePhoto']);
 

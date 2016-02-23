@@ -11,6 +11,15 @@
             <a href="{{ url('/auth/login') }}"
                class="{{ Request::is( 'auth/login') ? 'active' : '' }} item">Login</a>
             <a href="{{ url('/auth/register') }}" class="{{ Request::is( 'auth/register') ? 'active' : '' }} item">Register</a>
+        @elseif(Auth::user()->admin)
+            <div class="ui simple dropdown item">
+                {{ Auth::user()->name }} <i class="dropdown icon"></i>
+
+                <div class="menu">
+                    <a href="{{ action('UsersController@admin', [Auth::user()]) }}" class="item">Manage Site</a>
+                    <a href="{{ url('/auth/logout') }}" class="item">Logout</a>
+                </div>
+            </div>
         @else
             <div class="ui simple dropdown item">
                 {{ Auth::user()->name }} <i class="dropdown icon"></i>

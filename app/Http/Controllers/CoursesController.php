@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class CoursesController extends Controller {
 
     /**
-     * Create a new courses controller instance.
+     * Create a new course controller instance.
      */
     public function __construct()
     {
@@ -83,8 +83,6 @@ class CoursesController extends Controller {
      */
     public function edit(Course $course)
     {
-        $this->authorize('updateCourse', $course);
-
         return view('course.edit', ['course' => $course]);
     }
 
@@ -137,8 +135,6 @@ class CoursesController extends Controller {
      */
     public function update(CourseRequest $request, Course $course)
     {
-        $this->authorize('updateCourse', $course);
-
         $course->update($request->all());
         if ($request->get('active')) $course->active = true;
         else $course->active = false;
@@ -156,8 +152,6 @@ class CoursesController extends Controller {
      */
     public function destroy(Course $course)
     {
-        $this->authorize('updateCourse', $course);
-
         $course->delete();
 
         return redirect()->action('CoursesController@index');

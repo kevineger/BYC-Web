@@ -28,4 +28,13 @@ class Purchase extends Model {
     {
         return $this->belongsTo('App\Payment');
     }
+    /**
+     * A Purchase belongs to one course.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function course()
+    {
+        return $this->belongsTo('App\Course');
+    }
 }

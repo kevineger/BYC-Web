@@ -19,6 +19,8 @@ class CreateUsersTable extends Migration
             $table->string('password', 60);
             // A user by default is a consumer
             $table->boolean('vendor')->default(false);
+            // A user by default is not an admin
+            $table->boolean('admin')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

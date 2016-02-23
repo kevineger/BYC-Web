@@ -17,6 +17,6 @@ class UserPolicy
      */
     public function updateUser(User $user, $profile_user)
     {
-        return $user == $profile_user;
+        return ($user == $profile_user) || $user->admin;
     }
 }
