@@ -17,9 +17,13 @@ Route::get('/contact', 'PagesController@contact');
 Route::resource('schools', 'SchoolsController');
 Route::post('schools/{schools}/addPhoto', ['as' => 'addPhotoToSchool', 'uses' => 'SchoolsController@addPhoto']);
 Route::post('schools/{schools}/removePhoto', ['as' => 'removePhotoFromSchool', 'uses' => 'SchoolsController@removePhoto']);
+Route::post('schools/{schools}/comment', 'SchoolsController@addComment');
+
+Route::post('courses/{courses}/comment', 'CoursesController@addComment');
 Route::resource('courses', 'CoursesController');
 Route::post('courses/{courses}/addPhoto', ['as' => 'addPhotoToCourse', 'uses' => 'CoursesController@addPhoto']);
 Route::post('courses/{courses}/removePhoto', ['as' => 'removePhotoFromCourse', 'uses' => 'CoursesController@removePhoto']);
+
 
 Route::resource('users', 'UsersController', [
     'except' => [
@@ -28,6 +32,8 @@ Route::resource('users', 'UsersController', [
         'store'
     ]
 ]);
+Route:get('admin', 'UsersController@admin');
+
 Route::post('users/{users}/addPhoto', ['as' => 'addPhotoToUser', 'uses' => 'UsersController@addPhoto']);
 Route::post('users/{users}/removePhoto', ['as' => 'removePhotoFromUser', 'uses' => 'UsersController@removePhoto']);
 

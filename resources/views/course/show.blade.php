@@ -4,7 +4,7 @@
     <h1 class="ui block header">
         <div class="content">
             {{ $course->name }}
-            <div class="sub header">{{ $course->school->name }}</div>
+            <div class="sub header"><a href="{{ action('SchoolsController@show', [$course->school]) }}">{{$course->school->name}}</a></div>
             <div class="ui tag labels">
                 @foreach( $course->categories as $category)
                     <a class="ui label">{{ $category->text }}</a>
@@ -123,10 +123,19 @@
     {!! Form::close() !!}
 
     <a class="ui blue button" href="{{ action('CoursesController@edit', [$course]) }}" role="button">Edit Course</a>
+    <br>
     @endcan
     <h3 class="ui dividing header">
         Comments
     </h3>
+
+    {!! Form::open([ 'action' => ['CoursesController@addComment', $course], 'class'=>'ui reply form']) !!}
+    <div class="field">
+        {!! Form::textarea('text', null, ['class'=>'form-control', 'rows' => 3]) !!}
+    </div>
+    {!! Form::submit('Comment', ['class' => 'ui blue submit icon button']) !!}
+    {!! Form::close() !!}
+
     @if($course->comments->isEmpty())
         <div class="ui disabled center aligned header">
             No comments available
@@ -134,21 +143,8 @@
         <br>
     @else
         <div class="ui comments">
-            @foreach($course->comments as $comment)
-                <div class="comment">
-                    <a class="avatar">
-                        <img src="http://semantic-ui.com/images/avatar2/small/molly.png">
-                    </a>
-                    <div class="content">
-                        <a class="author">{{$comment->user->name}}</a>
-                        <div class="metadata">
-                            <span class="date">{{ $comment->created_at->diffForHumans() }}</span>
-                        </div>
-                        <div class="text">
-                            {{$comment->text}}
-                        </div>
-                    </div>
-                </div>
+            @foreach($course->comments->sortByDesc('created_at') as $comment)
+                @include('partials.comment')
             @endforeach
         </div>
     @endif

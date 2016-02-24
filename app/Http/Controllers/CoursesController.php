@@ -11,6 +11,7 @@ use Exception;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\School;
+use App\Comment;
 use App\Course;
 use Cart;
 use Input;
@@ -19,7 +20,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class CoursesController extends Controller {
 
     /**
-     * Create a new courses controller instance.
+     * Create a new course controller instance.
      */
     public function __construct()
     {
@@ -121,13 +122,11 @@ class CoursesController extends Controller {
      */
     public function edit(Course $course)
     {
-        $this->authorize('updateCourse', $course);
-
         return view('course.edit', ['course' => $course]);
     }
 
     /**
-     * Respond to AJAX calls for adding a photo to a school.
+     * Respond to AJAX calls for adding a photo to a course.
      *
      * @param $course
      * @param ChangeCourseRequest $request
@@ -148,7 +147,7 @@ class CoursesController extends Controller {
     }
 
     /**
-     * Respond to AJAX calls for removing a photo of a school.
+     * Respond to AJAX calls for removing a photo of a course.
      *
      * @param Request $request
      * @return string
@@ -175,8 +174,6 @@ class CoursesController extends Controller {
      */
     public function update(CourseRequest $request, Course $course)
     {
-        $this->authorize('updateCourse', $course);
-
         $course->update($request->all());
         if ($request->get('active')) $course->active = true;
         else $course->active = false;
@@ -194,11 +191,27 @@ class CoursesController extends Controller {
      */
     public function destroy(Course $course)
     {
-        $this->authorize('updateCourse', $course);
-
         $course->delete();
 
         return redirect()->action('CoursesController@index');
+    }
+
+    /**
+     * Add a comment to a course.
+     *
+     * @param Course $course
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function addComment(Course $course, Request $request)
+    {
+        $this->validate($request, ['text'=>'required']);
+        $comment = new Comment($request->all());
+        auth()->user()->comments()->save($comment);
+        $course->comments()->save($comment);
+
+        return redirect()->action('CoursesController@show', ['course' => $course]);
+
     }
 
 }

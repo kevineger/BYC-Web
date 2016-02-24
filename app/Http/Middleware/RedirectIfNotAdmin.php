@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class RedirectIfNotVendor
+class RedirectIfNotAdmin
 {
     /**
      * Handle an incoming request.
@@ -15,7 +15,7 @@ class RedirectIfNotVendor
      */
     public function handle($request, Closure $next)
     {
-        if (!$request->user()->vendor && !$request->user()->admin) {
+        if (!$request->user()->admin) {
             return redirect()->back();
         }
         return $next($request);

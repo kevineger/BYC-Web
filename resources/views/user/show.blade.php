@@ -8,12 +8,12 @@
 
     <div class="ui centered grid">
 
-            <h2 class="ui center aligned icon header">
-                <i class="circular user icon"></i>
+        <h2 class="ui center aligned icon header">
+            <i class="circular user icon"></i>
 
-                <div class="content"> {{$user->name}}</div>
-                <div class="sub header">Joined {{$user->created_at->toFormattedDateString()}}</div>
-            </h2>
+            <div class="content"> {{$user->name}}</div>
+            <div class="sub header">Joined {{$user->created_at->toFormattedDateString()}}</div>
+        </h2>
 
         <div class="row">
             <div class="ten wide column">
@@ -48,30 +48,31 @@
                 @foreach($user->school->courses as $course)
                     <div class="four wide column">
                         <div class="ui segment">
-                        <div class="ui vertical segment">
-                            <h3>{{$course->name}}</h3>
-                            @if($course->active)
-                                <span class="floating ui green label">Active</span>
-                            @else
-                                <span class="floating ui yellow label">Inactive</span>
-                            @endif
-                            <div class="ui mini statistic">
-                                <div class="value">
-                                    0
-                                </div>
-                                <div class="label">
-                                    Registered
+                            <div class="ui vertical segment">
+                                <h3>{{$course->name}}</h3>
+                                @if($course->active)
+                                    <span class="floating ui green label">Active</span>
+                                @else
+                                    <span class="floating ui yellow label">Inactive</span>
+                                @endif
+                                <div class="ui mini statistic">
+                                    <div class="value">
+                                        0
+                                    </div>
+                                    <div class="label">
+                                        Registered
+                                    </div>
                                 </div>
                             </div>
+                            <div class="ui vertical segment">
+                                {!! Form::open(['method' => 'DELETE', 'route' => ['courses.destroy', $course], 'style'=>'display:inline-block;']) !!}
+                                {!! Form::submit('Delete', ['class' => 'ui basic red small button']) !!}
+                                {!! Form::close() !!}
+                                <a class="ui basic blue small button"
+                                   href="{{ action('CoursesController@edit', $course) }}"
+                                   role="button">Edit Course</a>
+                            </div>
                         </div>
-                        <div class="ui vertical segment">
-                            {!! Form::open(['method' => 'DELETE', 'route' => ['courses.destroy', $course], 'style'=>'display:inline-block;']) !!}
-                            {!! Form::submit('Delete', ['class' => 'ui basic red small button']) !!}
-                            {!! Form::close() !!}
-                            <a class="ui basic blue small button" href="{{ action('CoursesController@edit', $course) }}"
-                               role="button">Edit Course</a>
-                        </div>
-                    </div>
                     </div>
                 @endforeach
             </div>

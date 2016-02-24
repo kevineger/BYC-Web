@@ -27,6 +27,17 @@ class UserTableSeeder extends Seeder {
             'remember_token' => str_random(10),
             'vendor'         => true,
         ]);
+        // A known admin user
+        $admin = App\User::create([
+            'name'           => 'Leslie Knope',
+            'email'          => 'admin@example.com',
+            'password'       => bcrypt('password'),
+            'remember_token' => str_random(10),
+            'vendor'         => false,
+        ]);
+        //set admin attribute, not mass assignable for security
+        $admin->admin = true;
+        $admin->save();
 
         factory(App\User::class, 'consumer', 20)->create();
         factory(App\User::class, 'vendor', 5)->create();
