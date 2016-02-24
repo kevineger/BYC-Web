@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeSchoolRequest;
 use App\Http\Requests\SchoolRequest;
@@ -35,9 +36,10 @@ class SchoolsController extends Controller {
      */
     public function index()
     {
-            $schools = School::all();
+        $schools = School::all();
+        $categories = Category::all();
 
-            return view('school.index', ['schools' => $schools]);
+        return view('school.index', ['schools' => $schools, 'categories' => $categories]);
 
     }
 
@@ -115,11 +117,9 @@ class SchoolsController extends Controller {
      */
     public function removePhoto(Request $request)
     {
-        try
-        {
+        try {
             Photo::destroy($request->input('id'));
-        } catch (Exception $e)
-        {
+        } catch ( Exception $e ) {
             return "Unable to remove photo: " . $request->input('id');
         }
 
@@ -162,7 +162,7 @@ class SchoolsController extends Controller {
      */
     public function addComment(School $school, Request $request)
     {
-        $this->validate($request, ['text'=>'required']);
+        $this->validate($request, ['text' => 'required']);
         $comment = new Comment($request->all());
         Auth::user()->comments()->save($comment);
         $school->comments()->save($comment);
