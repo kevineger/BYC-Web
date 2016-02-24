@@ -47,7 +47,7 @@
         <th>Update/Delete</th>
         </thead>
         <tbody>
-        @foreach($courses->where('active',1) as $course)
+        @foreach($courses->whereLoose('active',1) as $course)
             <tr>
                 <td><a href="{{ action('CoursesController@show', [$course]) }}">{{$course->name}}</a></td>
                 <td>{{$course->school->name}}</td>
@@ -61,7 +61,7 @@
     </table>
     <div class="ui section divider"></div>
     <div class="ui floating negative message">
-        <p>{{$courses->where('active',0)->count()}} Inactive Courses</p>
+        <p>{{$courses->whereLoose('active',0)->count()}} Inactive Courses</p>
     </div>
     <table class="ui single line table">
         <thead>
@@ -70,7 +70,7 @@
         <th>Update/Delete</th>
         </thead>
         <tbody>
-        @foreach($courses->where('active',0) as $course)
+        @foreach($courses->whereLoose('active',0) as $course)
             <tr>
                 <td><a href="{{ action('CoursesController@show', [$course]) }}">{{$course->name}}</a></td>
                 <td>{{$course->school->name}}</td>
