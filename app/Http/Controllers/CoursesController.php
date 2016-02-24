@@ -14,6 +14,7 @@ use App\School;
 use App\Comment;
 use App\Course;
 use Cart;
+use Input;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class CoursesController extends Controller {
