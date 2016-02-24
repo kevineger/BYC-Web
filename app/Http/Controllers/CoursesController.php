@@ -13,6 +13,7 @@ use App\Http\Requests;
 use App\School;
 use App\Course;
 use Cart;
+use Input;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class CoursesController extends Controller {

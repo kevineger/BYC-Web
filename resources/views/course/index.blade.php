@@ -7,6 +7,8 @@
 @endsection
 
 @section('content')
+    {{--{{ dd(Input::old($categories)) }}--}}
+
     <div class="ui grid">
         <div class="four wide column">
             {!! Form::open(['method' => 'GET', 'action' => 'CoursesController@index']) !!}
@@ -28,7 +30,7 @@
                                         <label>All</label>
                                     </div>
                                 </a>
-                                @foreach($categories as $category)
+                                @foreach($categories as $key => $category)
                                     <a class="item">
                                         <div class="ui checkbox">
                                             <input onclick="specificCategories()" type="checkbox" name="categories[]"
