@@ -33,5 +33,6 @@ class Kernel extends HttpKernel
         'jwt.refresh' => \Tymon\JWTAuth\Middleware\RefreshToken::class,
         'vendor' => \App\Http\Middleware\RedirectIfNotVendor::class,
         'admin' => \App\Http\Middleware\RedirectIfNotAdmin::class,
+        'hasSchool' => \App\Http\Middleware\RedirectIfNoSchool::class,
     ];
 }
