@@ -11,20 +11,40 @@
 |
 */
 
+/*
+|--------------------------------------------------------------------------
+| Generic Static Pages
+|--------------------------------------------------------------------------
+*/
 Route::get('/', 'PagesController@home');
 Route::get('/contact', 'PagesController@contact');
 
+/*
+|--------------------------------------------------------------------------
+| Schools
+|--------------------------------------------------------------------------
+*/
 Route::resource('schools', 'SchoolsController');
 Route::post('schools/{schools}/addPhoto', ['as' => 'addPhotoToSchool', 'uses' => 'SchoolsController@addPhoto']);
 Route::post('schools/{schools}/removePhoto', ['as' => 'removePhotoFromSchool', 'uses' => 'SchoolsController@removePhoto']);
 Route::post('schools/{schools}/comment', 'SchoolsController@addComment');
 
+/*
+|--------------------------------------------------------------------------
+| Courses
+|--------------------------------------------------------------------------
+*/
 Route::post('courses/{courses}/comment', 'CoursesController@addComment');
 Route::resource('courses', 'CoursesController');
 Route::post('courses/{courses}/addPhoto', ['as' => 'addPhotoToCourse', 'uses' => 'CoursesController@addPhoto']);
 Route::post('courses/{courses}/removePhoto', ['as' => 'removePhotoFromCourse', 'uses' => 'CoursesController@removePhoto']);
 
 
+/*
+|--------------------------------------------------------------------------
+| Users
+|--------------------------------------------------------------------------
+*/
 Route::resource('users', 'UsersController', [
     'except' => [
         'index',
@@ -32,21 +52,18 @@ Route::resource('users', 'UsersController', [
         'store'
     ]
 ]);
-Route:get('admin', 'UsersController@admin');
-
+Route::get('admin', 'UsersController@admin');
 Route::post('users/{users}/addPhoto', ['as' => 'addPhotoToUser', 'uses' => 'UsersController@addPhoto']);
 Route::post('users/{users}/removePhoto', ['as' => 'removePhotoFromUser', 'uses' => 'UsersController@removePhoto']);
-
 // Authentication routes
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
-
 // Registration routes
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
-
 // Social Authentication routes
+// TODO: All of it.
 Route::get('auth/facebook', 'Auth\AuthController@redirectToProvider');
 Route::get('auth/facebook/callback', 'Auth\AuthController@handleProviderCallback');
 
@@ -71,8 +88,7 @@ Route::get('payment/status', array(
 | Cart
 |--------------------------------------------------------------------------
 */
-Route::group(['prefix' => 'cart'], function ()
-{
+Route::group(['prefix' => 'cart'], function () {
     Route::get('/', 'CartController@index');
     Route::post('{courses}/{times}/add', [
         'uses' => 'CartController@add',
@@ -97,8 +113,7 @@ Route::group(['prefix' => 'cart'], function ()
 | API
 |--------------------------------------------------------------------------
 */
-Route::group(['prefix' => 'api/v1', 'middleware' => ['cors']], function ()
-{
+Route::group(['prefix' => 'api/v1', 'middleware' => ['cors']], function () {
     Route::resource('schools', 'API\ApiSchoolsController');
     Route::get('schools/{schools}/courses', 'API\ApiSchoolsController@getCourses');
     Route::resource('courses', 'API\ApiCoursesController');
@@ -107,4 +122,6 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['cors']], function ()
     Route::post('register', 'API\ApiUsersController@register');
     Route::post('payment/status', 'API\ApiPayPalController@getPaymentStatus');
 //    Route::get('authenticate/user', 'AuthenticateController@getAuthenticatedUser');
+    Route::get('courses/{courses}/comments', 'API\ApiCommentsController@show');
+    Route::get('schools/{schools}/comments', 'API\ApiCommentsController@show');
 });

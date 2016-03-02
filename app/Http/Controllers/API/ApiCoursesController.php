@@ -9,8 +9,7 @@ use App\Http\Requests;
 use App\Course;
 use Response;
 
-class ApiCoursesController extends ApiController
-{
+class ApiCoursesController extends ApiController {
     /*
      * @var Transformers\CourseTransformer
      */
@@ -23,6 +22,12 @@ class ApiCoursesController extends ApiController
         $this->courseTransformer = $courseTransformer;
     }
 
+    /**
+     * Get a list of all courses.
+     * TODO: Pagination.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         $courses = Course::all();
@@ -32,6 +37,12 @@ class ApiCoursesController extends ApiController
         ]);
     }
 
+    /**
+     * Get the specified course.
+     *
+     * @param Course $course
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function show(Course $course)
     {
         // TODO: Fix error handling
