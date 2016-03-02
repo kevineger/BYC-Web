@@ -35,27 +35,22 @@ class CoursesController extends Controller {
      */
     public function search(Request $request)
     {
-//        dd($request->get('max_price'));
         $query = Course::active();
         // Check categories
         $categories_checked = $request->get('categories');
-        if ($categories_checked)
-        {
+        if ( $categories_checked ) {
             // All courses whose categories match the specified ones.
-            $query->whereHas('categories', function ($q) use ($categories_checked)
-            {
+            $query->whereHas('categories', function ($q) use ($categories_checked) {
                 $q->whereIn('text', $categories_checked);
             });
         }
         // Check query string
-        if ($request->get('query_string'))
-        {
+        if ( $request->get('query_string') ) {
             $query->where('name', 'LIKE', '%' . $request->get('query_string') . '%');
         }
         // Filter the specified prices
         $query->where('price', '>', (int)$request->get('min_price'));
         $query->where('price', '<', (int)$request->get('max_price'));
-
 
         return $query->get();
     }
@@ -69,11 +64,9 @@ class CoursesController extends Controller {
     public function index(Request $request)
     {
         // If search params have been specified, filter the result set
-        if (sizeof($request->input()) > 0)
-        {
+        if ( sizeof($request->input()) > 0 ) {
             $courses = $this->search($request);
-        } else
-        {
+        } else {
             // Else display all
             $courses = Course::active()->get();
         }
@@ -174,11 +167,9 @@ class CoursesController extends Controller {
      */
     public function removePhoto(Request $request)
     {
-        try
-        {
+        try {
             Photo::destroy($request->input('id'));
-        } catch (Exception $e)
-        {
+        } catch ( Exception $e ) {
             return "Unable to remove photo: " . $request->input('id');
         }
 
@@ -197,7 +188,7 @@ class CoursesController extends Controller {
         $this->authorize('updateCourse', $course);
 
         $course->update($request->all());
-        if ($request->get('active')) $course->active = true;
+        if ( $request->get('active') ) $course->active = true;
         else $course->active = false;
         $course->save();
 

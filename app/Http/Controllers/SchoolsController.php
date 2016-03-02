@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeSchoolRequest;
 use App\Http\Requests\SchoolRequest;
@@ -25,15 +26,55 @@ class SchoolsController extends Controller {
     }
 
     /**
+     * Limit the result set by specified search.
+     * TODO: Refactor this method to a repository for modularity.
+     *
+     * @param Request $request
+     */
+    public function search(Request $request)
+    {
+        $query = Course::active();
+        // Check categories
+        $categories_checked = $request->get('categories');
+        if ( $categories_checked ) {
+            // All courses whose categories match the specified ones.
+            $query->whereHas('categories', function ($q) use ($categories_checked) {
+                $q->whereIn('text', $categories_checked);
+            });
+        }
+        // Check query string
+        if ( $request->get('query_string') ) {
+            $query->where('name', 'LIKE', '%' . $request->get('query_string') . '%');
+        }
+
+        return $query->get();
+    }
+
+    /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // If search params have been specified, filter the result set
+        if ( sizeof($request->input()) > 0 ) {
+            $schools = $this->search($request);
+        } else {
+            // Else display all
             $schools = School::all();
+        }
 
-            return view('school.index', ['schools' => $schools]);
+        $categories = Category::all();
+
+        // Flash old input to repopulate on search
+        $request->flash();
+
+        return view('school.index', [
+            'schools'    => $schools,
+            'categories' => $categories
+        ]);
 
     }
 
@@ -113,11 +154,9 @@ class SchoolsController extends Controller {
      */
     public function removePhoto(Request $request)
     {
-        try
-        {
+        try {
             Photo::destroy($request->input('id'));
-        } catch (Exception $e)
-        {
+        } catch ( Exception $e ) {
             return "Unable to remove photo: " . $request->input('id');
         }
 

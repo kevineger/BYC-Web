@@ -31,8 +31,6 @@ Route::resource('users', 'UsersController', [
 Route::post('users/{users}/addPhoto', ['as' => 'addPhotoToUser', 'uses' => 'UsersController@addPhoto']);
 Route::post('users/{users}/removePhoto', ['as' => 'removePhotoFromUser', 'uses' => 'UsersController@removePhoto']);
 
-Route::get('search', 'SearchController@index');
-
 // Authentication routes
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');

@@ -11,12 +11,15 @@ var elixir = require('laravel-elixir');
  |
  */
 
-elixir(function(mix) {
+elixir(function (mix) {
     mix.sass('app.scss')
         .scripts([
             './vendor/semantic/ui/dist/semantic.min.js',
             'libs/lity.js'
         ], './public/js/libs.js')
+        .scripts([
+            'app.js'
+        ], './public/js/scripts.js')
         .styles([
             './vendor/semantic/ui/dist/semantic.min.css',
             'libs/lity.css'
