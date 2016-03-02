@@ -24,29 +24,52 @@
                 </div>
             </div>
         </div>
+
         @can('updateUser', $user)
         @if($user->vendor)
             <div class="ui horizontal divider">
                 Your School
             </div>
             <br>
-            <div class="ui segment">
-                <h3>{{$user->school->name}}</h3>
-                {!! Form::open(['method' => 'DELETE', 'route' => ['schools.destroy', $user->school], 'style'=>'display:inline-block;']) !!}
-                {!! Form::submit('Delete', ['class' => 'ui basic red button']) !!}
-                {!! Form::close() !!}
-                <a class="ui basic blue button" href="{{ action('SchoolsController@edit', $user->school) }}"
-                   role="button">Edit
-                    School</a>
-            </div>
+            @if($user->school!=null)
+                <div class="ui segment">
+                    <h3>{{$user->school->name}}</h3>
+                    {!! Form::open(['method' => 'DELETE', 'route' => ['schools.destroy', $user->school], 'style'=>'display:inline-block;']) !!}
+                    {!! Form::submit('Delete', ['class' => 'ui basic red button']) !!}
+                    {!! Form::close() !!}
+                    <a class="ui basic blue button" href="{{ action('SchoolsController@edit', $user->school) }}"
+                       role="button">Edit
+                        School</a>
+                </div>
+            @else
 
+                <a href="{{ action('SchoolsController@create') }}">
+                    <div class="ui vertical animated positive button" tabindex="0">
+                        <div class="hidden content">
+                            <i class="add icon"></i>
+                        </div>
+                        <div class="visible content">Add School</div>
+                    </div>
+                </a>
+            @endif
             <div class="ui horizontal divider">
                 Your Courses
             </div>
             <br>
-            <div class="ui grid">
+            @if($user->school!=null)
+            <div class="row">
+                <a href="{{ action('CoursesController@create') }}">
+                    <div class="ui vertical animated positive button" tabindex="0">
+                        <div class="hidden content">
+                            <i class="add icon"></i>
+                        </div>
+                        <div class="visible content">Add Course</div>
+                    </div>
+                </a>
+            </div>
+
                 @foreach($user->school->courses as $course)
-                    <div class="four wide column">
+                    <div class="center aligned four wide column">
                         <div class="ui segment">
                             <div class="ui vertical segment">
                                 <h3>{{$course->name}}</h3>
@@ -75,9 +98,12 @@
                         </div>
                     </div>
                 @endforeach
-            </div>
 
-
+            @else
+                <div class="ui button" id="message" data-content="Add your school before you can create a course">
+                    Add Courses
+                </div>
+            @endif
         @else
             <div class="row">
                 <div class="ten wide column">
@@ -98,41 +124,44 @@
                 </div>
             </div>
         @endif
-
-    </div>
-
-    <div class="ui horizontal divider">
-        Photos
-    </div>
-    <div class="ui grid">
-        @foreach ($user->photos->chunk(4) as $set)
-            <div class="row">
-                @foreach($set as $photo)
-                    <div class="four wide column">
-                        <a href="/{{ $photo->path }}" data-lity>
-                            <div class="ui card">
-                                <div class="image">
-                                    <img style="width:100%" src="/{{ $photo->thumbnail_path }}" alt="Photo">
+        <div class="ui horizontal divider">
+            Photos
+        </div>
+            @foreach ($user->photos->chunk(4) as $set)
+                <div class="row">
+                    @foreach($set as $photo)
+                        <div class="four wide column">
+                            <a href="/{{ $photo->path }}" data-lity>
+                                <div class="ui card">
+                                    <div class="image">
+                                        <img style="width:100%" src="/{{ $photo->thumbnail_path }}" alt="Photo">
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
-                    </div>
+                            </a>
+                        </div>
 
-                @endforeach
-            </div>
-        @endforeach
+                    @endforeach
+                </div>
+            @endforeach
+        <br>
+
+        <div class="ui horizontal divider">
+            Manage Account
+        </div>
+        {!! Form::open(['method' => 'DELETE', 'route' => ['users.destroy', $user], 'style'=>'display:inline-block;']) !!}
+        {!! Form::submit('Delete Account', ['class' => 'ui red button' ]) !!}
+        {!! Form::close() !!}
+        <a href="{{ action('UsersController@edit', [$user]) }}" role="button" class="ui blue button">Edit
+            Account</a>
+
+        @endcan
     </div>
-    <br>
-    <div class="ui horizontal divider">
-        Manage Account
-    </div>
-    {!! Form::open(['method' => 'DELETE', 'route' => ['users.destroy', $user], 'style'=>'display:inline-block;']) !!}
-    {!! Form::submit('Delete Account', ['class' => 'ui red button' ]) !!}
-    {!! Form::close() !!}
-    <a href="{{ action('UsersController@edit', [$user]) }}" role="button" class="ui blue button">Edit Account</a>
-
-    @endcan
 
 
+@endsection
 
+@section('footer')
+    <script>
+        $('#message').popup();
+    </script>
 @endsection
