@@ -33,14 +33,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Time[] $times
  * @method static \Illuminate\Database\Query\Builder|\App\Course search($search)
  */
-class Course extends Model
-{
+class Course extends Model {
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-        protected $fillable = [
+    protected $fillable = [
         'name',
         'school_id',
         'description',
@@ -131,5 +131,25 @@ class Course extends Model
     public function times()
     {
         return $this->belongsToMany('App\Time')->withPivot(['num_seats', 'num_reg']);
+    }
+
+    /**
+     * Return a nice even number slightly cheaper than the cheapest course.
+     *
+     * @return mixed
+     */
+    public static function cheapest()
+    {
+        return floor((float)Course::min('price'));
+    }
+
+    /**
+     * Return a nice even number slightly higher than the most expensive course.
+     *
+     * @return mixed
+     */
+    public static function expensive()
+    {
+        return floor((float)Course::max('price'));
     }
 }

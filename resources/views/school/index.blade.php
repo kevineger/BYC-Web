@@ -9,38 +9,7 @@
 @section('content')
     <div class="ui grid">
         <div class="four wide column">
-            {!! Form::open(['method' => 'GET', 'action' => 'SearchController@index']) !!}
-            <div class="ui vertical menu">
-                <div class="item">
-                    <div class="ui icon input">
-                        <input name="q" type="text" placeholder="Search">
-                        <i class="search icon"></i>
-                    </div>
-                </div>
-                <div class="item">
-                    Categories
-                    <div class="menu">
-                        <a class="active item">All</a>
-                        @foreach($categories as $category)
-                            <a class="item">{{ $category->text }}</a>
-                        @endforeach
-                    </div>
-                </div>
-                <a class="item">
-                    View Style <i class="list layout icon" href="#"></i> <i class="active grid layout icon"
-                                                                            href="#"></i>
-                </a>
-                <div class="ui dropdown item">
-                    More
-                    <i class="dropdown icon"></i>
-                    <div class="menu">
-                        <a class="item"><i class="edit icon"></i> Edit Profile</a>
-                        <a class="item"><i class="globe icon"></i> Choose Language</a>
-                        <a class="item"><i class="settings icon"></i> Account Settings</a>
-                    </div>
-                    {!! Form::close() !!}
-                </div>
-            </div>
+            @include('partials.filter.school')
         </div>
         <div class="twelve wide column">
             <div class="ui grid">
@@ -87,4 +56,8 @@
         </div>
     </div>
 
+@endsection
+
+@section('footer')
+    <script src="{{ asset('js/scripts.js') }}"></script>
 @endsection
