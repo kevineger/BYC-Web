@@ -53,7 +53,6 @@
                                 @endforeach
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <a class="item">
@@ -63,16 +62,20 @@
                 <a class="item">
                     <div class="ui slider range">
                         <label class="ui" for="min-range-selector">Min Price</label>
-                        <output class="ui label" for="min-range-selector" id="min-price">50</output>
-                        <input type="range" min="0" max="200" value="50" id="min-range-selector"
+                        <output class="ui label" for="min-range-selector"
+                                id="min-price">{{ $cheapest }}</output>
+                        <input name="min_price" type="range" min="0" max="{{ $most_expensive }}"
+                               value="{{ $cheapest }}" id="min-range-selector"
                                oninput="minPriceUpdate(value)">
                     </div>
                 </a>
                 <a class="item">
                     <div class="ui slider range">
                         <label class="ui" for="min-range-selector">Max Price</label>
-                        <output class="ui label" for="max-range-selector" id="max-price">200</output>
-                        <input type="range" min="50" max="300" value="200" id="max-range-selector"
+                        <output class="ui label" for="max-range-selector"
+                                id="max-price">{{ $most_expensive }}</output>
+                        <input name="max_price" type="range" min="{{ $cheapest }}" max="100"
+                               value="{{ $most_expensive }}" id="max-range-selector"
                                oninput="maxPriceUpdate(value)">
                     </div>
                 </a>
