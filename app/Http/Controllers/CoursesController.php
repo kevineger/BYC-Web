@@ -13,6 +13,7 @@ use App\Http\Requests;
 use App\School;
 use App\Course;
 use Cart;
+use Input;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class CoursesController extends Controller {
@@ -70,9 +71,16 @@ class CoursesController extends Controller {
             // Else display all
             $courses = Course::active()->get();
         }
+
         $categories = Category::all();
 
-        return view('course.index', ['courses' => $courses, 'categories' => $categories]);
+        // Flash old input to repopulate on search
+        $request->flash();
+
+        return view('course.index', [
+            'courses'    => $courses,
+            'categories' => $categories
+        ]);
     }
 
     /**
