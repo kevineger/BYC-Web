@@ -62,6 +62,8 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 // Registration routes
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
+// Email Confirmation Routes
+get('auth/register/confirm/{token}', 'Auth\AuthController@confirmEmail');
 // Social Authentication routes
 // TODO: All of it.
 Route::get('auth/facebook', 'Auth\AuthController@redirectToProvider');

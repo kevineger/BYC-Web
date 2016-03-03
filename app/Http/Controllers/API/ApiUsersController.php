@@ -37,6 +37,7 @@ class ApiUsersController extends ApiController {
         try {
             $credentials['password'] = bcrypt($credentials['password']);
             $user = User::create($credentials);
+            // TODO: Trigger confirmation email
         } catch ( Exception $e ) {
             return $this->setStatusCode(409)->respondWithError('User Already Exists.');
         }

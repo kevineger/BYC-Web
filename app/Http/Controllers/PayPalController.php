@@ -9,7 +9,7 @@ use Carbon\Carbon;
 use Cart;
 use Config;
 use Illuminate\Http\Request;
-
+use App\Mailers\AppMailer;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use PayPal\Exception\PayPalConnectionException;
@@ -123,9 +123,11 @@ class PayPalController extends Controller {
         // TODO: Set up UI friendly route
         return Redirect::route('original.route')
             ->with('error', 'Unknown error occurred');
+
+
     }
 
-    public function getPaymentStatus(Request $request)
+    public function getPaymentStatus(Request $request, AppMailer $mailer)
     {
         error_log("Getting payment status");
 
@@ -155,10 +157,9 @@ class PayPalController extends Controller {
         if ( $result->getState() == 'approved' ) {
             // Store payment result/record in DB
             $this->storeRecord($result);
-
+            $mailer->sendPurchaseConfirmationTo(Auth::user());
             error_log("Payment has been made");
 
-            // Payment made
             // TODO: Set up payment successful view
             return "Payment successful";
             /*return Redirect::route('original.route')
@@ -171,7 +172,6 @@ class PayPalController extends Controller {
         return Redirect::route('original.route')
             ->with('error', 'Payment failed');
     }
-
     /**
      * Persist a payment record in the database.
      *

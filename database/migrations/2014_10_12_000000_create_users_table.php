@@ -21,6 +21,8 @@ class CreateUsersTable extends Migration
             $table->boolean('vendor')->default(false);
             // A user by default is not an admin
             $table->boolean('admin')->default(false);
+            $table->boolean('verified')->default(false);
+            $table->string('token')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

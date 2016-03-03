@@ -18,6 +18,7 @@ class UserTableSeeder extends Seeder {
             'password'       => bcrypt('password'),
             'remember_token' => str_random(10),
             'vendor'         => false,
+            'verified'       => true,
         ]);
         // A known vendor user
         App\User::create([
@@ -26,6 +27,7 @@ class UserTableSeeder extends Seeder {
             'password'       => bcrypt('password'),
             'remember_token' => str_random(10),
             'vendor'         => true,
+            'verified'       => true,
         ]);
         // A known admin user
         $admin = App\User::create([
@@ -34,6 +36,7 @@ class UserTableSeeder extends Seeder {
             'password'       => bcrypt('password'),
             'remember_token' => str_random(10),
             'vendor'         => false,
+            'verified'       => true,
         ]);
         //set admin attribute, not mass assignable for security
         $admin->admin = true;

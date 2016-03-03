@@ -38,6 +38,8 @@
 @include('partials.nav')
 
 <div class="ui container container-margin">
+    @include('partials.flash')
+
     @yield('content')
 </div>
 

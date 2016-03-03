@@ -146,4 +146,23 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->id == $related->user_id;
     }
+
+    /**
+     * Listen for event where user is created and set email token
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function($user){
+            $user->token = str_random(30);
+        });
+    }
+
+    public function confirmEmail()
+    {
+        $this->verified = true;
+        $this->token = null;
+        $this->save();
+    }
 }
