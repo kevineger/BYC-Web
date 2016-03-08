@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-    <h2 class="ui teal image header">
+    <h2 class="ui center aligned teal header">
         <div class="content">
             Edit an Existing Course
         </div>

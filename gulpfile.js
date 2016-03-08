@@ -15,13 +15,15 @@ elixir(function (mix) {
     mix.sass('app.scss')
         .scripts([
             './vendor/semantic/ui/dist/semantic.min.js',
-            'libs/lity.js'
+            'libs/lity.js',
+            'libs/jquery-clockpicker.min.js'
         ], './public/js/libs.js')
         .scripts([
             'app.js'
         ], './public/js/scripts.js')
         .styles([
             './vendor/semantic/ui/dist/semantic.min.css',
-            'libs/lity.css'
+            'libs/lity.css',
+            'libs/jquery-clockpicker.min.css'
         ], './public/css/libs.css');
 });

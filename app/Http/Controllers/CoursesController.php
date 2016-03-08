@@ -107,8 +107,9 @@ class CoursesController extends Controller {
      * @param CourseRequest|Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CourseRequest $request)
+    public function store(Request $request)
     {
+        dd($request);
         $school = auth()->user()->school;
 
         $course = $school->courses()->create($request->all());
