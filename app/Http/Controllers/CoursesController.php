@@ -42,14 +42,17 @@ class CoursesController extends Controller {
         $query = Course::active();
         // Check categories
         $categories_checked = $request->get('categories');
-        if ( $categories_checked ) {
+        if ($categories_checked)
+        {
             // All courses whose categories match the specified ones.
-            $query->whereHas('categories', function ($q) use ($categories_checked) {
+            $query->whereHas('categories', function ($q) use ($categories_checked)
+            {
                 $q->whereIn('text', $categories_checked);
             });
         }
         // Check query string
-        if ( $request->get('query_string') ) {
+        if ($request->get('query_string'))
+        {
             $query->where('name', 'LIKE', '%' . $request->get('query_string') . '%');
         }
         // Filter the specified prices
@@ -68,9 +71,11 @@ class CoursesController extends Controller {
     public function index(Request $request)
     {
         // If search params have been specified, filter the result set
-        if ( sizeof($request->input()) > 0 ) {
+        if (sizeof($request->input()) > 0)
+        {
             $courses = $this->search($request);
-        } else {
+        } else
+        {
             // Else display all
             $courses = Course::active()->get();
         }
@@ -111,25 +116,27 @@ class CoursesController extends Controller {
      */
     public function store(Request $request)
     {
-//        dd($request->all());
         $school = auth()->user()->school;
 
         // Save the course
         $course = $school->courses()->create($request->all());
 
         // Save each of the course times
-        foreach ( $request->get('days') as $key => $days ) {
+        foreach ($request->get('days') as $key => $days)
+        {
             $course->times()->attach(Time::create([
-                'mon'        => in_array('mon', $days),
-                'tue'        => in_array('tue', $days),
-                'wed'        => in_array('wed', $days),
-                'thu'        => in_array('thu', $days),
-                'fri'        => in_array('fri', $days),
-                'sat'        => in_array('sat', $days),
-                'sun'        => in_array('sun', $days),
-                'start_time' => Carbon::createFromFormat('H:i', $request->get('start_time')[$key]),
-                'end_time'   => Carbon::createFromFormat('H:i', $request->get('end_time')[$key]),
-                'repeats'    => $request->get('repeat')[$key]
+                'mon'            => in_array('mon', $days),
+                'tue'            => in_array('tue', $days),
+                'wed'            => in_array('wed', $days),
+                'thu'            => in_array('thu', $days),
+                'fri'            => in_array('fri', $days),
+                'sat'            => in_array('sat', $days),
+                'sun'            => in_array('sun', $days),
+                'start_time'     => Carbon::createFromFormat('H:i', $request->get('start_time')[$key]),
+                'end_time'       => Carbon::createFromFormat('H:i', $request->get('end_time')[$key]),
+                'repeats'        => $request->get('repeat')[$key],
+                'beginning_date' => Carbon::createFromFormat('m/d/Y', $request->get('beginning_date')[$key]),
+                'end_date'       => Carbon::createFromFormat('m/d/Y', $request->get('end_date')[$key])
             ]));
         }
 
@@ -187,9 +194,11 @@ class CoursesController extends Controller {
      */
     public function removePhoto(Request $request)
     {
-        try {
+        try
+        {
             Photo::destroy($request->input('id'));
-        } catch ( Exception $e ) {
+        } catch (Exception $e)
+        {
             return "Unable to remove photo: " . $request->input('id');
         }
 
@@ -206,7 +215,7 @@ class CoursesController extends Controller {
     public function update(CourseRequest $request, Course $course)
     {
         $course->update($request->all());
-        if ( $request->get('active') ) $course->active = true;
+        if ($request->get('active')) $course->active = true;
         else $course->active = false;
         $course->save();
 

@@ -13,9 +13,6 @@
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 
-    {{--JQuery--}}
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-
     {{---Fonts-----------------------------------------------------------------}}
     <link href='http://fonts.googleapis.com/css?family=Crimson+Text:600,400' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Raleway:500' rel='stylesheet' type='text/css'>
@@ -41,6 +38,8 @@
     @yield('content')
 </div>
 
+{{--JQuery----------------------------------------------------------------}}
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 {{---Compiled JS----------------------------------------------------------}}
 <script src="{{ asset('js/libs.js') }}"></script>
 {{-------------------------------------------------------------------------}}

@@ -1,7 +1,6 @@
 @section('header')
-    {{--Clock Picker--}}
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <link rel="stylesheet" href="{{ asset('css/libs.css') }}" type='text/css'>
+    {{--Date Picker--}}
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 @endsection
 
 <div class="ui centered grid">
@@ -118,5 +117,9 @@
         $('.clockpicker').clockpicker();
         {{--Initialize the Semantic UI checkbox--}}
         $('.ui.checkbox').checkbox();
+        {{--Date Picker--}}
+        $(document).ready(function() {
+            $(".datepicker").datepicker();
+        });
     </script>
 @endsection

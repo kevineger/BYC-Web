@@ -46,7 +46,7 @@
                 </div>
             </h4>
             <br>
-            <div class="input-group clockpicker" data-placement="left" data-align="top" data-autoclose="true">
+            <div class="input-group clockpicker" data-placement="top" data-align="top" data-autoclose="true">
                 <div class="ui icon input">
                     <input name="start_time[@{{ count }}]" type="text" value="9:30">
                     <i class="wait icon"></i>
@@ -62,11 +62,23 @@
                 </div>
             </h4>
             <br>
-            <div class="input-group clockpicker" data-placement="right" data-align="top" data-autoclose="true">
+            <div class="input-group clockpicker" data-placement="top" data-align="top" data-autoclose="true">
                 <div class="ui icon input">
                     <input name="end_time[@{{ count }}]" type="text" value="10:30">
                     <i class="wait icon"></i>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="inline fields">
+        <div class="field">
+            <div class="ui input">
+                <input name="beginning_date[@{{ count }}]" class="datepicker"/>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui input">
+                <input name="end_date[@{{ count }}]" class="datepicker"/>
             </div>
         </div>
     </div>

@@ -4,7 +4,9 @@
     <h1 class="ui block header">
         <div class="content">
             {{ $course->name }}
-            <div class="sub header"><a href="{{ action('SchoolsController@show', [$course->school]) }}">{{$course->school->name}}</a></div>
+            <div class="sub header"><a
+                        href="{{ action('SchoolsController@show', [$course->school]) }}">{{$course->school->name}}</a>
+            </div>
             <div class="ui tag labels">
                 @foreach( $course->categories as $category)
                     <a class="ui label">{{ $category->text }}</a>
@@ -51,7 +53,7 @@
                 @foreach( $course->times as $time)
 
                     <div class="item">
-                        <div class="image">
+                        <div class="ui middle aligned image">
                             {!! Form::open(['route' => ['cart.add', $course, $time], 'style' => 'display: inline']) !!}
                             <button type="submit" class="ui icon button teal">
                                 <i class="large add to cart icon"></i>
@@ -59,7 +61,16 @@
                             {!! Form::close() !!}
                         </div>
                         <div class="middle aligned content">
-                            <div class="header">{{ $time->time_of_day }}</div>
+                            <h4 class="ui header">
+                                {{ $time->start_time->hour }}:{{ $time->start_time->minute }}
+                                -
+                                {{ $time->end_time->hour }}:{{ $time->end_time->minute }}
+                                <div class="sub header">
+                                    {{ $time->beginning_date->toFormattedDateString() }}
+                                    to
+                                    {{ $time->end_date->toFormattedDateString() }}
+                                </div>
+                            </h4>
                             <p>
                                 @foreach( $time->days() as $key => $day )
                                     {{ $day }}

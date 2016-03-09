@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Time extends Model {
+
     /**
      * The attributes that are mass assignable.
      *
@@ -12,17 +13,25 @@ class Time extends Model {
      */
     protected $fillable = [
         'course_id',
-        'time_of_day',
+        'start_time',
+        'end_time',
         'mon',
-        'tues',
+        'tue',
         'wed',
-        'thurs',
+        'thu',
         'fri',
         'sat',
         'sun',
         'beginning_date',
         'end_date',
         'repeats'
+    ];
+
+    protected $dates = [
+        'start_time',
+        'end_time',
+        'beginning_date',
+        'end_date'
     ];
 
     public function course()
@@ -38,13 +47,13 @@ class Time extends Model {
     public function days()
     {
         $active_days = [];
-        if ( $this['mon'] ) array_push($active_days, 'Monday');
-        if ( $this['tues'] ) array_push($active_days, 'Tuesday');
-        if ( $this['wed'] ) array_push($active_days, 'Wednesday');
-        if ( $this['thurs'] ) array_push($active_days, 'Thursday');
-        if ( $this['fri'] ) array_push($active_days, 'Friday');
-        if ( $this['sat'] ) array_push($active_days, 'Saturday');
-        if ( $this['sun'] ) array_push($active_days, 'Sunday');
+        if ($this['mon']) array_push($active_days, 'Monday');
+        if ($this['tues']) array_push($active_days, 'Tuesday');
+        if ($this['wed']) array_push($active_days, 'Wednesday');
+        if ($this['thurs']) array_push($active_days, 'Thursday');
+        if ($this['fri']) array_push($active_days, 'Friday');
+        if ($this['sat']) array_push($active_days, 'Saturday');
+        if ($this['sun']) array_push($active_days, 'Sunday');
 
         return $active_days;
     }
