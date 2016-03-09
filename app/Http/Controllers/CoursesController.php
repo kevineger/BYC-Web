@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeCourseRequest;
 use App\Http\Requests\CourseRequest;
 use App\Photo;
+use App\Time;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -109,10 +111,27 @@ class CoursesController extends Controller {
      */
     public function store(Request $request)
     {
-        dd($request);
+//        dd($request->all());
         $school = auth()->user()->school;
 
+        // Save the course
         $course = $school->courses()->create($request->all());
+
+        // Save each of the course times
+        foreach ( $request->get('days') as $key => $days ) {
+            $course->times()->attach(Time::create([
+                'mon'        => in_array('mon', $days),
+                'tue'        => in_array('tue', $days),
+                'wed'        => in_array('wed', $days),
+                'thu'        => in_array('thu', $days),
+                'fri'        => in_array('fri', $days),
+                'sat'        => in_array('sat', $days),
+                'sun'        => in_array('sun', $days),
+                'start_time' => Carbon::createFromFormat('H:i', $request->get('start_time')[$key]),
+                'end_time'   => Carbon::createFromFormat('H:i', $request->get('end_time')[$key]),
+                'repeats'    => $request->get('repeat')[$key]
+            ]));
+        }
 
         return redirect()->action('CoursesController@show', ['course' => $course]);
     }
@@ -217,7 +236,7 @@ class CoursesController extends Controller {
      */
     public function addComment(Course $course, Request $request)
     {
-        $this->validate($request, ['text'=>'required']);
+        $this->validate($request, ['text' => 'required']);
         $comment = new Comment($request->all());
         auth()->user()->comments()->save($comment);
         $course->comments()->save($comment);

@@ -15,11 +15,12 @@ class CreateTimesTable extends Migration
     {
         Schema::create('times', function (Blueprint $table) {
             $table->increments('id');
-            $table->dateTime('time_of_day')->default(Carbon::now()->month(0)->second(0));
+            $table->dateTime('start_time');
+            $table->dateTime('end_time');
             $table->boolean('mon');
-            $table->boolean('tues');
+            $table->boolean('tue');
             $table->boolean('wed');
-            $table->boolean('thurs');
+            $table->boolean('thu');
             $table->boolean('fri');
             $table->boolean('sat');
             $table->boolean('sun');

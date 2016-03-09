@@ -29,7 +29,7 @@
             </h4>
             <br>
             <div class="ui labels">
-                <input type="hidden" name="repeat" value="w">
+                <input type="hidden" name="repeat[@{{ count }}]" value="w">
                 <a v-on:click="toggleRepeat" id='w' class="ui green label repeat">Weekly</a>
                 <a v-on:click="toggleRepeat" id='b' class="ui grey label repeat">Biweekly</a>
                 <a v-on:click="toggleRepeat" id='m' class="ui grey label repeat">Monthly</a>
@@ -48,7 +48,7 @@
             <br>
             <div class="input-group clockpicker" data-placement="left" data-align="top" data-autoclose="true">
                 <div class="ui icon input">
-                    <input type="text" value="9:30">
+                    <input name="start_time[@{{ count }}]" type="text" value="9:30">
                     <i class="wait icon"></i>
                 </div>
             </div>
@@ -64,7 +64,7 @@
             <br>
             <div class="input-group clockpicker" data-placement="right" data-align="top" data-autoclose="true">
                 <div class="ui icon input">
-                    <input type="text" value="10:30">
+                    <input name="end_time[@{{ count }}]" type="text" value="10:30">
                     <i class="wait icon"></i>
                 </div>
             </div>

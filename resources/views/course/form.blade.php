@@ -74,8 +74,12 @@
     {{--Vue JS--}}
     <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.17/vue.min.js"></script>
     <script>
+        num = 0;
         var timeComponent = Vue.component('time', {
             template: '#times-template',
+            data: function() {
+                return {count: num}
+            },
             methods: {
                 toggleRepeat: function (e) {
                     var repeat = $(e.target);
@@ -90,7 +94,7 @@
                     // If adding day of week
                     if (dayOfWeek.hasClass('grey')) {
                         dayOfWeek.removeClass('grey').addClass('green');
-                        dayOfWeek.parent().append('<input class=' + dayOfWeek.attr('id') + ' type="hidden" name="days[]" value=' + dayOfWeek.attr('id') + '>');
+                        dayOfWeek.parent().append('<input class=' + dayOfWeek.attr('id') + ' type="hidden" name="days['+ this.$data.count +'][]" value=' + dayOfWeek.attr('id') + '>');
                     } else {
                         // Removing day of week
                         dayOfWeek.removeClass('green').addClass('grey');
@@ -105,7 +109,10 @@
         });
         {{--Add Time Function--}}
         function addTime() {
+            num++;
             new timeComponent().$mount().$appendTo('#app');
+            {{--ClockPicker--}}
+            $('.clockpicker').clockpicker();
         }
         {{--ClockPicker--}}
         $('.clockpicker').clockpicker();
