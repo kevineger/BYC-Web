@@ -76,7 +76,7 @@
         num = 0;
         var timeComponent = Vue.component('time', {
             template: '#times-template',
-            data: function() {
+            data: function () {
                 return {count: num}
             },
             methods: {
@@ -93,7 +93,7 @@
                     // If adding day of week
                     if (dayOfWeek.hasClass('grey')) {
                         dayOfWeek.removeClass('grey').addClass('green');
-                        dayOfWeek.parent().append('<input class=' + dayOfWeek.attr('id') + ' type="hidden" name="days['+ this.$data.count +'][]" value=' + dayOfWeek.attr('id') + '>');
+                        dayOfWeek.parent().append('<input class=' + dayOfWeek.attr('id') + ' type="hidden" name="days[' + this.$data.count + '][]" value=' + dayOfWeek.attr('id') + '>');
                     } else {
                         // Removing day of week
                         dayOfWeek.removeClass('green').addClass('grey');
@@ -112,13 +112,17 @@
             new timeComponent().$mount().$appendTo('#app');
             {{--ClockPicker--}}
             $('.clockpicker').clockpicker();
+            $(".datepicker").datepicker();
         }
+        $(document).on('click', '.remove', function() {
+            $(this).parent().parent().remove();
+        });
         {{--ClockPicker--}}
         $('.clockpicker').clockpicker();
         {{--Initialize the Semantic UI checkbox--}}
         $('.ui.checkbox').checkbox();
         {{--Date Picker--}}
-        $(document).ready(function() {
+        $(document).ready(function () {
             $(".datepicker").datepicker();
         });
     </script>

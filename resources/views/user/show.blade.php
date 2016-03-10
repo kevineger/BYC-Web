@@ -76,11 +76,8 @@
                                     <span class="floating ui yellow label">Inactive</span>
                                 @endif
 
-                                @foreach($course->purchases as $purchase)
-
-                                @endforeach
-
-                                <p><a href="{{ action('CoursesController@details', $course) }}">Registered Users/Payment Details</a></p>
+                                <p><a href="{{ action('CoursesController@details', $course) }}">Registered Users/Payment
+                                        Details</a></p>
                             </div>
                             <div class="ui vertical segment">
                                 {!! Form::open(['method' => 'DELETE', 'route' => ['courses.destroy', $course], 'style'=>'display:inline-block;']) !!}

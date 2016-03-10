@@ -13,7 +13,7 @@
         <li>Course: {{$purchase->course->name}}</li>
         <li>Start Date: {{$purchase->time->beginning_date}}</li>
         <li>End Date: {{$purchase->time->end_date}}</li>
-        <li>Time: {{$purchase->time->time_of_day}}</li>
+        <li>Time: {{$purchase->time->start_time}} - {{$purchase->time->end_time}}</li>
         <li>Days:
             <ul>
                 @foreach( $purchase->time->days() as $key => $day )
