@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Mailers\AppMailer;
 use Validator;
 use Socialite;
 use App\User;
@@ -60,6 +63,7 @@ class AuthController extends Controller {
      */
     protected function create(array $data)
     {
+
         return User::create([
             'name'     => $data['name'],
             'email'    => $data['email'],
@@ -89,5 +93,62 @@ class AuthController extends Controller {
 
         dd($user);
         // $user->token;
+    }
+
+    /**
+     * Override postRegister, handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function postRegister(Request $request, AppMailer $mailer)
+    {
+
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails())
+        {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+        $user = $this->create($request->all());
+
+        $mailer->sendEmailConfirmationTo($user);
+
+        session()->flash('message', 'Please confirm your email address.');
+
+        return redirect()->back();
+    }
+
+    /**
+     * Find user with specific token and call confirm email to set user as verified.
+     *
+     * @param $token
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function confirmEmail($token)
+    {
+
+        User::whereToken($token)->firstOrFail()->confirmEmail();
+
+        session()->flash('message', 'You are now confirmed. Please login');
+
+        return redirect('auth/login');
+
+    }
+    /**
+     * Override getCredentials. Get the login credentials and requirements.
+     *
+     * @param  Request $request
+     * @return array
+     */
+    protected function getCredentials(Request $request)
+    {
+        return [
+            'email'    => $request->input('email'),
+            'password' => $request->input('password'),
+            'verified' => true
+        ];
     }
 }

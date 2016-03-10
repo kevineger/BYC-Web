@@ -10,8 +10,38 @@
         </div>
     </h2>
     <h3 class="ui dividing header">
+        Users
+    </h3>
+    <div class="ui floating info message">
+        <p>{{$users->whereLoose('vendor',1)->count()}} Vendor(s)</p>
+        <p>{{$users->whereLoose('vendor',0)->count()}} Consumer(s)</p>
+    </div>
+    <table class="ui single line table">
+        <thead>
+        <th>Name</th>
+        <th>Vendor</th>
+        <th>Update/Delete</th>
+        </thead>
+        <tbody>
+        @foreach($users as $user)
+            <tr>
+                <td><a href="{{ action('UsersController@show', $user) }}">{{$user->name}}</a></td>
+
+                <td>{{$user->vendor}}</td>
+                <td>{!! Form::open(['method' => 'DELETE', 'route' => ['users.destroy', $user], 'style'=>'display:inline-block;']) !!}
+                    {!! Form::submit('Delete', ['class' => 'ui basic red button']) !!}
+                    {!! Form::close() !!}
+                    <a class="ui basic blue button" href="{{ action('UsersController@edit', $user) }}" role="button">Edit User</a>
+                </td>
+            </tr>
+        @endforeach
+    </table>
+    <h3 class="ui dividing header">
         Schools
     </h3>
+    <div class="ui floating info message">
+        <p>{{$schools->count()}} School(s)</p>
+    </div>
     <table class="ui single line table">
         <thead>
         <th>Name</th>
@@ -22,7 +52,7 @@
         <tbody>
         @foreach($schools as $school)
             <tr>
-                <td><a href="{{ action('SchoolsController@show', [$school]) }}">{{$school->name}}</a></td>
+                <td><a href="{{ action('SchoolsController@show', $school) }}">{{$school->name}}</a></td>
                 <td>{{$school->user->name}}</td>
                 <td>{{$school->courses->count()}}</td>
                 <td>{!! Form::open(['method' => 'DELETE', 'route' => ['schools.destroy', $school], 'style'=>'display:inline-block;']) !!}
@@ -38,7 +68,7 @@
        Courses
     </h3>
     <div class="ui floating positive message">
-        <p>{{$courses->where('active',1)->count()}} Active Courses</p>
+        <p>{{$courses->whereLoose('active',1)->count()}} Active Course(s)</p>
     </div>
     <table class="ui single line table">
         <thead>
@@ -49,19 +79,19 @@
         <tbody>
         @foreach($courses->whereLoose('active',1) as $course)
             <tr>
-                <td><a href="{{ action('CoursesController@show', [$course]) }}">{{$course->name}}</a></td>
+                <td><a href="{{ action('CoursesController@show', $course) }}">{{$course->name}}</a></td>
                 <td>{{$course->school->name}}</td>
                 <td>{!! Form::open(['method' => 'DELETE', 'route' => ['courses.destroy', $course], 'style' => 'display:inline;']) !!}
                     {!! Form::submit('Delete', ['class' => 'ui basic red button']) !!}
                     {!! Form::close() !!}
 
-                    <a class="ui basic blue button" href="{{ action('CoursesController@edit', [$course]) }}" role="button">Edit Course</a></td>
+                    <a class="ui basic blue button" href="{{ action('CoursesController@edit', $course) }}" role="button">Edit Course</a></td>
             </tr>
         @endforeach
     </table>
     <div class="ui section divider"></div>
     <div class="ui floating negative message">
-        <p>{{$courses->whereLoose('active',0)->count()}} Inactive Courses</p>
+        <p>{{$courses->whereLoose('active',0)->count()}} Inactive Course(s)</p>
     </div>
     <table class="ui single line table">
         <thead>
@@ -72,18 +102,21 @@
         <tbody>
         @foreach($courses->whereLoose('active',0) as $course)
             <tr>
-                <td><a href="{{ action('CoursesController@show', [$course]) }}">{{$course->name}}</a></td>
+                <td><a href="{{ action('CoursesController@show', $course) }}">{{$course->name}}</a></td>
                 <td>{{$course->school->name}}</td>
                 <td>{!! Form::open(['method' => 'DELETE', 'route' => ['courses.destroy', $course], 'style' => 'display:inline;']) !!}
                     {!! Form::submit('Delete', ['class' => 'ui basic red button']) !!}
                     {!! Form::close() !!}
-                    <a class="ui basic blue button" href="{{ action('CoursesController@edit', [$course]) }}" role="button">Edit Course</a></td>
+                    <a class="ui basic blue button" href="{{ action('CoursesController@edit', $course) }}" role="button">Edit Course</a></td>
             </tr>
         @endforeach
     </table>
     <h3 class="ui dividing header">
        Payment
     </h3>
+    <div class="ui floating info message">
+        <p>{{$purchases->count()}} Purchase(s)</p>
+    </div>
     <table class="ui single line table">
         <thead>
         <th>Course</th>

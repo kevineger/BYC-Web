@@ -28,6 +28,7 @@ class Purchase extends Model {
     {
         return $this->belongsTo('App\Payment');
     }
+
     /**
      * A Purchase belongs to one course.
      *
@@ -37,4 +38,16 @@ class Purchase extends Model {
     {
         return $this->belongsTo('App\Course');
     }
+
+    /**
+     * A Purchase belongs to one time.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function time()
+    {
+        return $this->belongsTo('App\Time');
+    }
+
+
 }

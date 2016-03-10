@@ -115,7 +115,7 @@ class UsersController extends Controller {
      */
     public function destroy(User $user)
     {
-        $this->authorize('update', $user);
+        $this->authorize('updateUser', $user);
 
         $user->delete();
 
@@ -129,10 +129,11 @@ class UsersController extends Controller {
      */
     public function admin()
     {
+        $users = User::all();
         $schools = School::all();
         $courses = Course::all();
         $purchases = Purchase::all();
-        return view('user.admin', ['schools'=>$schools, 'courses'=>$courses, 'purchases'=>$purchases]);
+        return view('user.admin', ['users'=>$users, 'schools'=>$schools, 'courses'=>$courses, 'purchases'=>$purchases]);
     }
 
 }

@@ -38,6 +38,7 @@ Route::post('courses/{courses}/comment', 'CoursesController@addComment');
 Route::resource('courses', 'CoursesController');
 Route::post('courses/{courses}/addPhoto', ['as' => 'addPhotoToCourse', 'uses' => 'CoursesController@addPhoto']);
 Route::post('courses/{courses}/removePhoto', ['as' => 'removePhotoFromCourse', 'uses' => 'CoursesController@removePhoto']);
+Route::get('courses/{courses}/details', 'CoursesController@details');
 
 
 /*
@@ -62,6 +63,14 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 // Registration routes
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
+// Email Confirmation Routes
+get('auth/register/confirm/{token}', 'Auth\AuthController@confirmEmail');
+// Password reset link request routes.
+Route::get('password/email', 'Auth\PasswordController@getEmail');
+Route::post('password/email', 'Auth\PasswordController@postEmail');
+// Password reset routes.
+Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
+Route::post('password/reset', 'Auth\PasswordController@postReset');
 // Social Authentication routes
 // TODO: All of it.
 Route::get('auth/facebook', 'Auth\AuthController@redirectToProvider');

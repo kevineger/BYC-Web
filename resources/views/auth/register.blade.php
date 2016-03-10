@@ -35,7 +35,7 @@
                     </div>
                     <div class="field">
                         {!! Form::label('type', 'User Type') !!}
-                        {!! Form::select('type', ['1' => 'Vendor', '0' => 'Consumer']) !!}
+                        {!! Form::select('type', ['0' => 'Consumer', '1' => 'Vendor']) !!}
                     </div>
                     <br>
 

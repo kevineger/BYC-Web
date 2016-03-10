@@ -26,8 +26,9 @@
                                 <input type="password" name="password" id="password" placeholder="Password">
                             </div>
                         </div>
-                        {{--<div class="ui fluid large teal submit button">Login</div>--}}
                         <button type="submit" class="ui fluid large teal submit button">Login</button>
+                        <br>
+                        <a href="{{ url('/password/email') }}">Forgot Your Password?</a>
                     </div>
                 </form>
                 <div class="ui message">

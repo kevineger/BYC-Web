@@ -152,4 +152,14 @@ class Course extends Model {
     {
         return floor((float)Course::max('price'));
     }
+
+    /**
+     * A Course has many Purchases.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function purchases()
+    {
+        return $this->hasMany('App\Purchase');
+    }
 }

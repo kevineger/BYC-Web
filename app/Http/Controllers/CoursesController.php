@@ -26,9 +26,9 @@ class CoursesController extends Controller {
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show', 'search']]);
-        $this->middleware('vendor', ['except' => ['index', 'show', 'search', 'addComment']]);
-        $this->middleware('hasSchool', ['except' => ['index', 'show', 'search', 'addComment']]);
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware('vendor', ['except' => ['index', 'show', 'addComment']]);
+        $this->middleware('hasSchool', ['except' => ['index', 'show', 'addComment']]);
     }
 
     /**
@@ -254,4 +254,16 @@ class CoursesController extends Controller {
 
     }
 
+    /**
+     * Displays course details. Allows vendors to view consumers registered and payments made for a specified course.
+     *
+     * @param Course $course
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function details(Course $course)
+    {
+        $this->authorize('updateCourse', $course);
+
+        return view('course.details', ['course'=>$course]);
+    }
 }
