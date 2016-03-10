@@ -159,6 +159,9 @@ class User extends Model implements AuthenticatableContract,
         });
     }
 
+    /**
+     * Email has been confirmed by user.
+     */
     public function confirmEmail()
     {
         $this->verified = true;

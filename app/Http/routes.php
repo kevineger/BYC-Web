@@ -38,6 +38,7 @@ Route::post('courses/{courses}/comment', 'CoursesController@addComment');
 Route::resource('courses', 'CoursesController');
 Route::post('courses/{courses}/addPhoto', ['as' => 'addPhotoToCourse', 'uses' => 'CoursesController@addPhoto']);
 Route::post('courses/{courses}/removePhoto', ['as' => 'removePhotoFromCourse', 'uses' => 'CoursesController@removePhoto']);
+Route::get('courses/{courses}/details', 'CoursesController@details');
 
 
 /*

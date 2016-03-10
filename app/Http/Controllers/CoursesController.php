@@ -225,4 +225,16 @@ class CoursesController extends Controller {
 
     }
 
+    /**
+     * Displays course details. Allows vendors to view consumers registered and payments made for a specified course.
+     *
+     * @param Course $course
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function details(Course $course)
+    {
+        $this->authorize('updateCourse', $course);
+
+        return view('course.details', ['course'=>$course]);
+    }
 }
