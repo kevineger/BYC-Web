@@ -15,7 +15,7 @@ class RedirectIfNoSchool
      */
     public function handle($request, Closure $next)
     {
-        if ($request->user()->school == null) {
+        if ($request->user()->school == null && !$request->user()->admin) {
             return redirect()->back();
         }
         return $next($request);
