@@ -156,8 +156,7 @@ class PayPalController extends Controller {
 
         if ( $result->getState() == 'approved' ) {
             // Store payment result/record in DB
-            $this->storeRecord($result);
-            $mailer->sendPurchaseConfirmationTo(Auth::user());
+            $this->storeRecord($result, $mailer);
             error_log("Payment has been made");
 
             // TODO: Set up payment successful view
@@ -172,19 +171,24 @@ class PayPalController extends Controller {
         return Redirect::route('original.route')
             ->with('error', 'Payment failed');
     }
+
     /**
      * Persist a payment record in the database.
      *
      * @param Payment $result
+     * @param AppMailer $mailer
      * @return string
      */
-    private function storeRecord(Payment $result)
+    private function storeRecord(Payment $result, AppMailer $mailer)
     {
         $paypal_id = $result->id;
         $total = $result->transactions[0]->amount->total;
 
         // Create and assign a payment to the user
         $payment = Auth::user()->payments()->create(['paypal_id' => $paypal_id, 'total' => $total]);
+
+        // Array for building mail list
+        $purchases = [];
 
         // Add each of the purchases for the payment (items)
         foreach ( $result->transactions[0]->item_list->items as $item ) {
@@ -195,19 +199,25 @@ class PayPalController extends Controller {
             $quantity = $item->quantity;
             $subtotal = $quantity * $item->price;
 
-            $payment->purchases()->create([
+            $purchase = $payment->purchases()->create([
                 'course_id' => $course->id,
                 'time_id'   => $time->id,
                 'quantity'  => $quantity,
                 'subtotal'  => $subtotal
             ]);
 
+            $purchases[] = $purchase;
+
             // Increase the number of registered seats
             $num_registered = (int)$time->pivot->num_reg + 1;
             $course->times()->updateExistingPivot($time->id, ['num_reg' => $num_registered]);
-
-            return "Payment successful.";
         }
+
+        // Send the email
+        $mailer->sendPurchaseConfirmationTo(Auth::user(), $purchases);
+
+
+        return "Payment successful.";
 
     }
 }

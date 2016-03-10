@@ -4,12 +4,14 @@ namespace App\Mailers;
 
 use App\User;
 use Illuminate\Contracts\Mail\Mailer;
+use Mail;
 
 class AppMailer{
 
     protected $mailer;
-    protected $from = 'byc@example.com';
+    protected $from='byc@example.com';
     protected $to;
+    protected $subject;
     protected $view;
     protected $data = [];
 
@@ -19,11 +21,12 @@ class AppMailer{
     }
 
 
-    public function sendPurchaseConfirmationTo(User $user)
+    public function sendPurchaseConfirmationTo(User $user, $purchases)
     {
         $this->to = $user->email;
         $this->view = 'emails.confirmPurchase';
-        $this->data = compact('user');
+        $this->subject = 'Purchase Confirmation';
+        $this->data = compact('purchases');
 
         $this->deliver();
     }
@@ -32,6 +35,7 @@ class AppMailer{
     {
         $this->to = $user->email;
         $this->view = 'emails.confirmEmail';
+        $this->subject = 'Email Confirmation';
         $this->data = compact('user');
 
         $this->deliver();
@@ -41,7 +45,8 @@ class AppMailer{
     {
         $this->mailer->send($this->view, $this->data, function($message){
             $message->from($this->from, 'Book Your Class')
-                    ->to($this->to);
+                    ->to($this->to)
+                    ->subject($this->subject);
         });
     }
 }
