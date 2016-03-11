@@ -13,11 +13,10 @@
         </div>
         <div class="twelve wide column">
             <div class="ui grid">
-                @foreach( $courses->chunk(3) as $course_chunk )
-                    <div class="three column row">
-                        @foreach( $course_chunk as $course )
-                            <div class="column">
-
+                <div class="column">
+                    @foreach( $courses->chunk(3) as $course_chunk )
+                        <div class="ui three stackable centered cards">
+                            @foreach( $course_chunk as $course )
                                 <a class="ui card" href="{{ action('CoursesController@show', [$course]) }}">
                                     <div class="content">
                                         <div class="ui bottom right attached label">{{ sizeof($course->times) }} times
@@ -31,10 +30,10 @@
                                         </div>
                                     </div>
                                 </a>
-                            </div>
-                        @endforeach
-                    </div>
-                @endforeach
+                            @endforeach
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>

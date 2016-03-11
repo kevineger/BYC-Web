@@ -70,6 +70,7 @@
 </div>
 
 @section('footer')
+    @parent
     {{--Vue JS--}}
     <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.17/vue.min.js"></script>
     <script>
@@ -114,7 +115,7 @@
             $('.clockpicker').clockpicker();
             $(".datepicker").datepicker();
         }
-        $(document).on('click', '.remove', function() {
+        $(document).on('click', '.remove', function () {
             $(this).parent().parent().remove();
         });
         {{--ClockPicker--}}

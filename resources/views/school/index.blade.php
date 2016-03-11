@@ -13,45 +13,43 @@
         </div>
         <div class="twelve wide column">
             <div class="ui grid">
-                @foreach( $schools->chunk(3) as $school_chunk )
-                    <div class="three column row">
-                        @foreach($school_chunk as $school)
-                            <div class="column">
-                                <div class="ui link cards">
-                                    <div class="card">
-                                        <a class="image" href="{{ action('SchoolsController@show', [$school]) }}">
-                                            @if(!$school->photos->isEmpty())
-                                                <img src="/{{ $school->photos[0]->thumbnail_path }}" alt="photo">
-                                            @else
-                                                <img src="{{ asset('photos/tn-school.jpg') }}"
-                                                     alt="photo">
-                                            @endif
-                                        </a>
-                                        <div class="content">
-                                            <a class="header"
-                                               href="{{ action('SchoolsController@show', [$school]) }}">{{$school->name}}</a>
-                                            <div class="meta">
-                                                <a>{{$school->address}}</a>
-                                            </div>
-                                            <div class="description">
-                                                This school is really awesome. It has a brief tagline descrition.
-                                            </div>
+                <div class="column">
+                    @foreach( $schools->chunk(3) as $school_chunk )
+                        <div class="ui three stackable link centered cards">
+                            @foreach($school_chunk as $school)
+                                <div class="ui card">
+                                    <a class="image" href="{{ action('SchoolsController@show', [$school]) }}">
+                                        @if(!$school->photos->isEmpty())
+                                            <img src="/{{ $school->photos[0]->thumbnail_path }}" alt="photo">
+                                        @else
+                                            <img src="{{ asset('photos/tn-school.jpg') }}"
+                                                 alt="photo">
+                                        @endif
+                                    </a>
+                                    <div class="content">
+                                        <a class="header"
+                                           href="{{ action('SchoolsController@show', [$school]) }}">{{$school->name}}</a>
+                                        <div class="meta">
+                                            <a>{{$school->address}}</a>
                                         </div>
-                                        <div class="extra content">
-                                    <span class="right floated">
-                                        Joined in 2013
-                                    </span>
-                                    <span>
-                                        <i class="bookmark icon"></i>
-                                        13 courses
-                                    </span>
+                                        <div class="description">
+                                            This school is really awesome. It has a brief tagline descrition.
                                         </div>
                                     </div>
+                                    <div class="extra content">
+                                        <span class="right floated">
+                                            Joined in 2013
+                                        </span>
+                                        <span>
+                                            <i class="bookmark icon"></i>
+                                            13 courses
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                        @endforeach
-                    </div>
-                @endforeach
+                            @endforeach
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>
