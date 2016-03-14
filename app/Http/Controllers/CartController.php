@@ -30,7 +30,6 @@ class CartController extends Controller {
 
     public function update(Request $request, $row)
     {
-        dd($request);
         $rowId = Cart::search(['id' => $request->get('')]);
         $quantity = $request->get('quantity');
 
