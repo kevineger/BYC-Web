@@ -28,9 +28,9 @@
                                     </a>
                                     <div class="content">
                                         <a class="header"
-                                           href="{{ action('SchoolsController@show', [$school]) }}">{{$school->name}}</a>
+                                           href="{{ action('SchoolsController@show', [$school]) }}">{{ $school->name }}</a>
                                         <div class="meta">
-                                            <a>{{$school->address}}</a>
+                                            <a>{{ $school->address }}</a>
                                         </div>
                                         <div class="description">
                                             This school is really awesome. It has a brief tagline descrition.
@@ -38,11 +38,11 @@
                                     </div>
                                     <div class="extra content">
                                         <span class="right floated">
-                                            Joined in 2013
+                                            Joined {{ $school->created_at->year }}
                                         </span>
                                         <span>
                                             <i class="bookmark icon"></i>
-                                            13 courses
+                                            {{ count($school->courses) }} courses
                                         </span>
                                     </div>
                                 </div>

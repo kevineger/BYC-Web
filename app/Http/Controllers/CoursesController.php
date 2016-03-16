@@ -39,6 +39,7 @@ class CoursesController extends Controller {
      */
     public function search(Request $request)
     {
+//        dd($request);
         $query = Course::active();
         // Check categories
         $categories_checked = $request->get('categories');
@@ -55,9 +56,37 @@ class CoursesController extends Controller {
         {
             $query->where('name', 'LIKE', '%' . $request->get('query_string') . '%');
         }
+
         // Filter the specified prices
-        $query->where('price', '>', (int)$request->get('min_price'));
-        $query->where('price', '<', (int)$request->get('max_price'));
+        $query->where('price', '>=', (int)$request->get('min_price'));
+        $query->where('price', '<=', (int)$request->get('max_price'));
+
+        // Filter the start and end time
+        if ($request->has('start_time') || $request->has('end_time'))
+        {
+            $start_time = $request->has('start_time') ? Carbon::createFromFormat('Y:m:d H:i', "1994:08:24 " . $request->get('start_time')) : Carbon::createFromDate(1940);
+            $end_time = $request->has('end_time') ? Carbon::createFromFormat('H:i', $request->get('end_time')) : Carbon::now();
+            $query->whereHas('times', function ($q) use ($start_time, $end_time)
+            {
+                // Time must be between start and end
+                // TODO: Why is this not working?
+                $q->where('start_time', '>=', $start_time)->where('end_time', '<=', $end_time);
+            });
+        }
+
+        // Filter the days
+        $days = $request->get('days');
+        if ($days)
+        {
+            // All courses whose categories match the specified ones.
+            $query->whereHas('times', function ($q) use ($days)
+            {
+                foreach ($days as $day)
+                {
+                    $q->where($day, true);
+                }
+            });
+        }
 
         return $query->get();
     }
@@ -104,7 +133,6 @@ class CoursesController extends Controller {
      */
     public function create()
     {
-
         return view('course.create');
     }
 
@@ -119,6 +147,7 @@ class CoursesController extends Controller {
         $school = auth()->user()->school;
 
         // Save the course
+        // TODO: Why the hell are courses not set to active on create... It's in the request... :S
         $course = $school->courses()->create($request->all());
 
         // Save each of the course times
@@ -132,8 +161,8 @@ class CoursesController extends Controller {
                 'fri'            => in_array('fri', $days),
                 'sat'            => in_array('sat', $days),
                 'sun'            => in_array('sun', $days),
-                'start_time'     => Carbon::createFromFormat('H:i', $request->get('start_time')[$key]),
-                'end_time'       => Carbon::createFromFormat('H:i', $request->get('end_time')[$key]),
+                'start_time'     => Carbon::createFromFormat('Y:m:d H:i', "1994:08:24 " . $request->get('start_time')[$key]),
+                'end_time'       => Carbon::createFromFormat('Y:m:d H:i', "1994:08:24 " . $request->get('end_time')[$key]),
                 'repeats'        => $request->get('repeat')[$key],
                 'beginning_date' => Carbon::createFromFormat('m/d/Y', $request->get('beginning_date')[$key]),
                 'end_date'       => Carbon::createFromFormat('m/d/Y', $request->get('end_date')[$key])
@@ -264,6 +293,6 @@ class CoursesController extends Controller {
     {
         $this->authorize('updateCourse', $course);
 
-        return view('course.details', ['course'=>$course]);
+        return view('course.details', ['course' => $course]);
     }
 }

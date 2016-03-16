@@ -39,19 +39,8 @@
             </h2>
             <span>${{ $course->price }}</span>
 
-            {{--<div class="ui relaxed divided list">
-                <div class="item">
-                    <i class="large github middle aligned icon"></i>
-                    <div class="content">
-                        <a class="header">Semantic-Org/Semantic-UI</a>
-                        <div class="description">Updated 10 mins ago</div>
-                    </div>
-                </div>
-            </div>--}}
-
             <div class="ui relaxed list">
                 @foreach( $course->times as $time)
-
                     <div class="item">
                         <div class="ui middle aligned image">
                             {!! Form::open(['route' => ['cart.add', $course, $time], 'style' => 'display: inline']) !!}
@@ -62,9 +51,11 @@
                         </div>
                         <div class="middle aligned content">
                             <h4 class="ui header">
-                                {{ $time->start_time->hour }}:{{ $time->start_time->minute }}
+                                {{ $time->start_time->hour }}
+                                :{{ $time->start_time->minute == 0 ?  "00" : $time->start_time->minute}}
                                 -
-                                {{ $time->end_time->hour }}:{{ $time->end_time->minute }}
+                                {{ $time->end_time->hour }}
+                                :{{ $time->start_time->minute == 0 ?  "00" : $time->start_time->minute}}
                                 <div class="sub header">
                                     {{ $time->beginning_date->toFormattedDateString() }}
                                     to
@@ -80,28 +71,6 @@
                     </div>
                 @endforeach
             </div>
-            {{--<div class="ui accordion">
-                <div class="title active">
-                    <h2 class="ui sub header">
-                        Times
-                        <i class="dropdown icon"></i>
-                    </h2>
-                </div>
-                <div class="content active">
-                    @foreach( $course->times as $time)
-                        <li>{{ $time->time_of_day }}
-                            <ul>
-                                @foreach( $time->days() as $day )
-                                    <li>{{ $day }}</li>
-                                @endforeach
-                            </ul>
-                            {!! Form::open(['route' => ['cart.add', $course, $time]]) !!}
-                            {!! Form::submit("Add to Cart", ['class' => 'ui green button']) !!}
-                            {!! Form::close() !!}
-                        </li>
-                    @endforeach
-                </div>
-            </div>--}}
         </div>
         <div class="ui vertical divider">
             <i class="circle thin icon light grey"></i>

@@ -1,6 +1,6 @@
 @import "partials/headings";
 
-.container-margin{
+.container-margin {
   margin-top: 75px;
 }
 
@@ -43,4 +43,18 @@ input[type="range"]::-webkit-slider-thumb {
   a.item > i.active {
     color: #00B5AD;
   }
+}
+
+.time-input {
+  padding-left: 8px !important;
+}
+
+.circular.labels.days {
+  text-align: center;
+}
+
+.circular.label.day {
+  margin-right: 0;
+  margin-bottom:0;
+  font-size: .75rem;
 }

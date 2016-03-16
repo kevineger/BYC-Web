@@ -23,8 +23,8 @@
                 </div>
                 <div class="three wide field">
                     <div class="inline field">
-                        <div class="ui toggle checkbox">
-                            <input name="active" type="checkbox" tabindex="0" class="hidden" checked="checked">
+                        <div id="activeChkBoxContainer" class="ui toggle checkbox">
+                            <input id="activeChkBox" name="active" type="checkbox" tabindex="0" class="hidden" value=true>
                             <label>Active</label>
                         </div>
                     </div>
@@ -118,6 +118,11 @@
         $(document).on('click', '.remove', function () {
             $(this).parent().parent().remove();
         });
+        {{--Propogate checkbox value for form submission--}}
+         $('#activeChkBox').change(function(){
+            cb = $(this);
+            cb.val(cb.prop('checked'));
+        });
         {{--ClockPicker--}}
         $('.clockpicker').clockpicker();
         {{--Initialize the Semantic UI checkbox--}}
@@ -125,6 +130,7 @@
         {{--Date Picker--}}
         $(document).ready(function () {
             $(".datepicker").datepicker();
+            $('#activeChkBoxContainer').checkbox('set checked');
         });
     </script>
 @endsection
