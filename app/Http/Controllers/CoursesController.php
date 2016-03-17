@@ -64,13 +64,13 @@ class CoursesController extends Controller {
         // Filter the start and end time
         if ($request->has('start_time') || $request->has('end_time'))
         {
-            $start_time = $request->has('start_time') ? Carbon::createFromFormat('Y:m:d H:i', "1994:08:24 " . $request->get('start_time')) : Carbon::createFromDate(1940);
-            $end_time = $request->has('end_time') ? Carbon::createFromFormat('H:i', $request->get('end_time')) : Carbon::now();
-            $query->whereHas('times', function ($q) use ($start_time, $end_time)
+            $start = $request->has('start_time') ? Carbon::createFromFormat('Y:m:d H:i', "1994:08:24 " . $request->get('start_time')) : Carbon::createFromDate(1940);
+            $end = $request->has('end_time') ? Carbon::createFromFormat('Y:m:d H:i', "1994:08:24 " . $request->get('end_time')) : Carbon::now();
+//            dd($start_time);
+            $query->whereHas('times', function ($q) use ($start, $end)
             {
                 // Time must be between start and end
-                // TODO: Why is this not working?
-                $q->where('start_time', '>=', $start_time)->where('end_time', '<=', $end_time);
+                $q->where('start_time', '>=', $start)->where('end_time', '<=', $end);
             });
         }
 
@@ -87,7 +87,7 @@ class CoursesController extends Controller {
                 }
             });
         }
-
+//        dd($query->toSql());
         return $query->get();
     }
 

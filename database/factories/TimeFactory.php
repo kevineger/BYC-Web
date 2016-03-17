@@ -16,7 +16,7 @@ $factory->define(App\Time::class, function (Faker\Generator $faker)
     $minutes = ['00', '15', '30', '45'];
     $rand_key = array_rand($hours, 1);
     // TODO: Find better way than hard setting the y/m/d to compare just the times. Not sure how it's done with eloquent model query builder
-    $start_time = Carbon::createFromFormat('Y:m:d H:m', "1994:08:24 " . $hours[$rand_key] . ":" . $minutes[$rand_key % 4]);
+    $start_time = Carbon::createFromFormat('Y:m:d H:i', "1994:08:24 " . $hours[$rand_key] . ":" . $minutes[$rand_key % 4]);
     $end_time = $start_time->copy()->addHour($rand_key % 2 + 1);
 
     return [
