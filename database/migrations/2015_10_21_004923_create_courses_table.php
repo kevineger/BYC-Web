@@ -19,6 +19,7 @@ class CreateCoursesTable extends Migration {
             $table->string('name');
             $table->mediumText('description');
             $table->boolean('active')->default(false);
+            $table->boolean('featured')->default(false);
             $table->integer('min_age');
             $table->integer('max_age');
             $table->decimal('price', 8, 2);

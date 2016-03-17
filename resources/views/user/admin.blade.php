@@ -48,6 +48,7 @@
         <th>Vendor</th>
         <th># Courses</th>
         <th>Update/Delete</th>
+        <th>Featured</th>
         </thead>
         <tbody>
         @foreach($schools as $school)
@@ -60,7 +61,19 @@
                     {!! Form::close() !!}
                     <a class="ui basic blue button" href="{{ action('SchoolsController@edit', $school) }}"
                        role="button">Edit
-                        School</a></td>
+                        School</a>
+                </td>
+                <td>
+                    @if($school->featured)
+                        <a class="ui basic teal button" href=""
+                           role="button">Set as not featured</a>
+                        <a class="ui teal tag label">Featured</a>
+                    @else
+                        <a class="ui basic orange button" href=""
+                           role="button">Set As Featured</a>
+                    @endif
+                </td>
+
             </tr>
         @endforeach
     </table>
@@ -75,6 +88,7 @@
         <th>Name</th>
         <th>School</th>
         <th>Update/Delete</th>
+        <th>Featured</th>
         </thead>
         <tbody>
         @foreach($courses->whereLoose('active',1) as $course)
@@ -86,6 +100,16 @@
                     {!! Form::close() !!}
 
                     <a class="ui basic blue button" href="{{ action('CoursesController@edit', $course) }}" role="button">Edit Course</a></td>
+                <td>
+                    @if($course->featured)
+                        <a class="ui basic teal button" href=""
+                           role="button">Set as not featured</a>
+                        <a class="ui teal tag label">Featured</a>
+                    @else
+                        <a class="ui basic orange button" href=""
+                           role="button">Set As Featured</a>
+                    @endif
+                </td>
             </tr>
         @endforeach
     </table>
@@ -98,6 +122,7 @@
         <th>Name</th>
         <th>School</th>
         <th>Update/Delete</th>
+        <th></th>
         </thead>
         <tbody>
         @foreach($courses->whereLoose('active',0) as $course)
@@ -108,6 +133,16 @@
                     {!! Form::submit('Delete', ['class' => 'ui basic red button']) !!}
                     {!! Form::close() !!}
                     <a class="ui basic blue button" href="{{ action('CoursesController@edit', $course) }}" role="button">Edit Course</a></td>
+                <td>
+                    @if($course->featured)
+                        <a class="ui basic teal button" href=""
+                           role="button">Set as not featured</a>
+                        <a class="ui teal tag label">Featured</a>
+                    @else
+                        <a class="ui basic orange button" href=""
+                           role="button">Set As Featured</a>
+                    @endif
+                </td>
             </tr>
         @endforeach
     </table>

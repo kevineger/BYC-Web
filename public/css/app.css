@@ -40,6 +40,21 @@
   font-size: 30px;
 }
 
+html,
+body {
+  height: 100%;
+}
+
+.container {
+  min-height: 100%;
+}
+
+.ui.footer.segment {
+  background: #515a63;
+  margin: 5em 0em 0em;
+  padding: 5em 0em;
+}
+
 .container-margin {
   margin-top: 75px;
 }
