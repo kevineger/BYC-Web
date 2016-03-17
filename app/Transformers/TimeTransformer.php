@@ -10,7 +10,7 @@ class TimeTransformer extends Transformer {
         foreach ( $times as $key => $time ) {
             $transformed_times[$key] = [
                 'id'             => (int)$time['id'],
-                'time_of_day'    => Carbon::parse($time['time_of_day'])->hour . ":" . Carbon::parse($time['time_of_day'])->minute,
+                'time_of_day'    => Carbon::parse($time['start_time'])->hour . ":" . Carbon::parse($time['start_time'])->minute,
                 'days'           => $time->days(),
                 //  TODO: Get correct seat numbers from pivot table
                 'num_seats'      => '30',
