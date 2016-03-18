@@ -56,7 +56,11 @@ Route::resource('users', 'UsersController', [
         'store'
     ]
 ]);
+
 Route::get('admin', 'UsersController@admin');
+Route::post('admin/school/{schools}/feature', 'UsersController@featureSchool');
+Route::post('admin/course/{courses}/feature', 'UsersController@featureCourse');
+
 Route::post('users/{users}/addPhoto', ['as' => 'addPhotoToUser', 'uses' => 'UsersController@addPhoto']);
 Route::post('users/{users}/removePhoto', ['as' => 'removePhotoFromUser', 'uses' => 'UsersController@removePhoto']);
 // Authentication routes
