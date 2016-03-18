@@ -6,15 +6,6 @@
     </h1>
     <div class="ui two column middle aligned relaxed fitted stackable grid" style="position: relative">
         <div class="column">
-            <div class="ui horizontal list">
-                <div class="item">
-                    <img class="ui mini circular image" src="http://semantic-ui.com/images/avatar2/small/molly.png">
-                    <div class="content">
-                        <div class="ui sub header">{{ $school->user->name }}</div>
-                        Vendor
-                    </div>
-                </div>
-            </div>
             <div class="ui segment">
                 <p>{{ $school->description }}</p>
             </div>

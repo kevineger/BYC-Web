@@ -35,9 +35,20 @@
         </tbody>
     </table>
     {!! Form::open(['method' => 'POST', 'route' => ['payment', $content], 'style' => 'display:inline']) !!}
-    {!! Form::submit('Checkout', ['class' => 'ui teal button']) !!}
+    {!! Form::submit('Checkout', ['class' => 'ui teal disabled button']) !!}
     {!! Form::close() !!}
     {!! Form::open(['method' => 'DELETE', 'route' => 'cart.destroyCart', 'style' => 'display:inline']) !!}
-    {!! Form::submit('Delete Cart', ['class' => 'ui red button']) !!}
+    {!! Form::submit('Delete Cart', ['class' => 'ui red disabled button']) !!}
     {!! Form::close() !!}
+@endsection
+
+@section('footer')
+    <script>
+        $(document).ready(function () {
+            var size_of_content = JSON.parse("{{ json_encode(sizeof($content)) }}");
+            if (size_of_content > 0) {
+                $('.ui.button').removeClass('disabled');
+            }
+        });
+    </script>
 @endsection

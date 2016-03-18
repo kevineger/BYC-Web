@@ -23,6 +23,20 @@ Setup a MySql database and user and fill in the `.env` fields accordingly (see f
 
 For development, set DB_HOST to localhost
 
+### Configure MailGun
+Fill in the necessary `.env` fields for hooking up a 3rd party mail service. The recommended MailGun use case fields are listed below.
+- MAIL_DRIVER=mailgun
+- MAILGUN_DOMAIN=
+- MAILGUN_SECRET=
+- MAIL_HOST=smtp.mailgun.org
+- MAIL_USERNAME=
+- MAIL_PASSWORD=
+- 
+### Configure PayPal
+Fill in the necessary `.env` fields for PayPal. The client and secret IDs can be changed at any time for deployment/testing purposes and environments.
+- PAYPAL_CLIENT_ID=
+- PAYPAL_SECRET=
+
 #### Migrate database
 ```
 php artisan migrate:install
