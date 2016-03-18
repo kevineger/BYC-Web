@@ -26,3 +26,9 @@ $factory->defineAs(App\Course::class, 'inactive', function ($faker) use ($factor
 
     return array_merge($course, ['active' => false]);
 });
+$factory->defineAs(App\Course::class, 'featured', function ($faker) use ($factory)
+{
+    $course = $factory->raw(App\Course::class);
+
+    return array_merge($course, ['featured' => true]);
+});

@@ -136,4 +136,41 @@ class UsersController extends Controller {
         return view('user.admin', ['users'=>$users, 'schools'=>$schools, 'courses'=>$courses, 'purchases'=>$purchases]);
     }
 
+    /**
+     * Update school feature
+     *
+     * @param School $school
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function featureSchool(School $school)
+    {
+        if(!$this->authorize('update', $school)) {
+            return "You are not authorized";
+        }
+
+        $school->featured = !$school->featured;
+        $school->save();
+
+        return "Successfully set school" . $school->id . " featured = " . $school->featured;
+    }
+
+
+    /**
+     * Update Course feature.
+     *
+     * @param Course $course
+     * @return string
+     */
+    public function featureCourse(Course $course)
+    {
+        if(!$this->authorize('updateCourse', $course)) {
+            return "You are not authorized";
+        }
+
+        $course->featured = !$course->featured;
+        $course->save();
+
+        return "Successfully set school" . $course->id . " featured = " . $course->featured;
+    }
+
 }

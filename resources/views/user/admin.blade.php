@@ -1,5 +1,7 @@
 @extends('app')
-
+@section('head')
+    <meta name="csrf-token" content="{{csrf_token()}}">
+@endsection
 @section('content')
     <h2 class="ui center aligned icon header">
         <i class="dashboard icon"></i>
@@ -14,6 +16,7 @@
     </h3>
     <div class="ui floating info message">
         <p>{{$users->whereLoose('vendor',1)->count()}} Vendor(s)</p>
+
         <p>{{$users->whereLoose('vendor',0)->count()}} Consumer(s)</p>
     </div>
     <table class="ui single line table">
@@ -31,7 +34,8 @@
                 <td>{!! Form::open(['method' => 'DELETE', 'route' => ['users.destroy', $user], 'style'=>'display:inline-block;']) !!}
                     {!! Form::submit('Delete', ['class' => 'ui basic red button']) !!}
                     {!! Form::close() !!}
-                    <a class="ui basic blue button" href="{{ action('UsersController@edit', $user) }}" role="button">Edit User</a>
+                    <a class="ui basic blue button" href="{{ action('UsersController@edit', $user) }}" role="button">Edit
+                        User</a>
                 </td>
             </tr>
         @endforeach
@@ -48,6 +52,7 @@
         <th>Vendor</th>
         <th># Courses</th>
         <th>Update/Delete</th>
+        <th>Featured</th>
         </thead>
         <tbody>
         @foreach($schools as $school)
@@ -60,12 +65,22 @@
                     {!! Form::close() !!}
                     <a class="ui basic blue button" href="{{ action('SchoolsController@edit', $school) }}"
                        role="button">Edit
-                        School</a></td>
+                        School</a>
+                </td>
+                <td>
+                    @if($school->featured)
+                        <a id="{{ $school->id }}" data-featured="true" class="ui basic teal button" onclick="setFeatured(event, 'school')">Set as not featured</a>
+                        <a class="ui teal tag label">Featured</a>
+                    @else
+                        <a id="{{ $school->id }}" data-featured="false" class="ui basic orange button" onclick="setFeatured(event, 'school')">Set As Featured</a>
+                    @endif
+                </td>
+
             </tr>
         @endforeach
     </table>
     <h3 class="ui dividing header">
-       Courses
+        Courses
     </h3>
     <div class="ui floating positive message">
         <p>{{$courses->whereLoose('active',1)->count()}} Active Course(s)</p>
@@ -75,6 +90,7 @@
         <th>Name</th>
         <th>School</th>
         <th>Update/Delete</th>
+        <th>Featured</th>
         </thead>
         <tbody>
         @foreach($courses->whereLoose('active',1) as $course)
@@ -85,7 +101,16 @@
                     {!! Form::submit('Delete', ['class' => 'ui basic red button']) !!}
                     {!! Form::close() !!}
 
-                    <a class="ui basic blue button" href="{{ action('CoursesController@edit', $course) }}" role="button">Edit Course</a></td>
+                    <a class="ui basic blue button" href="{{ action('CoursesController@edit', $course) }}"
+                       role="button">Edit Course</a></td>
+                <td>
+                    @if($course->featured)
+                            <a id="{{ $course->id }}" data-featured="true" class="ui basic teal button" onclick="setFeatured(event, 'course')">Set as not featured</a>
+                            <a class="ui teal tag label">Featured</a>
+                    @else
+                            <a id="{{ $course->id }}" data-featured="false" class="ui basic orange button" onclick="setFeatured(event, 'course')">Set As Featured</a>
+                    @endif
+                </td>
             </tr>
         @endforeach
     </table>
@@ -98,6 +123,7 @@
         <th>Name</th>
         <th>School</th>
         <th>Update/Delete</th>
+        <th></th>
         </thead>
         <tbody>
         @foreach($courses->whereLoose('active',0) as $course)
@@ -107,12 +133,21 @@
                 <td>{!! Form::open(['method' => 'DELETE', 'route' => ['courses.destroy', $course], 'style' => 'display:inline;']) !!}
                     {!! Form::submit('Delete', ['class' => 'ui basic red button']) !!}
                     {!! Form::close() !!}
-                    <a class="ui basic blue button" href="{{ action('CoursesController@edit', $course) }}" role="button">Edit Course</a></td>
+                    <a class="ui basic blue button" href="{{ action('CoursesController@edit', $course) }}"
+                       role="button">Edit Course</a></td>
+                <td>
+                    @if($course->featured)
+                        <a id="{{ $course->id }}" data-featured="true" class="ui basic teal button" onclick="setFeatured(event, 'course')">Set as not featured</a>
+                        <a class="ui teal tag label">Featured</a>
+                    @else
+                        <a id="{{ $course->id }}" data-featured="false" class="ui basic orange button" onclick="setFeatured(event, 'course')">Set As Featured</a>
+                    @endif
+                </td>
             </tr>
         @endforeach
     </table>
     <h3 class="ui dividing header">
-       Payment
+        Payment
     </h3>
     <div class="ui floating info message">
         <p>{{$purchases->count()}} Purchase(s)</p>
@@ -140,4 +175,35 @@
             </tr>
         @endforeach
     </table>
+@endsection
+@section('footer')
+    <script>
+        function setFeatured(event, model) {
+            var target = $(event.target);
+            id = target.attr('id');
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: "POST",
+                url: "admin/" + model + "/" + id + "/feature"
+            }).success(function (data) {
+                model = "'" + model + "'";
+                var parent = target.parent();
+                parent.empty();
+                // If school is featured, set it to not featured
+                if (target.attr('data-featured') == 'true') {
+                    parent.append('<a id="' + id + '" data-featured="false" class="ui basic orange button" onclick="setFeatured(event, ' + model + ')">Set As Featured</a>');
+                }
+                // Else, set it as not featured
+                else {
+                    parent.append('<a id="' + id + '" data-featured="true" class="ui basic teal button" onclick="setFeatured(event, ' + model + ')">Set As Not Featured</a>');
+                    parent.append("<a class='ui teal tag label'>Featured</a>");
+                }
+            }).error(function (msg) {
+                alert("Error: " + msg);
+            });
+        }
+    </script>
 @endsection

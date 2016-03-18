@@ -18,6 +18,9 @@
 */
 Route::get('/', 'PagesController@home');
 Route::get('/contact', 'PagesController@contact');
+Route::get('/privacy', 'PagesController@privacy');
+Route::get('/about', 'PagesController@about');
+Route::get('/terms', 'PagesController@terms');
 
 /*
 |--------------------------------------------------------------------------
@@ -53,7 +56,11 @@ Route::resource('users', 'UsersController', [
         'store'
     ]
 ]);
+
 Route::get('admin', 'UsersController@admin');
+Route::post('admin/school/{schools}/feature', 'UsersController@featureSchool');
+Route::post('admin/course/{courses}/feature', 'UsersController@featureCourse');
+
 Route::post('users/{users}/addPhoto', ['as' => 'addPhotoToUser', 'uses' => 'UsersController@addPhoto']);
 Route::post('users/{users}/removePhoto', ['as' => 'removePhotoFromUser', 'uses' => 'UsersController@removePhoto']);
 // Authentication routes

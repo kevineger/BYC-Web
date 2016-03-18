@@ -18,6 +18,7 @@ class CreateSchoolsTable extends Migration
             $table->string('name');
             $table->mediumText('description');
             $table->string('address');
+            $table->boolean('featured')->default(false);
             $table->timestamps();
 
             $table->foreign('user_id')

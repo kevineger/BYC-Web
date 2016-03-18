@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Course;
+use App\School;
 
 class PagesController extends Controller
 {
     public function home()
     {
-        return view('pages.home');
+        $featuredSchools = School::where('featured',1)->get()->slice(0,5);
+        $featuredCourses = Course::where('featured',1)->get()->slice(0,5);
+        return view('pages.home', ['featuredCourses'=>$featuredCourses, 'featuredSchools'=>$featuredSchools]);
     }
 
     /**
@@ -21,5 +25,35 @@ class PagesController extends Controller
     public function contact()
     {
         return view('pages.contact');
+    }
+
+    /**
+     * Displays terms and conditions page.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function terms()
+    {
+        return view('pages.terms');
+    }
+
+    /**
+     * Displays about us page.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function about()
+    {
+        return view('pages.about');
+    }
+
+    /**
+     * Displays privacy policy page.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function privacy()
+    {
+        return view('pages.privacy');
     }
 }

@@ -217,4 +217,5 @@ class SchoolsController extends Controller {
         return redirect()->action('SchoolsController@show', ['school' => $school]);
 
     }
+
 }
