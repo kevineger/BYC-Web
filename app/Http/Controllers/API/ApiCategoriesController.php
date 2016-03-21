@@ -13,7 +13,8 @@ class ApiCategoriesController extends ApiController {
 
     protected $categoryTransformer;
 
-    function __construct(CategoryTransformer $categoryTransformer) {
+    function __construct(CategoryTransformer $categoryTransformer)
+    {
         $this->categoryTransformer = $categoryTransformer;
     }
 
@@ -22,7 +23,8 @@ class ApiCategoriesController extends ApiController {
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    function index() {
+    function index()
+    {
         $categories = Category::all();
 
         return $this->respond([

@@ -4,7 +4,7 @@ class CategoryTransformer extends Transformer {
 
     public function transform($category)
     {
-        return[
+        return [
             'category' => $category->text
         ];
     }
