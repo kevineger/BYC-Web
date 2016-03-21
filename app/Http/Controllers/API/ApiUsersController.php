@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Purchase;
 use App\Transformers\SchoolTransformer;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -72,4 +73,32 @@ class ApiUsersController extends ApiController {
         // The token is valid and we have found the user via the sub claim
         return $user;
     }
+
+    /**
+     * Returns a collection of course history.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getCourseHistory()
+    {
+        $user = $this->getAuthenticatedUser();
+        $payments = $user->payments()->get();
+
+        $all_purchases = [];
+
+        foreach ( $payments as $payment ) {
+
+            $purchases = $payment->purchases;
+
+            foreach ( $purchases as $purchase ) {
+                $all_purchases[] = $purchase;
+            }
+
+        }
+
+        return $this->respond([
+            'data' => $all_purchases,
+        ]);
+    }
+
 }
