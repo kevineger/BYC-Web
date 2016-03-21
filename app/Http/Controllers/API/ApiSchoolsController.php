@@ -28,15 +28,14 @@ class ApiSchoolsController extends ApiController {
     /**
      * Returns a colleciton of all schools.
      *
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        if (sizeof($request->input()) > 0)
-        {
+        if ( sizeof($request->input()) > 0 ) {
             $schools = $this->search($request);
-        } else
-        {
+        } else {
             // Else display all
             $schools = School::active()->get();
         }
@@ -78,10 +77,13 @@ class ApiSchoolsController extends ApiController {
     }
 
     /**
+     * Helper method to search for schools.
+     * 
      * @param Request $request
      * @return mixed
      */
-    public function search(Request $request) {
+    public function search(Request $request)
+    {
 
         $query = Course::active();
         // Check categories

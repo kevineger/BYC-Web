@@ -31,11 +31,9 @@ class ApiCoursesController extends ApiController {
      */
     public function index(Request $request)
     {
-        if (sizeof($request->input()) > 0)
-        {
+        if ( sizeof($request->input()) > 0 ) {
             $courses = $this->search($request);
-        } else
-        {
+        } else {
             // Else display all
             $courses = Course::active()->get();
         }
@@ -64,50 +62,45 @@ class ApiCoursesController extends ApiController {
     }
 
     /**
+     * Helper funciton to search for courses.
+     * 
      * @param Request $request
      * @return mixed
      */
-    public function search(Request $request) {
+    public function search(Request $request)
+    {
 
         $query = Course::active();
 
         // Check categories
         $categories_checked = $request->get('categories');
-        if ($categories_checked)
-        {
+        if ( $categories_checked ) {
             // All courses whose categories match the specified ones.
-            $query->whereHas('categories', function ($q) use ($categories_checked)
-            {
+            $query->whereHas('categories', function ($q) use ($categories_checked) {
                 $q->whereIn('text', $categories_checked);
             });
         }
         // Check query string
-        if ($request->get('query_string'))
-        {
+        if ( $request->get('query_string') ) {
             $query->where('name', 'LIKE', '%' . $request->get('query_string') . '%');
         }
 
         // Filter the specified prices
-        if ($request->get('max_price'))
-        {
+        if ( $request->get('max_price') ) {
             $query->where('price', '<=', (int)$request->get('max_price'));
         }
 
         // Filter by times
         $course_times = $request->get('start_time');
-        if ($course_times)
-        {
-            $query->whereHas('times', function($q) use ($course_times)
-            {
+        if ( $course_times ) {
+            $query->whereHas('times', function ($q) use ($course_times) {
                 $q->where(DB::raw('TIME(start_time)'), ">=", $course_times);
             });
         }
 
         $course_date = $request->get('start_date');
-        if ($course_date)
-        {
-            $query->whereHas('times', function($q) use ($course_date)
-            {
+        if ( $course_date ) {
+            $query->whereHas('times', function ($q) use ($course_date) {
                 $q->whereDate('beginning_date', '>=', $course_date);
             });
         }
