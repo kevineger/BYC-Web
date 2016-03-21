@@ -141,4 +141,5 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['cors']], function () {
     Route::get('courses/{courses}/comments', 'API\ApiCommentsController@show');
     Route::get('schools/{schools}/comments', 'API\ApiCommentsController@show');
     Route::get('users/dash', 'API\ApiUsersController@getCourseHistory');
+    Route::get('category', 'API\ApiCategoriesController@index');
 });
