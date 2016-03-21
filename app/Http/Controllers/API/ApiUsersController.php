@@ -75,10 +75,12 @@ class ApiUsersController extends ApiController {
     }
 
     /**
-     * @return array
+     * Returns a collection of course history.
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function getCourseHistory() {
-
+    public function getCourseHistory()
+    {
         $user = $this->getAuthenticatedUser();
         $payments = $user->payments()->get();
 
@@ -97,7 +99,6 @@ class ApiUsersController extends ApiController {
         return $this->respond([
             'data' => $all_purchases,
         ]);
-
     }
 
 }

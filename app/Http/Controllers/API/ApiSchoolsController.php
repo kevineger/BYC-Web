@@ -25,6 +25,11 @@ class ApiSchoolsController extends ApiController {
         $this->courseTransformer = $courseTransformer;
     }
 
+    /**
+     * Returns a colleciton of all schools.
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         $schools = School::all();
@@ -34,6 +39,12 @@ class ApiSchoolsController extends ApiController {
         ]);
     }
 
+    /**
+     * Returns a single school resource.
+     *
+     * @param School $school
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function show(School $school)
     {
         // TODO: Fix error handling
@@ -47,6 +58,8 @@ class ApiSchoolsController extends ApiController {
     }
 
     /**
+     * Returns the colleciton of courses.
+     *
      * @param $school
      * @return \Illuminate\Http\JsonResponse
      */
