@@ -46,6 +46,10 @@ input[type="range"]::-webkit-slider-thumb {
   }
 }
 
+.ui.menu.no-gap {
+  margin-bottom: 0;
+}
+
 .time-input {
   padding-left: 8px !important;
 }

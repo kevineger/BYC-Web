@@ -1,4 +1,4 @@
-<div class="ui container secondary pointing menu">
+<div class="ui container secondary pointing menu no-gap">
     <a href="{{ url('/') }}" class="{{ Request::is( '/') ? 'active' : '' }} item">Home</a>
     <a href="{{ url('/schools') }}" class="{{ Request::is( 'schools') ? 'active' : '' }} item">Schools</a>
     <a href="{{ url('/courses') }}" class="{{ Request::is( 'courses') ? 'active' : '' }} item">Courses</a>
