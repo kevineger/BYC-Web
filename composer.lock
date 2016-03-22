@@ -970,16 +970,16 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "6.1.1",
+            "version": "6.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "c6851d6e48f63b69357cbfa55bca116448140e0c"
+                "reference": "d094e337976dff9d8e2424e8485872194e768662"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/c6851d6e48f63b69357cbfa55bca116448140e0c",
-                "reference": "c6851d6e48f63b69357cbfa55bca116448140e0c",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/d094e337976dff9d8e2424e8485872194e768662",
+                "reference": "d094e337976dff9d8e2424e8485872194e768662",
                 "shasum": ""
             },
             "require": {
@@ -995,7 +995,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "6.1-dev"
+                    "dev-master": "6.2-dev"
                 }
             },
             "autoload": {
@@ -1028,7 +1028,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2015-11-23 00:47:50"
+            "time": "2016-03-21 20:02:09"
         },
         {
             "name": "guzzlehttp/promises",
@@ -1580,16 +1580,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.19",
+            "version": "1.0.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "635ee279a522233a567984756bf9da1db243d9bf"
+                "reference": "e87a786e3ae12a25cf78a71bb07b4b384bfaa83a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/635ee279a522233a567984756bf9da1db243d9bf",
-                "reference": "635ee279a522233a567984756bf9da1db243d9bf",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/e87a786e3ae12a25cf78a71bb07b4b384bfaa83a",
+                "reference": "e87a786e3ae12a25cf78a71bb07b4b384bfaa83a",
                 "shasum": ""
             },
             "require": {
@@ -1659,7 +1659,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2016-03-12 19:04:33"
+            "time": "2016-03-14 21:54:11"
         },
         {
             "name": "league/oauth1-client",
@@ -2057,16 +2057,16 @@
         },
         {
             "name": "paragonie/random_compat",
-            "version": "v1.2.2",
+            "version": "v1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "b3313b618f4edd76523572531d5d7e22fe747430"
+                "reference": "c7e26a21ba357863de030f0b9e701c7d04593774"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/b3313b618f4edd76523572531d5d7e22fe747430",
-                "reference": "b3313b618f4edd76523572531d5d7e22fe747430",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/c7e26a21ba357863de030f0b9e701c7d04593774",
+                "reference": "c7e26a21ba357863de030f0b9e701c7d04593774",
                 "shasum": ""
             },
             "require": {
@@ -2101,7 +2101,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2016-03-11 19:54:08"
+            "time": "2016-03-18 20:34:03"
         },
         {
             "name": "paypal/rest-api-sdk-php",
@@ -2496,16 +2496,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v3.9.2",
+            "version": "v3.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "ab77a057b656ace011b2033833d566f7e62666bf"
+                "reference": "e40211d1d5325d99d3ce167c9ee1ade0473a608a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/ab77a057b656ace011b2033833d566f7e62666bf",
-                "reference": "ab77a057b656ace011b2033833d566f7e62666bf",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/e40211d1d5325d99d3ce167c9ee1ade0473a608a",
+                "reference": "e40211d1d5325d99d3ce167c9ee1ade0473a608a",
                 "shasum": ""
             },
             "require": {
@@ -2547,7 +2547,7 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2016-03-04 21:31:02"
+            "time": "2016-03-15 18:33:48"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -3844,16 +3844,16 @@
         },
         {
             "name": "phpspec/phpspec",
-            "version": "2.4.1",
+            "version": "2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/phpspec.git",
-                "reference": "5528ce1e93a1efa090c9404aba3395c329b4e6ed"
+                "reference": "385ecb015e97c13818074f1517928b24d4a26067"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/5528ce1e93a1efa090c9404aba3395c329b4e6ed",
-                "reference": "5528ce1e93a1efa090c9404aba3395c329b4e6ed",
+                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/385ecb015e97c13818074f1517928b24d4a26067",
+                "reference": "385ecb015e97c13818074f1517928b24d4a26067",
                 "shasum": ""
             },
             "require": {
@@ -3918,7 +3918,7 @@
                 "testing",
                 "tests"
             ],
-            "time": "2016-01-01 10:17:54"
+            "time": "2016-03-20 20:34:32"
         },
         {
             "name": "phpspec/prophecy",

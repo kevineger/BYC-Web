@@ -7,86 +7,61 @@
 @endsection
 
 @section('content')
-    <div class="ui vertical stripe segment">
-        <div class="ui text container">
-            <h2 class="ui header">Featured Schools</h2>
-            @if($featuredSchools->count()>0)
-                <div class="ui divided items segment">
-                    @foreach($featuredSchools as $school)
-                        <div class="item">
-                            <a class="ui tiny image" href="{{ action('SchoolsController@show', [$school]) }}">
-                                @if(!$school->photos->isEmpty())
-                                    <img src="/{{ $school->photos[0]->thumbnail_path }}" alt="photo">
-                                @else
-                                    <img src="{{ asset('photos/tn-school.jpg') }}"
-                                         alt="photo">
-                                @endif
-                            </a>
+    <div class="ui centered grid">
+        <div class="twelve wide column">
+            @include('partials.home.globalSearch')
+        </div>
+    </div>
 
+    <br>
+    <br>
+
+    <div class="ui two column grid">
+        <div class="column">
+            <div class="ui equal width center aligned padded grid">
+                <div class="row">
+                    <div class="column">
+                        <h2 class="ui icon header">
+                            <i class="student icon"></i>
                             <div class="content">
-                                <a class="header"
-                                   href="{{ action('SchoolsController@show', [$school]) }}">{{$school->name}}</a>
-
-                                <div class="meta">
-                                    {{$school->address}}
-                                </div>
-                                <div class="description">
-                                    This school is really awesome. It has a brief tagline descrition.
-                                </div>
+                                Featured Schools
                             </div>
-                        </div>
-                    @endforeach
-                </div>
-            @else
-                <div class="ui segment">
-                    <div class="ui disabled center aligned header">
-                        No schools featured at the moment.
+                        </h2>
                     </div>
                 </div>
-            @endif
-
-
-            <div class="ui section divider"></div>
-
-            <h2 class="ui header">Featured Courses</h2>
-
-            <div class="ui raised segments">
-                @if($featuredCourses->count()>0)
-                    <div class="ui divided items segment">
-                        @foreach($featuredCourses as $course)
-                            <div class="item">
-                                <a class="ui tiny image" href="{{ action('CoursesController@show', [$course]) }}">
-                                    @if(!$course->photos->isEmpty())
-                                        <img src="/{{ $course->photos[0]->thumbnail_path }}" alt="photo">
-                                    @else
-                                        <img src="{{ asset('photos/tn-course.jpg') }}"
-                                             alt="photo">
-                                    @endif
-                                </a>
-
-                                <div class="content">
-                                    <a class="header"
-                                       href="{{ action('CoursesController@show', [$course]) }}">{{$course->name}}</a>
-
-                                    <div class="meta">
-                                        {{$course->school->name}}
-                                    </div>
-                                    <div class="description">
-                                        This course is really awesome. It has a brief tagline descrition.
-                                    </div>
-                                </div>
+                <div class="row">
+                    <div class="column">
+                        @include('partials.schools.featured')
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="ui equal width center aligned padded grid">
+                <div class="row">
+                    <div class="column">
+                        <h2 class="ui icon header">
+                            <i class="table icon"></i>
+                            <div class="content">
+                                Featured Courses
                             </div>
-                        @endforeach
+                        </h2>
                     </div>
-                @else
-                    <div class="ui segment">
-                        <div class="ui disabled center aligned header">
-                            No courses featured at the moment.
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        @include('partials.courses.featured')
                     </div>
-                @endif
+                </div>
             </div>
         </div>
     </div>
-    </div>
+@endsection
+
+@section('footer')
+    <script>
+        $('.special.cards .image').dimmer({
+            on: 'hover'
+        });
+    </script>
 @endsection
