@@ -162,4 +162,14 @@ class Course extends Model {
     {
         return $this->hasMany('App\Purchase');
     }
+
+    /**
+     * Query scope for featured Course.
+     *
+     * @return mixed
+     */
+    public function scopeFeatured()
+    {
+        return $this->where('featured',1);
+    }
 }

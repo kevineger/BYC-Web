@@ -12,8 +12,8 @@ class PagesController extends Controller
 {
     public function home()
     {
-        $featuredSchools = School::where('featured',1)->get()->slice(0,5);
-        $featuredCourses = Course::where('featured',1)->get()->slice(0,5);
+        $featuredSchools = School::featured()->get()->slice(0,5);
+        $featuredCourses = Course::featured()->get()->slice(0,5);
         return view('pages.home', ['featuredCourses'=>$featuredCourses, 'featuredSchools'=>$featuredSchools]);
     }
 

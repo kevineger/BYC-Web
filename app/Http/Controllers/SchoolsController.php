@@ -75,9 +75,11 @@ class SchoolsController extends Controller {
         // Flash old input to repopulate on search
         $request->flash();
 
+        $featuredSchools = School::featured()->get()->slice(0,5);
         return view('school.index', [
             'schools'    => $schools,
-            'categories' => $categories
+            'categories' => $categories,
+            'featuredSchools'=>$featuredSchools
         ]);
 
     }

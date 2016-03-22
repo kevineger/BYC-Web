@@ -28,8 +28,6 @@ class CreateTimesTable extends Migration
             $table->dateTime('end_date')->default(Carbon::now()->addMonth());
             $table->char('repeats')->default(null);
             $table->timestamps();
-
-
         });
     }
 
