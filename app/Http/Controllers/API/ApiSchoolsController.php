@@ -26,7 +26,7 @@ class ApiSchoolsController extends ApiController {
     }
 
     /**
-     * Returns a colleciton of all schools.
+     * Returns a colleciton of schools.
      *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
@@ -35,14 +35,20 @@ class ApiSchoolsController extends ApiController {
     {
         if ( sizeof($request->input()) > 0 ) {
             $schools = $this->search($request);
+
+            return $this->respond([
+                'data' => $schools->get()
+            ]);
+
         } else {
             // Else display all
-            $schools = School::active()->get();
+            $schools = School::all();
+
+            return $this->respond([
+                'data' => $this->schoolTransformer->transformCollection($schools->all())
+            ]);
         }
 
-        return $this->respond([
-            'data' => $this->schoolTransformer->transformCollection($schools->all())
-        ]);
     }
 
     /**
@@ -85,13 +91,15 @@ class ApiSchoolsController extends ApiController {
     public function search(Request $request)
     {
 
-        $query = Course::active();
+        $query = School::query();
         // Check categories
         $categories_checked = $request->get('categories');
         if ( $categories_checked ) {
-            // All courses whose categories match the specified ones.
-            $query->whereHas('categories', function ($q) use ($categories_checked) {
-                $q->whereIn('text', $categories_checked);
+            // Want schools that have courses whose categories match the specified ones.
+            $query->whereHas('courses', function($q1) use ($categories_checked) {
+                $q1->whereHas('categories', function($q2) use ($categories_checked) {
+                   $q2->whereIn('text', $categories_checked);
+                });
             });
         }
         // Check query string
@@ -99,6 +107,6 @@ class ApiSchoolsController extends ApiController {
             $query->where('name', 'LIKE', '%' . $request->get('query_string') . '%');
         }
 
-        return $query->get();
+        return $query;
     }
 }
