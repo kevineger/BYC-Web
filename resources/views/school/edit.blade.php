@@ -31,11 +31,16 @@
 @section('footer')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/dropzone.js"></script>
     <script>
+        $(".dz-image").on('click', function (event) {
+            alert("Clicked");
+            alert(event.target.id);
+        });
         Dropzone.options.addPhotosForm = {
             paramName: 'photo',
             maxFileSize: 3,
             acceptedFiles: '.jpeg, .jpg, .tiff, .gif, .bmp, .png',
             addRemoveLinks: true,
+            clickable: true,
             removedfile: function (file) {
                 var name = file.name;
                 $.ajax({
@@ -57,27 +62,18 @@
                 });
                 // Add pre-existing images to Dropzone
                 @foreach($school->photos as $photo)
-                    // Create the mock file:
-                    var mockFile = {
-                        id: '{!! $photo->id !!}',
-                        name: '{!! $photo->path !!}',
-                        size: '{!! $photo->size !!}'
-                    };
+                // Create the mock file:
+                var mockFile = {
+                    id: '{!! $photo->id !!}',
+                    name: '{!! $photo->path !!}',
+                    size: '{!! $photo->size !!}'
+                };
 
-                    // Call the default addedfile event handler
-                    this.emit("addedfile", mockFile);
-
-                    // And optionally show the thumbnail of the file:
-                    this.emit("thumbnail", mockFile, "/{!! $photo->thumbnail_path !!}");
-                    // Or if the file on your server is not yet in the right
-                    // size, you can let Dropzone download and resize it
-                    // callback and crossOrigin are optional.
-                    //                var imageUrl = "/photos/schools/1452965443school.png";
-                    //                myDropzone.createThumbnailFromUrl(file, imageUrl, callback, crossOrigin);
-                    //                myDropzone.createThumbnailFromUrl(file, imageUrl);
-
-                    // Make sure that there is no progress bar, etc...
-                    this.emit("complete", mockFile);
+                // Call the default addedfile event handler
+                this.emit("addedfile", mockFile);
+                // And optionally show the thumbnail of the file:
+                this.emit("thumbnail", mockFile, "/{!! $photo->thumbnail_path !!}");
+                this.emit("complete", mockFile);
                 @endforeach
             }
         };
