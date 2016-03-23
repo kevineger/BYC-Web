@@ -9,6 +9,8 @@ use App\Http\Requests\SchoolRequest;
 use App\Photo;
 use App\Comment;
 use Auth;
+use Carbon\Carbon;
+use DB;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -34,20 +36,24 @@ class SchoolsController extends Controller {
      * TODO: Refactor this method to a repository for modularity.
      *
      * @param Request $request
+     * @return mixed
      */
     public function search(Request $request)
     {
-        $query = Course::active();
+        $query = School::where('created_at', '<', Carbon::now());
         // Check categories
         $categories_checked = $request->get('categories');
-        if ( $categories_checked ) {
+        if ($categories_checked)
+        {
             // All courses whose categories match the specified ones.
-            $query->whereHas('categories', function ($q) use ($categories_checked) {
+            $query->whereHas('categories', function ($q) use ($categories_checked)
+            {
                 $q->whereIn('text', $categories_checked);
             });
         }
         // Check query string
-        if ( $request->get('query_string') ) {
+        if ($request->get('query_string'))
+        {
             $query->where('name', 'LIKE', '%' . $request->get('query_string') . '%');
         }
 
@@ -63,9 +69,11 @@ class SchoolsController extends Controller {
     public function index(Request $request)
     {
         // If search params have been specified, filter the result set
-        if ( sizeof($request->input()) > 0 ) {
+        if (sizeof($request->input()) > 0)
+        {
             $schools = $this->search($request);
-        } else {
+        } else
+        {
             // Else display all
             $schools = School::all();
         }

@@ -2,7 +2,7 @@
 <div class="ui vertical menu">
     <div class="item">
         <div class="ui icon input">
-            <input name="q" type="text" placeholder="Search">
+            <input name="query_string" type="text" placeholder="Search">
             <i class="search icon"></i>
         </div>
     </div>
