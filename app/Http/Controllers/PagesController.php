@@ -8,13 +8,18 @@ use App\Http\Controllers\Controller;
 use App\Course;
 use App\School;
 
-class PagesController extends Controller
-{
+class PagesController extends Controller {
+
     public function home()
     {
-        $featuredSchools = School::where('featured',1)->get()->slice(0,5);
-        $featuredCourses = Course::where('featured',1)->get()->slice(0,5);
-        return view('pages.home', ['featuredCourses'=>$featuredCourses, 'featuredSchools'=>$featuredSchools]);
+        $featuredSchools = School::where('featured', 1)->get()->slice(0, 5);
+        $featuredCourses = Course::where('featured', 1)->get()->slice(0, 5);
+
+        return view('pages.home', [
+            'featuredCourses' => $featuredCourses,
+            'featuredSchools' => $featuredSchools,
+            'is_search'       => false
+        ]);
     }
 
     /**

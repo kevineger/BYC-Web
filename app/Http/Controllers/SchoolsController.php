@@ -40,7 +40,7 @@ class SchoolsController extends Controller {
      */
     public function search(Request $request)
     {
-        $query = School::where('created_at', '<', Carbon::now());
+        $query = School::active();
         // Check categories
         $categories_checked = $request->get('categories');
         if ($categories_checked)

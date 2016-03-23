@@ -28,7 +28,7 @@
     @else
         <div class="ui segment">
             <div class="ui disabled center aligned header">
-                No courses featured at the moment.
+                No courses to display at the moment
             </div>
         </div>
     @endif

@@ -24,7 +24,11 @@
                         <h2 class="ui icon header">
                             <i class="student icon"></i>
                             <div class="content">
-                                Featured Schools
+                                @if($is_search)
+                                    Schools
+                                @else
+                                    Featured Schools
+                                @endif
                             </div>
                         </h2>
                     </div>
@@ -43,7 +47,11 @@
                         <h2 class="ui icon header">
                             <i class="table icon"></i>
                             <div class="content">
-                                Featured Courses
+                                @if($is_search)
+                                    Courses
+                                @else
+                                    Featured Courses
+                                @endif
                             </div>
                         </h2>
                     </div>

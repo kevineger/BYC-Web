@@ -108,6 +108,19 @@ class School extends Model {
     }
 
     /**
+     * Query scope for active schools (schools having active courses).
+     *
+     * @return mixed
+     */
+    public function scopeActive()
+    {
+        return $this->whereHas('courses', function ($query)
+        {
+            $query->where('active', true);
+        });
+    }
+
+    /**
      * Query scope for searching a school by title.
      *
      * @param $query

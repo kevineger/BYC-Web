@@ -17,6 +17,10 @@
 |--------------------------------------------------------------------------
 */
 Route::get('/', 'PagesController@home');
+Route::post('/', [
+    'uses' => 'SearchController@index',
+    'as'   => 'global.search'
+]);
 Route::get('/contact', 'PagesController@contact');
 Route::get('/privacy', 'PagesController@privacy');
 Route::get('/about', 'PagesController@about');
@@ -104,7 +108,8 @@ Route::get('payment/status', array(
 | Cart
 |--------------------------------------------------------------------------
 */
-Route::group(['prefix' => 'cart'], function () {
+Route::group(['prefix' => 'cart'], function ()
+{
     Route::get('/', 'CartController@index');
     Route::post('{courses}/{times}/add', [
         'uses' => 'CartController@add',
@@ -129,7 +134,8 @@ Route::group(['prefix' => 'cart'], function () {
 | API
 |--------------------------------------------------------------------------
 */
-Route::group(['prefix' => 'api/v1', 'middleware' => ['cors']], function () {
+Route::group(['prefix' => 'api/v1', 'middleware' => ['cors']], function ()
+{
     Route::resource('schools', 'API\ApiSchoolsController');
     Route::get('schools/{schools}/courses', 'API\ApiSchoolsController@getCourses');
     Route::resource('courses', 'API\ApiCoursesController');
