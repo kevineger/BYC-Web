@@ -48,7 +48,10 @@
                     {!! Form::input('number','max_age') !!}
                 </div>
             </div>
-
+            <div class="field">
+                {!! Form::label('category_list', 'Categories: ') !!}
+                {!! Form::select('category_list[]', $categories, null, ['id'=>'category_list','multiple']) !!}
+            </div>
             <div id="app">
                 @include('course.times')
                 <time></time>
@@ -132,5 +135,16 @@
             $(".datepicker").datepicker();
             $('#activeChkBoxContainer').checkbox('set checked');
         });
+    </script>
+    {{--Select2 JS--}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#category_list').select2({
+                placeholder:'Choose two categories',
+                maximumSelectionLength: 2
+            });
+        });
+
     </script>
 @endsection

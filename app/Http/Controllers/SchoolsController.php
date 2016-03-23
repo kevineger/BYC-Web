@@ -83,9 +83,11 @@ class SchoolsController extends Controller {
         // Flash old input to repopulate on search
         $request->flash();
 
+        $featuredSchools = School::featured()->get()->slice(0,5);
         return view('school.index', [
             'schools'    => $schools,
-            'categories' => $categories
+            'categories' => $categories,
+            'featuredSchools'=>$featuredSchools
         ]);
 
     }
@@ -109,6 +111,8 @@ class SchoolsController extends Controller {
     public function store(SchoolRequest $request)
     {
         $school = auth()->user()->school()->create($request->all());
+
+        flash()->success('Success!', 'Your school has been created.');
 
         return redirect()->action('SchoolsController@show', ['school' => $school]);
     }

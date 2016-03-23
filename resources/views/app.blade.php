@@ -21,6 +21,7 @@
     {{---Compiled CSS----------------------------------------------------------}}
     <link rel="stylesheet" href="{{ asset('css/libs.css') }}" type='text/css'>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css"/>
     {{-------------------------------------------------------------------------}}
 
     {{---Semantic Icons--------------------------------------------------------}}
@@ -35,8 +36,6 @@
 @include('partials.nav')
 
 <div class="ui container container-margin">
-    @include('partials.flash')
-
     @yield('content')
 </div>
 @include('partials.footer')
@@ -48,6 +47,6 @@
 {{-------------------------------------------------------------------------}}
 
 @yield('footer')
-
+@include('partials.flash')
 </body>
 </html>

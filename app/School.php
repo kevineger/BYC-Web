@@ -131,4 +131,14 @@ class School extends Model {
     {
         return $query->where('name', 'LIKE', "%$search%")->orWhere('description', 'LIKE', "%$search%")->orWhere('address', 'LIKE', "%$search%");
     }
+
+    /**
+     * Query scope for featured School.
+     *
+     * @return mixed
+     */
+    public function scopeFeatured()
+    {
+        return $this->where('featured',1);
+    }
 }

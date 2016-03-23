@@ -16,7 +16,43 @@
             @include('partials.filter.school')
         </div>
         <div class="twelve wide column">
+            @if($featuredSchools->count()>0)
+                <div class="ui olive message">
+                    <div class="header">
+                       Featured Schools
+                    </div>
+                    <div class="ui divided items ">
+                        @foreach($featuredSchools as $school)
+                            <div class="item">
+                                <a class="ui tiny image" href="{{ action('SchoolsController@show', [$school]) }}">
+                                    @if(!$school->photos->isEmpty())
+                                        <img src="/{{ $school->photos[0]->thumbnail_path }}" alt="photo">
+                                    @else
+                                        <img src="{{ asset('photos/tn-school.jpg') }}"
+                                             alt="photo">
+                                    @endif
+                                </a>
+
+                                <div class="content">
+                                    <a class="header"
+                                       href="{{ action('SchoolsController@show', [$school]) }}">{{$school->name}}</a>
+
+                                    <div class="meta">
+                                        {{$school->address}}
+                                    </div>
+                                    <div class="description">
+                                        This school is really awesome. It has a brief tagline descrition.
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
             <div class="ui grid">
+                {{--<div class="column">--}}
+                {{--<div class="ui teal segment">Teal</div>--}}
+                {{--</div>--}}
                 <div class="column">
                     @foreach( $schools->chunk(3) as $school_chunk )
                         <div class="ui three stackable link centered cards">
@@ -30,9 +66,11 @@
                                                  alt="photo">
                                         @endif
                                     </a>
+
                                     <div class="content">
                                         <a class="header"
                                            href="{{ action('SchoolsController@show', [$school]) }}">{{ $school->name }}</a>
+
                                         <div class="meta">
                                             <a>{{ $school->address }}</a>
                                         </div>

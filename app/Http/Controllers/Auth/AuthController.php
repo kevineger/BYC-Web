@@ -116,8 +116,7 @@ class AuthController extends Controller {
 
         $mailer->sendEmailConfirmationTo($user);
 
-        session()->flash('message', 'Please confirm your email address.');
-
+        flash()->overlay('Confirmation Email Sent', 'Please confirm your email address before logging in.');
         return redirect()->back();
     }
 
@@ -132,7 +131,7 @@ class AuthController extends Controller {
 
         User::whereToken($token)->firstOrFail()->confirmEmail();
 
-        session()->flash('message', 'You are now confirmed. Please login');
+        flash()->success('Success!', 'You are now confirmed. Please login');
 
         return redirect('auth/login');
 

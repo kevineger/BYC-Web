@@ -17,7 +17,8 @@ elixir(function (mix) {
             './vendor/semantic/ui/dist/semantic.min.js',
             'libs/lity.js',
             'libs/jquery-clockpicker.min.js',
-            'libs/jquery-ui.js'
+            'libs/jquery-ui.js',
+            'libs/sweetalert-dev.js'
         ], './public/js/libs.js')
         .scripts([
             'app.js'
@@ -27,6 +28,7 @@ elixir(function (mix) {
             'libs/lity.css',
             'libs/jquery-clockpicker.min.css',
             'libs/jquery-ui.css',
-            'libs/jquery-ui.theme.css'
+            'libs/jquery-ui.theme.css',
+            'libs/sweetalert.css'
         ], './public/css/libs.css');
 });

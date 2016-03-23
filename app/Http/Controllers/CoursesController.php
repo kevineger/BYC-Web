@@ -91,12 +91,13 @@ class CoursesController extends Controller {
             // All courses whose categories match the specified ones.
             $query->whereHas('times', function ($q) use ($days)
             {
-                foreach ($days as $day)
+                foreach ( $days as $day )
                 {
                     $q->where($day, true);
                 }
             });
         }
+
 //        dd($query->toSql());
         return $query->get();
     }
@@ -128,11 +129,14 @@ class CoursesController extends Controller {
         // Flash old input to repopulate on search
         $request->flash();
 
+        $featuredCourses = Course::featured()->get()->slice(0, 5);
+
         return view('course.index', [
-            'courses'        => $courses,
-            'categories'     => $categories,
-            'cheapest'       => $cheapest,
-            'most_expensive' => $most_expensive
+            'courses'         => $courses,
+            'featuredCourses' => $featuredCourses,
+            'categories'      => $categories,
+            'cheapest'        => $cheapest,
+            'most_expensive'  => $most_expensive
         ]);
     }
 
@@ -143,7 +147,9 @@ class CoursesController extends Controller {
      */
     public function create()
     {
-        return view('course.create');
+        $categories = Category::lists('text', 'id');
+
+        return view('course.create', ['categories'=>$categories]);
     }
 
     /**
@@ -156,12 +162,13 @@ class CoursesController extends Controller {
     {
         $school = auth()->user()->school;
 
+
         // Save the course
         // TODO: Why the hell are courses not set to active on create... It's in the request... :S
         $course = $school->courses()->create($request->all());
 
         // Save each of the course times
-        foreach ($request->get('days') as $key => $days)
+        foreach ( $request->get('days') as $key => $days )
         {
             $course->times()->attach(Time::create([
                 'mon'            => in_array('mon', $days),
@@ -178,6 +185,10 @@ class CoursesController extends Controller {
                 'end_date'       => Carbon::createFromFormat('m/d/Y', $request->get('end_date')[$key])
             ]));
         }
+
+        $course->categories()->attach($request->input('category_list'));
+
+        flash()->success('Success!', 'Your course has been created');
 
         return redirect()->action('CoursesController@show', ['course' => $course]);
     }
@@ -201,7 +212,41 @@ class CoursesController extends Controller {
      */
     public function edit(Course $course)
     {
-        return view('course.edit', ['course' => $course]);
+        $categories = Category::lists('text', 'id');
+        return view('course.edit', ['course' => $course, 'categories'=>$categories]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param CourseRequest|Request $request
+     * @param Course $course
+     * @return \Illuminate\Http\Response
+     */
+    public function update(CourseRequest $request, Course $course)
+    {
+        $course->update($request->all());
+        if ($request->get('active')) $course->active = true;
+        else $course->active = false;
+        $course->save();
+
+        $course->categories()->sync($request->input('category_list'));
+
+        return redirect()->action('CoursesController@show', ['course' => $course]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param Course $course
+     * @return \Illuminate\Http\Response
+     * @throws \Exception
+     */
+    public function destroy(Course $course)
+    {
+        $course->delete();
+
+        return redirect()->action('CoursesController@index');
     }
 
     /**
@@ -242,37 +287,6 @@ class CoursesController extends Controller {
         }
 
         return "Photo " . $request->input('id') . " successfully removed.";
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param CourseRequest|Request $request
-     * @param Course $course
-     * @return \Illuminate\Http\Response
-     */
-    public function update(CourseRequest $request, Course $course)
-    {
-        $course->update($request->all());
-        if ($request->get('active')) $course->active = true;
-        else $course->active = false;
-        $course->save();
-
-        return redirect()->action('CoursesController@show', ['course' => $course]);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param Course $course
-     * @return \Illuminate\Http\Response
-     * @throws \Exception
-     */
-    public function destroy(Course $course)
-    {
-        $course->delete();
-
-        return redirect()->action('CoursesController@index');
     }
 
     /**
