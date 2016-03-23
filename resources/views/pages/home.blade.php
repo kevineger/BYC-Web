@@ -1,8 +1,12 @@
 @extends('app')
 
 @section('page-header')
-    <div class="home-header">
-        <h2>Book Your Class</h2>
+    <div class="banner">
+        <div class="div">
+            <div class="frosted-container">
+                <h2>Book Your Class</h2>
+            </div>
+        </div>
     </div>
 @endsection
 

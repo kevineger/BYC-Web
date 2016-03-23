@@ -1,29 +1,34 @@
-.home-header {
-  height: 350px;
-  font-weight: bold;
+.banner {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   text-align: center;
-  background: #515a63;
+  height: 300px;
+  border: none;
+  color: white;
+  background: linear-gradient(-45deg, transparent 25%, rgba(255, 255, 255, 0.2) 25%, rgba(255, 255, 255, 0.2) 50%, transparent 50%, transparent 75%, rgba(255, 255, 255, 0.2) 75%), linear-gradient(45deg, transparent 25%, rgba(255, 255, 255, 0.2) 25%, rgba(255, 255, 255, 0.2) 50%, transparent 50%, transparent 75%, rgba(255, 255, 255, 0.2) 75%), #009997;
 }
 
-.home-header h2 {
+.banner h2 {
   color: white;
   font-weight: normal;
-  padding-top: 120px;
-  font-size: 70px;
+  display: inline-block;
+  font-size: 60px;
 }
 
-.page-header {
-  height: 250px;
-  font-weight: bold;
-  text-align: center;
-  background: #515a63;
-}
-
-.page-header h2 {
-  color: white;
-  font-weight: normal;
-  padding-top: 80px;
-  font-size: 50px;
+.frosted-container {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.3);
+  padding: 30px;
+  border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
 }
 
 .account-header {

@@ -1,26 +1,33 @@
-.home-header {
-  height: 350px;
-  font-weight: bold;
+.banner {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   text-align: center;
-  background: #515a63;
+  height: 300px;
+  border: none;
+  color: rgba(255, 255, 255, 1);
+  background: -webkit-linear-gradient(135deg, rgba(0, 0, 0, 0) 25%, rgba(255, 255, 255, 0.2) 25%, rgba(255, 255, 255, 0.2) 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 75%, rgba(255, 255, 255, 0.2) 75%), -webkit-linear-gradient(45deg, rgba(0, 0, 0, 0) 25%, rgba(255, 255, 255, 0.2) 25%, rgba(255, 255, 255, 0.2) 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 75%, rgba(255, 255, 255, 0.2) 75%), rgb(0, 153, 151);
+  background: -moz-linear-gradient(-45deg, rgba(0, 0, 0, 0) 25%, rgba(255, 255, 255, 0.2) 25%, rgba(255, 255, 255, 0.2) 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 75%, rgba(255, 255, 255, 0.2) 75%), -moz-linear-gradient(45deg, rgba(0, 0, 0, 0) 25%, rgba(255, 255, 255, 0.2) 25%, rgba(255, 255, 255, 0.2) 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 75%, rgba(255, 255, 255, 0.2) 75%), rgb(0, 153, 151);
+  background: linear-gradient(-45deg, rgba(0, 0, 0, 0) 25%, rgba(255, 255, 255, 0.2) 25%, rgba(255, 255, 255, 0.2) 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 75%, rgba(255, 255, 255, 0.2) 75%), linear-gradient(45deg, rgba(0, 0, 0, 0) 25%, rgba(255, 255, 255, 0.2) 25%, rgba(255, 255, 255, 0.2) 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 75%, rgba(255, 255, 255, 0.2) 75%), rgb(0, 153, 151);
+  // Toggle these values for finer blocks
+  //-webkit-background-size: 200em 200em;
+  //background-size: 200em 200em;
 }
-.home-header h2 {
+
+.banner h2 {
   color: white;
   font-weight: normal;
-  padding-top: 120px;
-  font-size: 70px;
+  display: inline-block;
+  font-size: 60px;
 }
-.page-header {
-  height: 250px;
-  font-weight: bold;
-  text-align: center;
-  background: #515a63;
-}
-.page-header h2 {
-  color: white;
-  font-weight: normal;
-  padding-top: 80px;
-  font-size: 50px;
+
+.frosted-container {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.3);
+  padding: 30px;
+  border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
 }
 
 .account-header {
@@ -29,6 +36,7 @@
   text-align: center;
   background: #515a63;
 }
+
 .account-header h2 {
   color: white;
   font-weight: normal;
