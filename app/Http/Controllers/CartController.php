@@ -24,7 +24,8 @@ class CartController extends Controller {
         Cart::add($course->id, $course->name, 1, $course->price,
             ['time_id' => $time->id, 'time_of_day' => $time->time_of_day, 'days' => $time->days()]);
 
-        // TODO: Add notification when item has been added to cart
+        flash()->success('Item Added', 'Item has been added to your cart.');
+
         return back();
     }
 

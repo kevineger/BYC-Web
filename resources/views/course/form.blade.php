@@ -141,7 +141,8 @@
     <script>
         $(document).ready(function() {
             $('#category_list').select2({
-                placeholder:'Choose two categories'
+                placeholder:'Choose two categories',
+                maximumSelectionLength: 2
             });
         });
 

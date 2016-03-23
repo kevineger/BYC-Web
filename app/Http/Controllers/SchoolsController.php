@@ -104,6 +104,8 @@ class SchoolsController extends Controller {
     {
         $school = auth()->user()->school()->create($request->all());
 
+        flash()->success('Success!', 'Your school has been created.');
+
         return redirect()->action('SchoolsController@show', ['school' => $school]);
     }
 

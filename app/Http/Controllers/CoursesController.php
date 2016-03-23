@@ -138,6 +138,7 @@ class CoursesController extends Controller {
     public function create()
     {
         $categories = Category::lists('text', 'id');
+
         return view('course.create', ['categories'=>$categories]);
     }
 
@@ -177,6 +178,8 @@ class CoursesController extends Controller {
 
         $course->categories()->attach($request->input('category_list'));
 
+        flash()->success('Success!', 'Your course has been created');
+
         return redirect()->action('CoursesController@show', ['course' => $course]);
     }
 
@@ -201,6 +204,39 @@ class CoursesController extends Controller {
     {
         $categories = Category::lists('text', 'id');
         return view('course.edit', ['course' => $course, 'categories'=>$categories]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param CourseRequest|Request $request
+     * @param Course $course
+     * @return \Illuminate\Http\Response
+     */
+    public function update(CourseRequest $request, Course $course)
+    {
+        $course->update($request->all());
+        if ($request->get('active')) $course->active = true;
+        else $course->active = false;
+        $course->save();
+
+        $course->categories()->sync($request->input('category_list'));
+
+        return redirect()->action('CoursesController@show', ['course' => $course]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param Course $course
+     * @return \Illuminate\Http\Response
+     * @throws \Exception
+     */
+    public function destroy(Course $course)
+    {
+        $course->delete();
+
+        return redirect()->action('CoursesController@index');
     }
 
     /**
@@ -241,39 +277,6 @@ class CoursesController extends Controller {
         }
 
         return "Photo " . $request->input('id') . " successfully removed.";
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param CourseRequest|Request $request
-     * @param Course $course
-     * @return \Illuminate\Http\Response
-     */
-    public function update(CourseRequest $request, Course $course)
-    {
-        $course->update($request->all());
-        if ($request->get('active')) $course->active = true;
-        else $course->active = false;
-        $course->save();
-
-        $course->categories()->sync($request->input('category_list'));
-
-        return redirect()->action('CoursesController@show', ['course' => $course]);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param Course $course
-     * @return \Illuminate\Http\Response
-     * @throws \Exception
-     */
-    public function destroy(Course $course)
-    {
-        $course->delete();
-
-        return redirect()->action('CoursesController@index');
     }
 
     /**

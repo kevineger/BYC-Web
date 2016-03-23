@@ -36,8 +36,6 @@
 @include('partials.nav')
 
 <div class="ui container container-margin">
-    @include('partials.flash')
-
     @yield('content')
 </div>
 @include('partials.footer')
@@ -49,6 +47,6 @@
 {{-------------------------------------------------------------------------}}
 
 @yield('footer')
-
+@include('partials.flash')
 </body>
 </html>
