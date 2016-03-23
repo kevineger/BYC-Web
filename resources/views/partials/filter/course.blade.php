@@ -34,7 +34,7 @@
         </div>
 
         <div class="ui slider range">
-            <label class="ui" for="min-range-selector">Min Price</label>
+            <label class="ui" for="min-range-selector">Max Price</label>
             <div class="ui middle aligned centered grid">
                 <div class="centered row">
                     <div class="twelve wide column" style="padding-right:3px;">
@@ -72,6 +72,25 @@
         </div>
     </div>
     <div class="ui item">
+        <p>Start/End Date</p>
+        <div class="ui two column grid">
+            <div style="padding-right:3px;" class="column">
+                <div class="ui fluid icon input">
+                    <input name="start_date" type="text" class="datepicker time-input"
+                           value="{{ Input::old('start_date') }}"/>
+                    <i class="calendar icon"></i>
+                </div>
+            </div>
+            <div style="padding-left:3px;" class="column">
+                <div class="ui fluid icon input">
+                    <input name="end_date" type="text" class="datepicker time-input"
+                           value="{{ Input::old('end_date') }}"/>
+                    <i class="calendar icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui item">
         <p>Restrict Days</p>
         <div class="ui circular labels days">
             <a id="sun" class="ui grey circular label day">S</a>
@@ -87,7 +106,7 @@
         <div class="ui large buttons">
             <button type="submit" class="ui button teal">Filter</button>
             <div class="or"></div>
-            <button onclick="" class="ui button">Clear</button>
+            <button onclick="clearFilter(event)" class="ui button">Clear</button>
         </div>
     </div>
     {!! Form::close() !!}
@@ -99,11 +118,13 @@
         {{--Load the active days--}}
         $(document).ready(function () {
             var days = {!! json_encode(Request::old('days')) !!};
-            if(days) {
+            if (days) {
                 days.forEach(function (day) {
                     $('#' + day).trigger('click');
                 });
             }
+            {{--Date Picker--}}
+            $(".datepicker").datepicker();
         });
         {{--ClockPicker--}}
         $('.clockpicker').clockpicker();
@@ -120,5 +141,11 @@
                 dayOfWeek.parent().find("." + dayOfWeek.attr('id')).remove();
             }
         });
+
+        function clearFilter(e) {
+            // Too lazy to do this properly, just reload the /courses url.
+            e.preventDefault();
+            window.location.replace("/courses");
+        }
     </script>
 @endsection

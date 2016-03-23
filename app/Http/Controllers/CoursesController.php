@@ -39,7 +39,6 @@ class CoursesController extends Controller {
      */
     public function search(Request $request)
     {
-//        dd($request);
         $query = Course::active();
         // Check categories
         $categories_checked = $request->get('categories');
@@ -66,11 +65,22 @@ class CoursesController extends Controller {
         {
             $start = $request->has('start_time') ? Carbon::createFromFormat('Y:m:d H:i', "1994:08:24 " . $request->get('start_time')) : Carbon::createFromDate(1940);
             $end = $request->has('end_time') ? Carbon::createFromFormat('Y:m:d H:i', "1994:08:24 " . $request->get('end_time')) : Carbon::now();
-//            dd($start_time);
             $query->whereHas('times', function ($q) use ($start, $end)
             {
                 // Time must be between start and end
                 $q->where('start_time', '>=', $start)->where('end_time', '<=', $end);
+            });
+        }
+
+        // Filter the start and end date
+        if ($request->has('start_date') || $request->has('end_date'))
+        {
+            $start = $request->has('start_date') ? Carbon::createFromFormat('m/d/Y', $request->get('start_date')) : Carbon::createFromDate(1940);
+            $end = $request->has('end_date') ? Carbon::createFromFormat('m/d/Y', $request->get('end_date')) : Carbon::now()->addYear(1);
+            $query->whereHas('times', function ($q) use ($start, $end)
+            {
+                // Time must be between start and end
+                $q->where('beginning_date', '>=', $start)->where('end_date', '<=', $end);
             });
         }
 
