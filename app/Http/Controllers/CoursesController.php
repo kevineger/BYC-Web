@@ -137,7 +137,8 @@ class CoursesController extends Controller {
      */
     public function create()
     {
-        return view('course.create');
+        $categories = Category::lists('text', 'id');
+        return view('course.create', ['categories'=>$categories]);
     }
 
     /**
@@ -149,6 +150,7 @@ class CoursesController extends Controller {
     public function store(Request $request)
     {
         $school = auth()->user()->school;
+
 
         // Save the course
         // TODO: Why the hell are courses not set to active on create... It's in the request... :S
@@ -173,6 +175,8 @@ class CoursesController extends Controller {
             ]));
         }
 
+        $course->categories()->attach($request->input('category_list'));
+
         return redirect()->action('CoursesController@show', ['course' => $course]);
     }
 
@@ -195,7 +199,8 @@ class CoursesController extends Controller {
      */
     public function edit(Course $course)
     {
-        return view('course.edit', ['course' => $course]);
+        $categories = Category::lists('text', 'id');
+        return view('course.edit', ['course' => $course, 'categories'=>$categories]);
     }
 
     /**
@@ -251,6 +256,8 @@ class CoursesController extends Controller {
         if ($request->get('active')) $course->active = true;
         else $course->active = false;
         $course->save();
+
+        $course->categories()->sync($request->input('category_list'));
 
         return redirect()->action('CoursesController@show', ['course' => $course]);
     }
