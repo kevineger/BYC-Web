@@ -13,15 +13,31 @@
         </tr>
         </thead>
         <tbody>
+
         @foreach ( $content as $row )
             <tr>
                 <td>{{ $row->name }}</td>
-                <td>{{ $row->options->time_of_day }}
-                    <ul>
-                        @foreach( $row->options->days as $day )
-                            <li>{{ $day }}</li>
-                        @endforeach
-                    </ul>
+                <td>
+                    <div class="ui list">
+                        <div class="item">
+                            Start Date: {{$row->options->beginning_date}}
+                        </div>
+                        <div class="item">
+                            End Date: {{$row->options->end_date}}
+                        </div>
+                        <div class="item">
+                            Time: {{$row->options->start_time}} - {{$row->options->end_time}}
+                        </div>
+                        <div class="item">
+                            Days:
+                            <ul>
+                                @foreach( $row->options->days as $day )
+                                    <li>{{ $day }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+
                 </td>
                 <td>{{ $row->qty }}</td>
                 <td>{{ $row->price * $row->qty }}</td>
