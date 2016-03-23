@@ -91,7 +91,7 @@ class ApiUsersController extends ApiController {
             $purchases = $payment->purchases;
 
             foreach ( $purchases as $purchase ) {
-                $all_purchases[] = $purchase;
+                $all_purchases[] = collect($purchase->course, $purchase->course->school);
             }
 
         }
