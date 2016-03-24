@@ -10,10 +10,10 @@
         Categories
         @include('partials.filter.categories')
     </div>
-    <a class="item">
-        View Style <i class="list layout icon" href="#"></i> <i class="active grid layout icon"
-                                                                href="#"></i>
-    </a>
+    {{--<a class="item">--}}
+        {{--View Style <i class="list layout icon" href="#"></i> <i class="active grid layout icon"--}}
+                                                                {{--href="#"></i>--}}
+    {{--</a>--}}
     <a class="item">
         <div class="ui slider range">
             <label class="ui" for="min-range-selector">Min Price</label>
