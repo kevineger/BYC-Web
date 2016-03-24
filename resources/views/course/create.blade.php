@@ -6,7 +6,7 @@
             Create a new Course
         </div>
     </h2>
-    {!! Form::model($course = new App\Course, ['url' => 'courses', 'class' => 'ui large form']) !!}
+    {!! Form::model($course = new App\Course, ['url' => 'courses']) !!}
     @include('course.form', ['submitButtonText' => 'Create Course'])
     {!! Form::close() !!}
 

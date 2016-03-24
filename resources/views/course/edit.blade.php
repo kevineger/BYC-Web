@@ -11,7 +11,7 @@
             Edit an Existing Course
         </div>
     </h2>
-    {!! Form::model($course, ['method' => 'PATCH', 'action' => ['CoursesController@update', $course], 'class' => 'ui large form']) !!}
+    {!! Form::model($course, ['method' => 'PATCH', 'action' => ['CoursesController@update', $course]]) !!}
     @include('course.form', ['submitButtonText' => 'Update Course'])
     {!! Form::close() !!}
 

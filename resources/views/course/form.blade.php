@@ -24,7 +24,8 @@
                 <div class="three wide field">
                     <div class="inline field">
                         <div id="activeChkBoxContainer" class="ui toggle checkbox">
-                            <input id="activeChkBox" name="active" type="checkbox" tabindex="0" class="hidden" value=true>
+                            <input id="activeChkBox" name="active" type="checkbox" tabindex="0" class="hidden"
+                                   value=true>
                             <label>Active</label>
                         </div>
                     </div>
@@ -48,30 +49,34 @@
                     {!! Form::input('number','max_age') !!}
                 </div>
             </div>
-            <div class="field">
-                {!! Form::label('category_list', 'Categories: ') !!}
-                {!! Form::select('category_list[]', $categories, null, ['id'=>'category_list','multiple']) !!}
-            </div>
+        </div>
+
+    </div>
+    <div class="twelve wide column">
+       <b> {!! Form::label('category_list', 'Categories: ') !!}</b>
+        {!! Form::select('category_list[]', $categories, null, ['id'=>'category_list', 'class'=>'select-width','multiple']) !!}
+    </div>
+    <div class="twelve wide column">
+        <div class="ui form">
             <div id="app">
                 @include('course.times')
                 <time></time>
             </div>
 
-        </div>
-
-        <div class="inline fields">
-            <div class="four wide field">
-                <div class="ui right aligned grid">
-                    <button type="button" onclick="addTime()" class="ui green basic button">Add Another Time</button>
+            <div class="inline fields">
+                <div class="four wide field">
+                    <div class="ui right aligned grid">
+                        <button type="button" onclick="addTime()" class="ui green basic button">Add Another Time
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div class="twelve wide field">
-                {!! Form::submit($submitButtonText, ['class' => 'ui fluid large teal submit button']) !!}
+                <div class="twelve wide field">
+                    {!! Form::submit($submitButtonText, ['class' => 'ui fluid large teal submit button']) !!}
+                </div>
             </div>
         </div>
     </div>
 </div>
-
 @section('footer')
     @parent
     {{--Vue JS--}}
@@ -122,7 +127,7 @@
             $(this).parent().parent().remove();
         });
         {{--Propogate checkbox value for form submission--}}
-         $('#activeChkBox').change(function(){
+        $('#activeChkBox').change(function () {
             cb = $(this);
             cb.val(cb.prop('checked'));
         });
@@ -139,9 +144,9 @@
     {{--Select2 JS--}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#category_list').select2({
-                placeholder:'Choose two categories',
+                placeholder: 'Choose two categories',
                 maximumSelectionLength: 2
             });
         });
