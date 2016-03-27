@@ -28,7 +28,7 @@ class CourseTransformer extends Transformer {
             'name'        => $course['name'],
             'school'      => $this->schoolTransformer->transform($course->school),
             'description' => $course->description,
-            'featured'    => (boolean)$course->featured,
+            'featured'    => (boolean)$course->featured(),
             'active'      => (boolean)$course->active,
             'min_age'     => (int)$course->min_age,
             'max_age'     => (int)$course->max_age,
