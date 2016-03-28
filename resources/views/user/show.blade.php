@@ -1,15 +1,25 @@
 @extends('app')
+
 @section('page-header')
-    <div class="account-header">
-        <h2>Your Account</h2>
+    <div class="banner">
+        <div class="div">
+            <div class="frosted-container">
+                <h2>Your Account</h2>
+            </div>
+        </div>
     </div>
 @endsection
+
 @section('content')
 
     <div class="ui centered grid">
-
         <h2 class="ui center aligned icon header">
-            <i class="circular user icon"></i>
+            @if($user->photos->count() < 1)
+                <i class="circular user icon"></i>
+            @else
+                <img class="ui small circular image" src="/{{ $user->photos[0]->thumbnail_path }}" alt="Photo">
+            @endif
+            <br>
             <div class="content"> {{$user->name}}</div>
             <div class="sub header">Joined {{$user->created_at->toFormattedDateString()}}</div>
         </h2>
@@ -134,27 +144,8 @@
                 </div>
             </div>
         @endif
-        <div class="ui horizontal divider">
-            Photos
-        </div>
-        @foreach ($user->photos->chunk(4) as $set)
-            <div class="row">
-                @foreach($set as $photo)
-                    <div class="four wide column">
-                        <a href="/{{ $photo->path }}" data-lity>
-                            <div class="ui card">
-                                <div class="image">
-                                    <img style="width:100%" src="/{{ $photo->thumbnail_path }}" alt="Photo">
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                @endforeach
-            </div>
-        @endforeach
         <br>
-
+        @endcan
         <div class="ui horizontal divider">
             Manage Account
         </div>
@@ -163,8 +154,6 @@
         {!! Form::close() !!}
         <a href="{{ action('UsersController@edit', [$user]) }}" role="button" class="ui blue button">Edit
             Account</a>
-
-        @endcan
     </div>
 
 
