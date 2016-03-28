@@ -136,6 +136,8 @@ Route::group(['prefix' => 'cart'], function ()
 */
 Route::group(['prefix' => 'api/v1', 'middleware' => ['cors']], function ()
 {
+    Route::post('schools/{schools}/comments', 'API\ApiSchoolsController@addComment');
+    Route::post('courses/{courses}/comments', 'API\ApiCoursesController@addComment');
     Route::resource('schools', 'API\ApiSchoolsController');
     Route::get('schools/{schools}/courses', 'API\ApiSchoolsController@getCourses');
     Route::resource('courses', 'API\ApiCoursesController');
@@ -148,4 +150,5 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['cors']], function ()
     Route::get('schools/{schools}/comments', 'API\ApiCommentsController@show');
     Route::get('users/dash', 'API\ApiUsersController@getCourseHistory');
     Route::get('category', 'API\ApiCategoriesController@index');
+    Route::post('users/delete', 'API\ApiUsersController@destroy');
 });
