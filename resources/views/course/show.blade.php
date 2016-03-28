@@ -129,9 +129,3 @@
         </div>
     @endif
 @endsection
-
-@section('footer')
-    <script>
-        $('.ui.accordion').accordion();
-    </script>
-@endsection

@@ -14,10 +14,10 @@ var elixir = require('laravel-elixir');
 elixir(function (mix) {
     mix.sass('app.scss')
         .scripts([
-            './vendor/semantic/ui/dist/semantic.min.js',
             'libs/lity.js',
             'libs/jquery-clockpicker.min.js',
             'libs/jquery-ui.js',
+            './vendor/semantic/ui/dist/semantic.min.js',
             'libs/sweetalert-dev.js'
         ], './public/js/libs.js')
         .scripts([

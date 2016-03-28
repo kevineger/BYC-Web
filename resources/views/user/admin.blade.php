@@ -11,15 +11,24 @@
             <div class="sub header">Manage schools, courses, payment.</div>
         </div>
     </h2>
-    @include('user.partials.users')
-    @include('user.partials.schools')
-    @include('user.partials.courses')
-    @include('user.partials.payment')
 
+    <br>
+
+    <div class="ui styled fluid accordion">
+        @include('user.partials.users')
+        @include('user.partials.schools')
+        @include('user.partials.courses')
+        @include('user.partials.payment')
+    </div>
 
 @endsection
 @section('footer')
     <script>
+        $(document).ready(function(){
+            $('.ui.accordion').accordion();
+        });
+
+        // Set a course or school as featured
         function setFeatured(event, model) {
             var target = $(event.target);
             id = target.attr('id');
