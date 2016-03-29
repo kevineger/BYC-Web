@@ -48,17 +48,19 @@
                 return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
             },
             init: function () {
-                // Add pre-existing images to Dropzone
-                var mockFile = {
-                    id: '{!! $home_banner->id !!}',
-                    name: '{!! $home_banner->name !!}'
-                };
+                if ('{{ $home_banner->bannerSet() }}' == true) {
+                    // Add pre-existing images to Dropzone
+                    var mockFile = {
+                        id: '{!! $home_banner->id !!}',
+                        name: '{!! $home_banner->name !!}'
+                    };
 
-                // Call the default addedfile event handler
-                this.emit("addedfile", mockFile);
-                // And optionally show the thumbnail of the file:
-                this.emit("thumbnail", mockFile, "/{!! $home_banner->path !!}");
-                this.emit("complete", mockFile);
+                    // Call the default addedfile event handler
+                    this.emit("addedfile", mockFile);
+                    // And optionally show the thumbnail of the file:
+                    this.emit("thumbnail", mockFile, "/{!! $home_banner->path !!}");
+                    this.emit("complete", mockFile);
+                }
             }
         };
         Dropzone.options.addSchoolPhotoForm = {
@@ -83,17 +85,19 @@
                 return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
             },
             init: function () {
-                // Add pre-existing images to Dropzone
-                var mockFile = {
-                    id: '{!! $school_banner->id !!}',
-                    name: '{!! $school_banner->name !!}'
-                };
+                if ('{{ $school_banner->bannerSet() }}' == true) {
+                    // Add pre-existing images to Dropzone
+                    var mockFile = {
+                        id: '{!! $school_banner->id !!}',
+                        name: '{!! $school_banner->name !!}'
+                    };
 
-                // Call the default addedfile event handler
-                this.emit("addedfile", mockFile);
-                // And optionally show the thumbnail of the file:
-                this.emit("thumbnail", mockFile, "/{!! $school_banner->path !!}");
-                this.emit("complete", mockFile);
+                    // Call the default addedfile event handler
+                    this.emit("addedfile", mockFile);
+                    // And optionally show the thumbnail of the file:
+                    this.emit("thumbnail", mockFile, "/{!! $school_banner->path !!}");
+                    this.emit("complete", mockFile);
+                }
             }
         };
         Dropzone.options.addCoursePhotoForm = {
@@ -119,16 +123,18 @@
             },
             init: function () {
                 // Add pre-existing images to Dropzone
-                var mockFile = {
-                    id: '{!! $course_banner->id !!}',
-                    name: '{!! $course_banner->name !!}'
-                };
+                if ('{{ $course_banner->bannerSet() }}' == true) {
+                    var mockFile = {
+                        id: '{!! $course_banner->id !!}',
+                        name: '{!! $course_banner->name !!}'
+                    };
 
-                // Call the default addedfile event handler
-                this.emit("addedfile", mockFile);
-                // And optionally show the thumbnail of the file:
-                this.emit("thumbnail", mockFile, "/{!! $course_banner->path !!}");
-                this.emit("complete", mockFile);
+                    // Call the default addedfile event handler
+                    this.emit("addedfile", mockFile);
+                    // And optionally show the thumbnail of the file:
+                    this.emit("thumbnail", mockFile, "/{!! $course_banner->path !!}");
+                    this.emit("complete", mockFile);
+                }
             }
         };
     </script>

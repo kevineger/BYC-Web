@@ -14,11 +14,29 @@
   //background-size: 200em 200em;
 }
 
-.banner h2 {
+.frosted-container h2 {
   color: white;
   font-weight: normal;
   display: inline-block;
   font-size: 60px;
+}
+
+.image-container {
+  text-align: center;
+  height: 300px;
+  position: relative;
+}
+
+.image-container .text-block {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.banner-img {
+  z-index: -1;
+  height: 100%
 }
 
 .frosted-container {

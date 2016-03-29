@@ -1,13 +1,24 @@
 @extends('app')
 
 @section('page-header')
-    <div class="banner">
-        <div class="div">
-            <div class="frosted-container">
-                <h2>Courses</h2>
+    @if($banner->bannerSet())
+        <div class="image-container">
+            <img src="{{ $banner->path }}" class="banner-img" alt="somestupidbannernotshowing">
+            <div class="text-block">
+                <div class="frosted-container">
+                    <h2>Book Your Class</h2>
+                </div>
             </div>
         </div>
-    </div>
+    @else
+        <div class="banner">
+            <div class="div">
+                <div class="frosted-container">
+                    <h2>Courses</h2>
+                </div>
+            </div>
+        </div>
+    @endif
 @endsection
 
 @section('content')

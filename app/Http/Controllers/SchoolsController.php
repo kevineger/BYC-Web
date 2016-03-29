@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Banner;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeSchoolRequest;
@@ -83,11 +84,15 @@ class SchoolsController extends Controller {
         // Flash old input to repopulate on search
         $request->flash();
 
-        $featuredSchools = School::featured()->get()->slice(0,5);
+        $featuredSchools = School::featured()->get()->slice(0, 5);
+        
+        $banner = Banner::findByName('school');
+
         return view('school.index', [
-            'schools'    => $schools,
-            'categories' => $categories,
-            'featuredSchools'=>$featuredSchools
+            'schools'         => $schools,
+            'categories'      => $categories,
+            'featuredSchools' => $featuredSchools,
+            'banner'          => $banner
         ]);
 
     }

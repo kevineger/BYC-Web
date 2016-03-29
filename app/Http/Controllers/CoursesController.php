@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Banner;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeCourseRequest;
@@ -91,7 +92,7 @@ class CoursesController extends Controller {
             // All courses whose categories match the specified ones.
             $query->whereHas('times', function ($q) use ($days)
             {
-                foreach ( $days as $day )
+                foreach ($days as $day)
                 {
                     $q->where($day, true);
                 }
@@ -130,13 +131,15 @@ class CoursesController extends Controller {
         $request->flash();
 
         $featuredCourses = Course::featured()->get()->slice(0, 5);
+        $banner = Banner::findByName('course');
 
         return view('course.index', [
             'courses'         => $courses,
             'featuredCourses' => $featuredCourses,
             'categories'      => $categories,
             'cheapest'        => $cheapest,
-            'most_expensive'  => $most_expensive
+            'most_expensive'  => $most_expensive,
+            'banner'          => $banner
         ]);
     }
 
@@ -149,7 +152,7 @@ class CoursesController extends Controller {
     {
         $categories = Category::lists('text', 'id');
 
-        return view('course.create', ['categories'=>$categories]);
+        return view('course.create', ['categories' => $categories]);
     }
 
     /**
@@ -168,7 +171,7 @@ class CoursesController extends Controller {
         $course = $school->courses()->create($request->all());
 
         // Save each of the course times
-        foreach ( $request->get('days') as $key => $days )
+        foreach ($request->get('days') as $key => $days)
         {
             $course->times()->attach(Time::create([
                 'mon'            => in_array('mon', $days),
@@ -213,7 +216,8 @@ class CoursesController extends Controller {
     public function edit(Course $course)
     {
         $categories = Category::lists('text', 'id');
-        return view('course.edit', ['course' => $course, 'categories'=>$categories]);
+
+        return view('course.edit', ['course' => $course, 'categories' => $categories]);
     }
 
     /**

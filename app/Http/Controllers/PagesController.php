@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Banner;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -14,10 +15,12 @@ class PagesController extends Controller {
     {
         $featuredSchools = School::where('featured', 1)->get()->slice(0, 5);
         $featuredCourses = Course::where('featured', 1)->get()->slice(0, 5);
+        $banner = Banner::findByName('home');
 
         return view('pages.home', [
             'featuredCourses' => $featuredCourses,
             'featuredSchools' => $featuredSchools,
+            'banner'          => $banner,
             'is_search'       => false
         ]);
     }
