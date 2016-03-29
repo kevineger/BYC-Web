@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Banner;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeUserRequest;
 use App\Http\Requests\UserRequest;
@@ -22,8 +23,9 @@ class UsersController extends Controller {
      */
     public function __construct()
     {
-        $this->middleware('admin', ['only'=>'admin']);
+        $this->middleware('admin', ['only' => 'admin']);
     }
+
     /**
      * Display the specified resource.
      *
@@ -32,7 +34,6 @@ class UsersController extends Controller {
      */
     public function show(User $user)
     {
-
         return view('user.show', ['user' => $user]);
     }
 
@@ -133,7 +134,19 @@ class UsersController extends Controller {
         $schools = School::all();
         $courses = Course::all();
         $purchases = Purchase::all();
-        return view('user.admin', ['users'=>$users, 'schools'=>$schools, 'courses'=>$courses, 'purchases'=>$purchases]);
+        $home_banner = Banner::findByName('home');
+        $school_banner = Banner::findByName('school');
+        $course_banner = Banner::findByName('course');
+
+        return view('user.admin', [
+            'users'         => $users,
+            'schools'       => $schools,
+            'courses'       => $courses,
+            'purchases'     => $purchases,
+            'home_banner'   => $home_banner,
+            'school_banner' => $school_banner,
+            'course_banner' => $course_banner
+        ]);
     }
 
     /**
@@ -144,7 +157,8 @@ class UsersController extends Controller {
      */
     public function featureSchool(School $school)
     {
-        if(!$this->authorize('update', $school)) {
+        if (!$this->authorize('update', $school))
+        {
             return "You are not authorized";
         }
 
@@ -163,7 +177,8 @@ class UsersController extends Controller {
      */
     public function featureCourse(Course $course)
     {
-        if(!$this->authorize('updateCourse', $course)) {
+        if (!$this->authorize('updateCourse', $course))
+        {
             return "You are not authorized";
         }
 

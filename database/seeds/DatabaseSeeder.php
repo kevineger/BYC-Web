@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
         $this->call(CategoryTableSeeder::class);
         // Create comments for courses
         $this->call(CommentTableSeeder::class);
+        // Create banner fields
+        $this->call(BannerTableSeeder::class);
 
         Model::reguard();
     }

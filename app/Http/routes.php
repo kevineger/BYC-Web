@@ -64,6 +64,14 @@ Route::resource('users', 'UsersController', [
 Route::get('admin', 'UsersController@admin');
 Route::post('admin/school/{schools}/feature', 'UsersController@featureSchool');
 Route::post('admin/course/{courses}/feature', 'UsersController@featureCourse');
+Route::post('admin/addBanner', [
+    'as'   => 'addBanner',
+    'uses' => 'BannersController@addBanner'
+]);
+Route::post('admin/removeBanner', [
+    'as'   => 'removeBanner',
+    'uses' => 'BannersController@removeBanner'
+]);
 
 Route::post('users/{users}/addPhoto', ['as' => 'addPhotoToUser', 'uses' => 'UsersController@addPhoto']);
 Route::post('users/{users}/removePhoto', ['as' => 'removePhotoFromUser', 'uses' => 'UsersController@removePhoto']);

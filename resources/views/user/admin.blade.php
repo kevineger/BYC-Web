@@ -1,5 +1,6 @@
 @extends('app')
 @section('head')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/dropzone.css">
     <meta name="csrf-token" content="{{csrf_token()}}">
 @endsection
 @section('content')
@@ -11,9 +12,9 @@
             <div class="sub header">Manage schools, courses, payment.</div>
         </div>
     </h2>
-
     <br>
-
+    @include('user.banner-selection')
+    <br>
     <div class="ui styled fluid accordion">
         @include('user.partials.users')
         @include('user.partials.schools')
