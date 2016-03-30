@@ -14,12 +14,13 @@
 
     <div class="ui centered grid">
         <h2 class="ui center aligned icon header">
-            @if($user->photos->count() < 1)
-                <i class="circular user icon"></i>
+            @if(true)
+                <img class="ui small circular image" src="/{{ $user->photos()->first()->thumbnail_path }}" alt="Photo">
             @else
-                <img class="ui small circular image" src="/{{ $user->photos[0]->thumbnail_path }}" alt="Photo">
+                <i class="circular user icon"></i>
             @endif
             <br>
+
             <div class="content"> {{$user->name}}</div>
             <div class="sub header">Joined {{$user->created_at->toFormattedDateString()}}</div>
         </h2>
@@ -28,6 +29,7 @@
             <div class="ten wide column">
                 <div class="ui stacked segment">
                     <h3 class="ui dividing header">Contact Information</h3>
+
                     <p> Email: {{$user->email}}</p>
                 </div>
             </div>
@@ -111,6 +113,7 @@
                 <div class="ten wide column">
                     <div class="ui stacked segment">
                         <h3 class="ui dividing header">Previous Courses Taken</h3>
+
                         <div class="ui two column grid">
                             @if($user->payments->count()>0)
                                 @foreach($user->payments as $payment)
@@ -129,6 +132,7 @@
                 <div class="ten wide column">
                     <div class="ui stacked segment">
                         <h3 class="ui dividing header">Upcoming/Current Courses</h3>
+
                         <div class="ui two column grid">
                             @if($user->payments->count()>0)
                                 @foreach($user->payments as $payment)
