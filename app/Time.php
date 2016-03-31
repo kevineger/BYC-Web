@@ -57,4 +57,15 @@ class Time extends Model {
 
         return $active_days;
     }
+
+    /**
+     * Get a user interpretable occurrence of how often a Time repeats.
+     * @return string
+     */
+    public function repeats()
+    {
+        if ($this->repeats == 'w') return 'Weekly';
+        if ($this->repeats == 'b') return 'Biweekly';
+        if ($this->repeats == 'm') return 'Monthly';
+    }
 }

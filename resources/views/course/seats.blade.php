@@ -24,7 +24,13 @@
                                     {{ $time->beginning_date->toFormattedDateString() }}
                                     to
                                     {{ $time->end_date->toFormattedDateString() }}
+                                    <p>
+                                        @foreach( $time->days() as $day )
+                                            {{ $day }}
+                                        @endforeach
+                                    </p>
                                 </div>
+                                {{$time->repeats()}}
                             </h4>
                             <p>Total Seats: {{$time->pivot->num_seats}}</p>
 

@@ -50,8 +50,7 @@
                     @endif
                     <p><a href="{{ action('CoursesController@details', $course) }}">Registered Users/Payment
                             Details</a></p>
-                    <p><a href="{{ action('CoursesController@seats', $course) }}">Edit Seats Available
-                            Details</a></p>
+                    <p><a href="{{ action('CoursesController@seats', $course) }}">Edit Seats Available</a></p>
                 </div>
                 <div class="ui vertical segment">
                     {!! Form::open(['method' => 'DELETE', 'route' => ['courses.destroy', $course], 'style'=>'display:inline-block;']) !!}

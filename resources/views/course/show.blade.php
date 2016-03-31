@@ -63,6 +63,7 @@
                                     {{ $time->end_date->toFormattedDateString() }}
                                 </div>
                             </h4>
+                                {{$time->repeats()}}
                             <p>
                                 @foreach( $time->days() as $key => $day )
                                     {{ $day }}
