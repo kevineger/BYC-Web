@@ -1,6 +1,10 @@
 <div class="comment">
     <a class="avatar">
-        <img src="http://semantic-ui.com/images/avatar2/small/molly.png">
+        @if($comment->user->photos()->count() > 0)
+            <img src="/{{ $comment->user->photos()->first()->thumbnail_path }}" alt="Photo">
+        @else
+            <img src="/photos/default-icon.jpg" alt="Photo">
+        @endif
     </a>
     <div class="content">
         <a class="author">{{$comment->user->name}}</a>

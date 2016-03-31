@@ -14,7 +14,7 @@
 
     <div class="ui centered grid">
         <h2 class="ui center aligned icon header">
-            @if($user->photos->count() > 0)
+            @if( $user->photos()->count() > 0)
                 <img class="ui small circular image" src="/{{ $user->photos()->first()->thumbnail_path }}" alt="Photo">
             @else
                 <i class="circular user icon"></i>
