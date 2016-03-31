@@ -3,7 +3,8 @@
         @if($comment->user->photos()->count() > 0)
             <img src="/{{ $comment->user->photos()->first()->thumbnail_path }}" alt="Photo">
         @else
-            <img src="/photos/default-icon.jpg" alt="Photo">
+            {{--<img src="/photos/default-icon.jpg" alt="Photo">--}}
+            <i class="circular user icon"></i>
         @endif
     </a>
     <div class="content">
