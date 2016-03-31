@@ -46,7 +46,10 @@ Route::resource('courses', 'CoursesController');
 Route::post('courses/{courses}/addPhoto', ['as' => 'addPhotoToCourse', 'uses' => 'CoursesController@addPhoto']);
 Route::post('courses/{courses}/removePhoto', ['as' => 'removePhotoFromCourse', 'uses' => 'CoursesController@removePhoto']);
 Route::get('courses/{courses}/details', 'CoursesController@details');
-
+Route::get('courses/{courses}/seats', 'CoursesController@seats');
+Route::get('courses/{courses}/{times}/increaseSeats', 'CoursesController@increaseSeats');
+Route::get('courses/{courses}/{times}/decreaseSeats', 'CoursesController@decreaseSeats');
+Route::get('courses/{courses}/{times}/increaseRegistered', 'CoursesController@increaseRegistered');
 
 /*
 |--------------------------------------------------------------------------

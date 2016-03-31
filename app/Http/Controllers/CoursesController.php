@@ -186,7 +186,7 @@ class CoursesController extends Controller {
                 'repeats'        => $request->get('repeat')[$key],
                 'beginning_date' => Carbon::createFromFormat('m/d/Y', $request->get('beginning_date')[$key]),
                 'end_date'       => Carbon::createFromFormat('m/d/Y', $request->get('end_date')[$key])
-            ]));
+            ]), ['num_seats'=> $request->get('num_seats')[$key], 'num_reg'=>0]);
         }
 
         $course->categories()->attach($request->input('category_list'));
@@ -236,6 +236,7 @@ class CoursesController extends Controller {
 
         $course->categories()->sync($request->input('category_list'));
 
+        flash()->success('Success!', 'Your course has been created');
         return redirect()->action('CoursesController@show', ['course' => $course]);
     }
 
@@ -249,6 +250,8 @@ class CoursesController extends Controller {
     public function destroy(Course $course)
     {
         $course->delete();
+
+        flash()->success('Deleted!', 'Your course has been deleted.');
 
         return redirect()->action('CoursesController@index');
     }
@@ -322,5 +325,68 @@ class CoursesController extends Controller {
         $this->authorize('updateCourse', $course);
 
         return view('course.details', ['course' => $course]);
+    }
+
+    /**
+     * Displays course seats.
+     *
+     * @param Course $course
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function seats(Course $course)
+    {
+        $this->authorize('updateCourse', $course);
+
+        return view('course.seats', ['course' => $course]);
+    }
+
+
+    /**
+     * Increase course seats for a specified time.
+     *
+     * @param Course $course
+     * @param Time $time
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function increaseSeats(Course $course, Time $time)
+    {
+        $this->authorize('updateCourse', $course);
+
+        $time = $course->times()->where('time_id', $time->id)->first();
+        $num_seats = $time->pivot->num_seats + 1;
+
+        $course->times()->updateExistingPivot($time->id, ['num_seats'=>$num_seats]);
+
+        return redirect()->back();
+    }
+
+    /**
+     * Decrease course seats for a specified time.
+     *
+     * @param Course $course
+     * @param Time $time
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function decreaseSeats(Course $course, Time $time)
+    {
+        $this->authorize('updateCourse', $course);
+
+        $time = $course->times()->where('time_id', $time->id)->first();
+        $num_seats = $time->pivot->num_seats - 1;
+        $course->times()->updateExistingPivot($time->id, ['num_seats'=>$num_seats]);
+
+        return redirect()->back();
+    }
+
+    public function increaseRegistered(Course $course, Time $time)
+    {
+        $this->authorize('updateCourse', $course);
+
+        $time = $course->times()->where('time_id', $time->id)->first();
+        $num_reg = $time->pivot->num_reg + 1;
+
+        $course->times()->updateExistingPivot($time->id, ['num_reg'=>$num_reg]);
+
+        return redirect()->back();
     }
 }

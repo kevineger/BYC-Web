@@ -50,6 +50,7 @@
                             {!! Form::close() !!}
                         </div>
                         <div class="middle aligned content">
+                            <b>Seats Remaining: {{$time->pivot->num_seats - $time->pivot->num_reg}}</b>
                             <h4 class="ui header">
                                 {{ $time->start_time->hour }}
                                 :{{ $time->start_time->minute == 0 ?  "00" : $time->start_time->minute}}

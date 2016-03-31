@@ -199,6 +199,8 @@ class SchoolsController extends Controller {
 
         $school->update($request->all());
 
+        flash()->success('Success!', 'Your school has been updated.');
+
         return redirect()->action('SchoolsController@show', ['school' => $school]);
     }
 
@@ -213,6 +215,8 @@ class SchoolsController extends Controller {
         $this->authorize('update', $school);
 
         $school->delete();
+
+        flash()->success('Deleted!', 'Your school has been deleted.');
 
         return redirect()->action('SchoolsController@index');
     }

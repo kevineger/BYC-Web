@@ -185,7 +185,7 @@ class UsersController extends Controller {
         $course->featured = !$course->featured;
         $course->save();
 
-        return "Successfully set school" . $course->id . " featured = " . $course->featured;
+        return "Successfully set course" . $course->id . " featured = " . $course->featured;
     }
 
 }

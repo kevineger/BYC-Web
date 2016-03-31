@@ -18,7 +18,7 @@
                 <div class="ten wide field">
                     <div class="ui labeled input">
                         <div class="ui label">$</div>
-                        {!! Form::input('number','price') !!}
+                        {!! Form::text('price') !!}
                     </div>
                 </div>
                 <div class="three wide field">
