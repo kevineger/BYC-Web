@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Comment;
 use App\Transformers\CourseTransformer;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Response;
@@ -106,5 +107,22 @@ class ApiCoursesController extends ApiController {
         }
 
         return $query->get();
+    }
+
+    /**
+     * Add a comment to a course.
+     *
+     * @param Course $course
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function addComment(Course $course, Request $request)
+    {
+        $this->validate($request, ['text' => 'required']);
+        $comment = new Comment($request->all());
+        auth()->user()->comments()->save($comment);
+        $course->comments()->save($comment);
+
+        return $this->respond(['status' => 'success']);
     }
 }

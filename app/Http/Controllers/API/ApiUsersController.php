@@ -38,6 +38,7 @@ class ApiUsersController extends ApiController {
         try {
             $credentials['password'] = bcrypt($credentials['password']);
             $user = User::create($credentials);
+            $user->confirmEmail();
             // TODO: Trigger confirmation email
         } catch ( Exception $e ) {
             return $this->setStatusCode(409)->respondWithError('User Already Exists.');
@@ -101,4 +102,23 @@ class ApiUsersController extends ApiController {
         ]);
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @return \Illuminate\Http\Response
+     * @throws \Exception
+     * @internal param int $id
+     */
+    public function destroy()
+    {
+        $user = $this->getAuthenticatedUser();
+        try
+        {
+            $user->delete();
+        } catch (Exception $e) {
+            return $this->setStatusCode(409)->respondWithError("Cannot delete user.");
+        }
+        return $this->respond(['status' => 'success']);
+
+    }
 }
