@@ -100,12 +100,17 @@
     <br>
 
     @can('updateCourse', $course)
+    @if(Auth::user()->admin)
+        <a class="ui button" href="{{ action('UsersController@admin', [$course]) }}" role="button">To Admin Dashboard</a>
+    @endif
     {!! Form::open(['method' => 'DELETE', 'route' => ['courses.destroy', $course], 'style' => 'display:inline;']) !!}
     {!! Form::submit('Delete', ['class' => 'ui red button']) !!}
     {!! Form::close() !!}
 
     <a class="ui blue button" href="{{ action('CoursesController@edit', [$course]) }}" role="button">Edit Course</a>
+
     <br>
+
     @endcan
     <h3 class="ui dividing header">
         Comments

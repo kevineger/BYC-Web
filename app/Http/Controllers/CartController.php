@@ -15,7 +15,7 @@ class CartController extends Controller {
     public function index()
     {
         $content = Cart::content();
-//        dd($content);
+
         return view('cart.index', ['content' => $content]);
     }
 
@@ -31,7 +31,7 @@ class CartController extends Controller {
                 'days' => $time->days()
             ]);
 
-        flash()->success('Item Added', 'Item has been added to your cart.');
+        flash()->success('Course Added', 'Course has been added to your cart.');
 
         return back();
     }

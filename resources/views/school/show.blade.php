@@ -59,10 +59,6 @@
                                         @endif
                                     </a>
                                 </div>
-
-                                {{--<ul>
-                                        <li><a href="{{ action('CoursesController@show', [$course]) }}">{{ $course->name }}</a></li>
-                                </ul>--}}
                             </div>
                         @endforeach
                     </div>
@@ -78,6 +74,9 @@
     <div class="ui centered grid">
         <div class="one column centered row">
             <div class="column">
+                @if(Auth::user()->admin)
+                    <a class="ui button" href="{{ action('UsersController@admin', [$course]) }}" role="button">To Admin Dashboard</a>
+                @endif
                 {!! Form::open(['method' => 'DELETE', 'route' => ['schools.destroy', $school], 'style' => 'display:inline;']) !!}
                 <div class="ui buttons">
                     {!! Form::submit('Delete', ['class' => 'ui red button']) !!}

@@ -15,9 +15,16 @@
     @include('course.form', ['submitButtonText' => 'Update Course'])
     {!! Form::close() !!}
 
+    <div class="ui section divider"></div>
+    <h1 class="ui teal header ">Add a Course Photos</h1>
     <form id="addPhotosForm" action="{{ route('addPhotoToCourse', [$course]) }}" method="POST" class="dropzone">
         {{ csrf_field() }}
     </form>
+    <br>
+    <a href="{{ URL::previous() }}" class="ui labeled icon button">
+        <i class="left chevron icon"></i>
+        Back
+    </a>
 
     @if ($errors->any())
         <ul class="alert alert-danger">

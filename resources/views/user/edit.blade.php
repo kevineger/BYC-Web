@@ -42,10 +42,11 @@
         </ul>
     @endif
     <br>
-    <a href="{{ action('UsersController@show', [Auth::user()]) }}" class="ui labeled icon button">
+    <a href="{{ URL::previous() }}" class="ui labeled icon button">
         <i class="left chevron icon"></i>
-        Back To Profile
+        Back
     </a>
+
 @endsection
 
 @section('footer')
