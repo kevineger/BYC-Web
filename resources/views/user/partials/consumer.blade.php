@@ -7,7 +7,7 @@
                     @foreach($user->payments as $payment)
                         @foreach($payment->purchases as $purchase)
                             @if($purchase->time->end_date < Carbon\Carbon::now())
-                                @include('partials.purchasedCourse')
+                                @include('user.partials.purchasedCourse')
                             @endif
                         @endforeach
                     @endforeach
@@ -26,7 +26,7 @@
                     @foreach($user->payments as $payment)
                         @foreach($payment->purchases as $purchase)
                             @if($purchase->time->end_date >= Carbon\Carbon::now())
-                                @include('partials.purchasedCourse')
+                                @include('user.partials.purchasedCourse')
                             @endif
                         @endforeach
                     @endforeach
@@ -35,3 +35,4 @@
         </div>
     </div>
 </div>
+

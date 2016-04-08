@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 /**
  * App\Course
@@ -181,5 +182,18 @@ class Course extends Model {
     public function getCategoryListAttribute()
     {
         return $this->categories->lists('id')->toArray();
+    }
+
+    /**
+     * Query scope for times with end date's after today.
+     *
+     * @return mixed
+     */
+    public function scopePresentTimes()
+    {
+        return $this->whereHas('times', function ($q)
+        {
+            $q->where('end_date', '>=', Carbon::now());
+        });
     }
 }

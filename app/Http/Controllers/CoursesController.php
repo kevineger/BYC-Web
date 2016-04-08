@@ -40,7 +40,7 @@ class CoursesController extends Controller {
      */
     public function search(Request $request)
     {
-        $query = Course::active();
+        $query = Course::active()->presentTimes();
         // Check categories
         $categories_checked = $request->get('categories');
         if ($categories_checked)
@@ -118,7 +118,7 @@ class CoursesController extends Controller {
         } else
         {
             // Else display all
-            $courses = Course::active()->get();
+            $courses = Course::active()->presentTimes()->get();
         }
 
         $categories = Category::all();

@@ -12,7 +12,7 @@
         <div class="column">
             <h1 class="ui teal header ">Edit Your Profile</h1>
             <div class="field">
-                {!! Form::label('name', 'User Name') !!}
+                {!! Form::label('name', 'Name') !!}
                 {!! Form::text('name', null) !!}
             </div>
             <div class="field">

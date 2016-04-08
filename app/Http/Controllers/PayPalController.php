@@ -159,10 +159,8 @@ class PayPalController extends Controller {
             $this->storeRecord($result, $mailer);
             error_log("Payment has been made");
 
-            // TODO: Set up payment successful view
-            return "Payment successful";
-            /*return Redirect::route('original.route')
-                ->with('success', 'Payment success');*/
+            flash()->success('Payment Successful!', 'You have been successfully registered.');
+            return Redirect::action('CoursesController@index');
         }
 
         error_log("Payment could not be made");
@@ -215,9 +213,6 @@ class PayPalController extends Controller {
 
         // Send the email
         $mailer->sendPurchaseConfirmationTo(Auth::user(), $purchases);
-
-
-        return "Payment successful.";
 
     }
 }
